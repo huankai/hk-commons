@@ -16,7 +16,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<hk.commons.util.version>1.1.0.RELEASE</hk.commons.util.version>
+		<hk.commons.util.version>1.0.0.RELEASE</hk.commons.util.version>
 		<poi.version>3.17</poi.version>
 		<hibernate.validate.version>5.4.1.Final</hibernate.validate.version>
 	</properties>

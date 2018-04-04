@@ -16,7 +16,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<hk.commons.util.version>1.1.0.RELEASE</hk.commons.util.version>
+		<hk.commons.util.version>1.0.0.RELEASE</hk.commons.util.version>
 		<httpclient.version>4.5.3</httpclient.version>
 	</properties>
 
