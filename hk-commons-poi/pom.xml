@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>hk-commons-poi</artifactId>
+	<packaging>jar</packaging>
+
+	<name>hk-commons-poi</name>
+	<url>http://maven.apache.org</url>
+	
+	<parent>
+		<groupId>com.hk</groupId>
+		<artifactId>hk-commons</artifactId>
+		<version>1.0.0.RELEASE</version>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<hk.commons.util.version>1.1.0.RELEASE</hk.commons.util.version>
+		<poi.version>3.17</poi.version>
+		<hibernate.validate.version>5.4.1.Final</hibernate.validate.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.hk</groupId>
+			<artifactId>hk-commons-util</artifactId>
+			<version>${hk.commons.util.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-math3</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.validate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+	</dependencies>
+</project>
