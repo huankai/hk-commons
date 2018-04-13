@@ -3,12 +3,12 @@
  */
 package com.hk.commons.poi.excel.model;
 
-import java.util.List;
-import java.util.Map;
-
 import com.hk.commons.poi.excel.read.interceptor.DefaultValidationInterceptor;
 import com.hk.commons.poi.excel.read.interceptor.ValidationInterceptor;
 import com.hk.commons.poi.excel.read.validation.Validationable;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 读取 Excel参数
@@ -26,7 +26,7 @@ public class ReadableParam<T> {
 	/**
 	 * 数据开始行
 	 */
-	private int dataStartRow;
+	private int dataStartRow = 1;
 
 	/**
 	 * <pre>
