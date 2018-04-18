@@ -50,8 +50,8 @@ public final class JsonUtils {
      *  转换成Json字符串,使用默认的序列化特征
      * </pre>
      *
-     * @param object
-     * @return
+     * @param object 序列化的对象
+     * @return 序列化后的对象字符串表现形式
      * @see #FEATURES
      */
     public static String toJSONString(Object object) throws JSONException {
@@ -59,8 +59,12 @@ public final class JsonUtils {
     }
 
     /**
-     * @param object
-     * @return
+     * <pre>
+     *  转换成Json字符串,使用默认的序列化特征，并使用 漂亮的格式特征
+     * </pre>
+     *
+     * @param object 序列化的对象
+     * @return 序列化后的对象字符串表现形式
      */
     public static String toFormatJSONString(Object object) throws JSONException {
         return toJSONString(object, true, SerializerFeature.PrettyFormat);
@@ -69,9 +73,9 @@ public final class JsonUtils {
     /**
      * 是否使用默认的字符串特征 转换Json字符串
      *
-     * @param object
-     * @param useDefaultFeature
-     * @return
+     * @param object            序列化的对象
+     * @param useDefaultFeature 是否使用默认的序列化特征
+     * @return 序列化后的对象字符串表现形式
      */
     public static String toJSONString(Object object, boolean useDefaultFeature) throws JSONException {
         return toJSONString(object, useDefaultFeature, (SerializerFeature[]) null);
@@ -80,9 +84,9 @@ public final class JsonUtils {
     /**
      * 指定属性转换为Json字符串
      *
-     * @param object
-     * @param properties
-     * @return
+     * @param object     序列化的对象
+     * @param properties 要序列化的对象属性名
+     * @return 序列化后的对象字符串表现形式
      */
     public static String toJSONString(Object object, String... properties) throws JSONException {
         return JSON.toJSONString(object, new SimplePropertyPreFilter(properties), FEATURES);
@@ -91,18 +95,18 @@ public final class JsonUtils {
     /**
      * 过滤指定的属性
      *
-     * @param object
-     * @param excludesProperties
-     * @return
+     * @param object            序列化的对象
+     * @param excludeProperties 要序列化的过滤的属性名
+     * @return 序列化后的对象字符串表现形式
      */
-    public static String toJSONStringExcludes(Object object, String... excludesProperties) {
-        return JSON.toJSONString(object, new PropertyPreFilters().addFilter().addExcludes(excludesProperties), FEATURES);
+    public static String toJSONStringExcludes(Object object, String... excludeProperties) {
+        return JSON.toJSONString(object, new PropertyPreFilters().addFilter().addExcludes(excludeProperties), FEATURES);
     }
 
     /**
-     * @param object
-     * @param serializerFeatures
-     * @return
+     * @param object             序列化的对象
+     * @param serializerFeatures 指定序列化特征
+     * @return 序列化后的对象字符串表现形式
      */
     public static String toJSONString(Object object, boolean useDefaultFeature, SerializerFeature... serializerFeatures)
             throws JSONException {
@@ -117,9 +121,9 @@ public final class JsonUtils {
     /**
      * json字符串转对象
      *
-     * @param input
-     * @param clazz
-     * @return
+     * @param input json字符串
+     * @param clazz 要转化的类
+     * @return 转化后的类
      */
     public static <T> T parseObject(String input, Class<T> clazz) throws JSONException {
         return JSON.parseObject(input, clazz);
@@ -128,8 +132,8 @@ public final class JsonUtils {
     /**
      * json字符串转Map
      *
-     * @param input
-     * @return
+     * @param input json字符串
+     * @return 转化后的Map
      */
     public static Map<String, Object> parseObjectToMap(String input) throws JSONException {
         return JSON.parseObject(input);
@@ -138,9 +142,9 @@ public final class JsonUtils {
     /**
      * json字符串转集合
      *
-     * @param input
-     * @param clazz
-     * @return
+     * @param input json字符串
+     * @param clazz 要转化的包装类
+     * @return 转化后的类
      */
     public static <T> List<T> parseObjectToList(String input, Class<T> clazz) throws JSONException {
         return JSON.parseArray(input, clazz);
