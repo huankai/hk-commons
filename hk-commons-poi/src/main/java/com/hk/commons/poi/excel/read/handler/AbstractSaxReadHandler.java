@@ -3,19 +3,18 @@
  */
 package com.hk.commons.poi.excel.read.handler;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.collections4.KeyValue;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeansException;
-
 import com.google.common.collect.Lists;
 import com.hk.commons.poi.excel.exceptions.InvalidCellReadableExcelException;
 import com.hk.commons.poi.excel.model.InvalidCell;
 import com.hk.commons.poi.excel.model.ReadableParam;
 import com.hk.commons.poi.excel.model.SheetData;
 import com.hk.commons.poi.excel.model.Title;
+import org.apache.commons.collections4.KeyValue;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeansException;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author huangkai
@@ -50,7 +49,7 @@ public abstract class AbstractSaxReadHandler<T> extends AbstractReadHandler<T> {
 	 * </pre>
 	 */
 	protected final void cleanSheetData() {
-		sheetData = new SheetData<T>();
+		sheetData = new SheetData<>();
 	}
 
 	/**
@@ -60,9 +59,7 @@ public abstract class AbstractSaxReadHandler<T> extends AbstractReadHandler<T> {
 		List<KeyValue<Integer, String>> columnValues = getRowColumnValues();
 		List<Title> titles = Lists.newArrayListWithCapacity(columnValues.size());
 		Map<Integer, String> columnProperties = readParam.getColumnProperties();
-		columnValues.forEach((item) -> {
-			titles.add(new Title(readParam.getTitleRow(), item.getKey(),item.getValue(), columnProperties.get(item.getKey())));
-		});
+		columnValues.forEach((item) -> titles.add(new Title(readParam.getTitleRow(), item.getKey(),item.getValue(), columnProperties.get(item.getKey()))));
 		setTitles(titles);
 	}
 

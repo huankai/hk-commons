@@ -3,6 +3,7 @@ package com.hk.commons.fastjson;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.serializer.SerializeConfig;
+import com.alibaba.fastjson.serializer.SerializeFilter;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.alibaba.fastjson.support.spring.PropertyPreFilters;
@@ -67,7 +68,7 @@ public final class JsonUtils {
      * @return 序列化后的对象字符串表现形式
      */
     public static String toFormatJSONString(Object object) throws JSONException {
-        return toJSONString(object, true, SerializerFeature.PrettyFormat);
+        return toJSONString(object, true, null, SerializerFeature.PrettyFormat);
     }
 
     /**
@@ -78,7 +79,7 @@ public final class JsonUtils {
      * @return 序列化后的对象字符串表现形式
      */
     public static String toJSONString(Object object, boolean useDefaultFeature) throws JSONException {
-        return toJSONString(object, useDefaultFeature, (SerializerFeature[]) null);
+        return toJSONString(object, useDefaultFeature, null);
     }
 
     /**
@@ -89,7 +90,7 @@ public final class JsonUtils {
      * @return 序列化后的对象字符串表现形式
      */
     public static String toJSONString(Object object, String... properties) throws JSONException {
-        return JSON.toJSONString(object, new SimplePropertyPreFilter(properties), FEATURES);
+        return toJSONString(object, true, new SerializeFilter[]{new SimplePropertyPreFilter(properties)});
     }
 
     /**
@@ -100,22 +101,24 @@ public final class JsonUtils {
      * @return 序列化后的对象字符串表现形式
      */
     public static String toJSONStringExcludes(Object object, String... excludeProperties) {
-        return JSON.toJSONString(object, new PropertyPreFilters().addFilter().addExcludes(excludeProperties), FEATURES);
+        return toJSONString(object, true, new SerializeFilter[]{new PropertyPreFilters().addFilter().addExcludes(excludeProperties)});
     }
 
     /**
      * @param object             序列化的对象
+     * @param useDefaultFeature  是否使用默认的Feature
+     * @param filters            序列化的Filter
      * @param serializerFeatures 指定序列化特征
      * @return 序列化后的对象字符串表现形式
      */
-    public static String toJSONString(Object object, boolean useDefaultFeature, SerializerFeature... serializerFeatures)
+    public static String toJSONString(Object object, boolean useDefaultFeature, SerializeFilter[] filters, SerializerFeature... serializerFeatures)
             throws JSONException {
         List<SerializerFeature> features = Lists.newArrayList();
         if (useDefaultFeature) {
             CollectionUtils.addAll(features, FEATURES);
         }
         CollectionUtils.addAll(features, serializerFeatures);
-        return JSON.toJSONString(object, CONFIG, features.toArray(new SerializerFeature[]{}));
+        return JSON.toJSONString(object, CONFIG, filters, features.toArray(new SerializerFeature[]{}));
     }
 
     /**
