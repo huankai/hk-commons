@@ -1,10 +1,10 @@
 package com.hk.commons.util;
 
+import com.hk.commons.annotations.EnumDisplay;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.hk.commons.annotations.EnumDisplay;
 
 /**
  * EnumDisplay Util
@@ -23,7 +23,7 @@ public abstract class EnumDisplayUtils {
 	 */
 	public static String getDisplayText(Object enumValue) {
 		EnumDisplay enumDisplay = getEnumDisplay(enumValue);
-		return null == enumDisplay ? null : enumDisplay.value();
+		return SpringContextHolder.getMessage(enumDisplay.value(), enumDisplay.value());
 	}
 
 	/**
@@ -73,7 +73,7 @@ public abstract class EnumDisplayUtils {
 	 *         3.如果没有@EnumDisplay标注，text值为枚举值value，order为0
 	 */
 	public static <TEnum extends Enum<?>> List<EnumItem> getEnumItems(Class<TEnum> type) {
-		List<EnumItem> items = new ArrayList<EnumItem>();
+		List<EnumItem> items = new ArrayList<>();
 		Field[] fields = type.getFields();
 		for (Field field : fields) {
 			if (!field.isEnumConstant()) {
@@ -87,7 +87,7 @@ public abstract class EnumDisplayUtils {
 				item.setOrder(0);
 				EnumDisplay ed = field.getAnnotation(EnumDisplay.class);
 				if (null != ed) {
-					item.setText(ed.value());
+					item.setText(SpringContextHolder.getMessage(ed.value(),ed.value()));
 					item.setOrder(ed.order());
 				}
 				items.add(item);

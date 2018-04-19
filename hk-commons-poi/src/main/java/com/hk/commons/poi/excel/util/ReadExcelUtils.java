@@ -3,21 +3,20 @@
  */
 package com.hk.commons.poi.excel.util;
 
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.IntStream;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.PropertyAccessor;
-import org.springframework.util.ClassUtils;
-
 import com.google.common.collect.Maps;
 import com.hk.commons.poi.excel.annotations.NestedProperty;
 import com.hk.commons.poi.excel.annotations.ReadExcel;
 import com.hk.commons.util.FieldUtils;
 import com.hk.commons.util.StringUtils;
 import com.hk.commons.util.TypeUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.PropertyAccessor;
+import org.springframework.util.ClassUtils;
+
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.IntStream;
 
 /**
  * 读取Excel 工具类
@@ -30,9 +29,6 @@ public abstract class ReadExcelUtils {
 	/**
 	 * 
 	 * @param beanClass
-	 * @param wrapClass
-	 * @param nestedPath
-	 * @param map
 	 * @return
 	 */
 	public static Map<Integer, String> getReadExcelAnnotationMapping(Class<?> beanClass) {
@@ -74,10 +70,7 @@ public abstract class ReadExcelUtils {
 				putReadExcel(parameterizedTypeClass, item.getType(), item.getName(), map);
 			}
 		});
-		
 	}
-
-
 
 	/**
 	 * @param beanClazz
@@ -137,7 +130,7 @@ public abstract class ReadExcelUtils {
 
 	/**
 	 * 
-	 * @param importExcel
+	 * @param readExcel
 	 * @return
 	 */
 	public static int[] getExcelCellAnnotationColumns(ReadExcel readExcel) {
@@ -153,7 +146,6 @@ public abstract class ReadExcelUtils {
 	 * @return
 	 */
 	public static int getFirstPropertyAnnotationColumn(Class<?> beanClass, String propertyName) {
-		
 		return gePropertyAnnotationColumn(beanClass, propertyName, 0);
 	}
 

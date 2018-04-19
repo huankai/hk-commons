@@ -1,24 +1,15 @@
 package com.hk.commons.util.date;
 
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
+import com.google.common.collect.Lists;
+import com.hk.commons.util.ArrayUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
-import com.google.common.collect.Lists;
-import com.hk.commons.util.ArrayUtils;
+import java.text.ParseException;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.*;
 
 /**
  * 日期工具类
@@ -220,7 +211,7 @@ public abstract class DateTimeUtils {
 	/**
 	 * 获取指定年最后第一天
 	 *
-	 * @param localDate
+	 * @param year
 	 * @return
 	 */
 	public static Date getYearMaxDayToDate(int year) {
@@ -240,7 +231,7 @@ public abstract class DateTimeUtils {
 	/**
 	 * 获取指定年最后一天
 	 *
-	 * @param localDate
+	 * @param year
 	 * @return
 	 */
 	public static LocalDateTime getYearMaxDay(int year) {
@@ -338,7 +329,7 @@ public abstract class DateTimeUtils {
 	/**
 	 * 返回当前日期之前或之后的几月
 	 *
-	 * @param day
+	 * @param month
 	 *            (day > 0) 为之后， (day < 0) 为之前， (day == 0) 为当天日期
 	 * @return
 	 */
@@ -349,7 +340,7 @@ public abstract class DateTimeUtils {
 	/**
 	 * 返回当前日期之前或之后的几年
 	 *
-	 * @param day
+	 * @param year
 	 *            (day > 0) 为之后， (day < 0) 为之前， (day == 0) 为当天日期
 	 * @return
 	 */

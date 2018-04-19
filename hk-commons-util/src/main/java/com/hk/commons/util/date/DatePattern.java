@@ -58,7 +58,7 @@ public enum DatePattern {
 
 	private String pattern;
 
-	private DatePattern(String pattern) {
+	DatePattern(String pattern) {
 		this.pattern = pattern;
 	}
 

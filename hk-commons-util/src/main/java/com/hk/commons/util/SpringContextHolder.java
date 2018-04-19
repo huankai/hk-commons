@@ -7,6 +7,8 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import java.util.Locale;
+
 /**
  * @author: huangkai
  * @date 2018-04-16 09:41
@@ -46,6 +48,17 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
      */
     public static <T> T getBean(Class<T> clazz) throws BeansException {
         return applicationContext.getBean(clazz);
+    }
+
+    /**
+     *
+     * @param code
+     * @param defaultMessage
+     * @param args
+     * @return
+     */
+    public static String getMessage(String code,String defaultMessage,Object... args){
+       return applicationContext.getMessage(code,args,defaultMessage, Locale.getDefault());
     }
 
     @Override
