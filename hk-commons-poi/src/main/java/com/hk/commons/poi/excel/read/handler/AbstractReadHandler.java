@@ -137,16 +137,18 @@ public abstract class AbstractReadHandler<T> implements ReadableHandler<T> {
         value = trimToValue(value);
         if (ObjectUtils.isNotEmpty(value)) {
             String propertyName = getPropertyName(columnIndex);
-            if (StringUtils.indexOf(propertyName, WriteExcelUtils.NESTED_PROPERTY) != -1) {
-                propertyName = String.format(propertyName, nestedIndex);
+            if(StringUtils.isNotEmpty(propertyName)){
+                if (StringUtils.indexOf(propertyName, WriteExcelUtils.NESTED_PROPERTY) != -1) {
+                    propertyName = String.format(propertyName, nestedIndex);
+                }
+                Class<?> propertyType = wrapper.getPropertyType(propertyName);
+                if (ClassUtils.isAssignable(Boolean.class, propertyType)) {
+                    value = BooleanUtils.toBoolean(value.toString());
+                } else if (ClassUtils.isAssignable(Date.class, propertyType)) {
+                    value = DateTimeUtils.stringToDate(value.toString(), DatePattern.values());
+                }
+                wrapper.setPropertyValue(propertyName, value);
             }
-            Class<?> propertyType = wrapper.getPropertyType(propertyName);
-            if (ClassUtils.isAssignable(Boolean.class, propertyType)) {
-                value = BooleanUtils.toBoolean(value.toString());
-            } else if (ClassUtils.isAssignable(Date.class, propertyType)) {
-                value = DateTimeUtils.stringToDate(value.toString(), DatePattern.values());
-            }
-            wrapper.setPropertyValue(propertyName, value);
         }
     }
 
