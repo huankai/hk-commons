@@ -1,254 +1,254 @@
 /**
- * 
+ *
  */
 package com.hk.commons.poi.excel.model;
 
 import java.util.List;
 
 /**
- * 
- * @author huangkai
+ * 写入到Excel 参数
  *
+ * @author huangkai
  */
 public class WriteParam<T> {
 
-	/**
-	 * 
-	 */
-	protected static final String DEFAULT_SHEET_NAME = "sheet1";
+    /**
+     *
+     */
+    protected static final String DEFAULT_SHEET_NAME = "sheet1";
 
-	/**
-	 * 标题行
-	 */
-	protected static final int DEFAULT_TITLE_ROW = 0;
+    /**
+     * 标题行
+     */
+    protected static final int DEFAULT_TITLE_ROW = 0;
 
-	/**
-	 * 数据开始行
-	 */
-	protected static final int DEFAULT_DATA_START_ROW = 1;
+    /**
+     * 数据开始行
+     */
+    protected static final int DEFAULT_DATA_START_ROW = 1;
 
-	/**
-	 * 工作表名
-	 */
-	private String sheetName = DEFAULT_SHEET_NAME;
+    /**
+     * 工作表名
+     */
+    private String sheetName = DEFAULT_SHEET_NAME;
 
-	/**
-	 * 导出的数据
-	 */
-	private List<T> data;
+    /**
+     * 导出的数据
+     */
+    private List<T> data;
 
-	/**
-	 * 转换的 Beanclass
-	 * 
-	 */
-	private Class<T> beanClazz;
+    /**
+     * 转换的 Beanclass
+     */
+    private Class<T> beanClazz;
 
-	/**
-	 * 标题行，默认为第0行
-	 */
-	private int titleRow = DEFAULT_TITLE_ROW;
+    /**
+     * 标题行，默认为第0行
+     */
+    private int titleRow = DEFAULT_TITLE_ROW;
 
-	/**
-	 * 数据开始行，默认为第一行开始
-	 */
-	private int dataStartRow = DEFAULT_DATA_START_ROW;
+    /**
+     * 数据开始行，默认为第一行开始
+     */
+    private int dataStartRow = DEFAULT_DATA_START_ROW;
 
-	/**
-	 * 标题行高
-	 */
-	private float titleRowHeight = 30;
+    /**
+     * 标题行高
+     */
+    private float titleRowHeight = 30;
 
-	/**
-	 * 数据行高
-	 */
-	private float dataRowHeight = 25;
+    /**
+     * 数据行高
+     */
+    private float dataRowHeight = 25;
 
-	/**
-	 * 单元格值格式化
-	 */
-	private ValueFormat valueFormat = new ValueFormat();
+    /**
+     * 单元格值格式化
+     */
+    private ValueFormat valueFormat = new ValueFormat();
 
-	/**
-	 * 显示网格
-	 */
-	private boolean displayGridLines = true;
+    /**
+     * 显示网格
+     */
+    private boolean displayGridLines = true;
 
-	/**
-	 * 文件密码
-	 */
-	private String password;
+    /**
+     * 文件密码
+     */
+    private String password;
 
-	/**
-	 * <pre>
-	 * 当有NestedProperty注解(一对多)时，一的一方是否合并单元格
-	 * </pre>
-	 * 
-	 */
-	private boolean mergeCell = true;
+    /**
+     * <pre>
+     * 当有NestedProperty注解(一对多)时，一的一方是否合并单元格
+     * </pre>
+     */
+    private boolean mergeCell = true;
 
-	/**
-	 * @return the sheetName
-	 */
-	public String getSheetName() {
-		return sheetName;
-	}
+    /**
+     * @return the sheetName
+     */
+    public String getSheetName() {
+        return sheetName;
+    }
 
-	/**
-	 * @param sheetName
-	 *            the sheetName to set
-	 */
-	public void setSheetName(String sheetName) {
-		this.sheetName = sheetName;
-	}
+    /**
+     * @param sheetName the sheetName to set
+     */
+    public WriteParam<T> setSheetName(String sheetName) {
+        this.sheetName = sheetName;
+        return this;
+    }
 
-	/**
-	 * @return the data
-	 */
-	public List<T> getData() {
-		return data;
-	}
+    /**
+     * @return the data
+     */
+    public List<T> getData() {
+        return data;
+    }
 
-	/**
-	 * @param data
-	 *            the data to set
-	 */
-	public void setData(List<T> data) {
-		this.data = data;
-	}
+    /**
+     * @param data the data to set
+     */
+    public WriteParam<T> setData(List<T> data) {
+        this.data = data;
+        return this;
+    }
 
-	/**
-	 * @return the beanClazz
-	 */
-	public Class<T> getBeanClazz() {
-		return beanClazz;
-	}
+    /**
+     * @return the beanClazz
+     */
+    public Class<T> getBeanClazz() {
+        return beanClazz;
+    }
 
-	/**
-	 * @param beanClazz
-	 *            the beanClazz to set
-	 */
-	public void setBeanClazz(Class<T> beanClazz) {
-		this.beanClazz = beanClazz;
-	}
+    /**
+     * @param beanClazz the beanClazz to set
+     */
+    public WriteParam<T> setBeanClazz(Class<T> beanClazz) {
+        this.beanClazz = beanClazz;
+        return this;
+    }
 
-	/**
-	 * @return the titleRow
-	 */
-	public int getTitleRow() {
-		return titleRow;
-	}
+    /**
+     * @return the titleRow
+     */
+    public int getTitleRow() {
+        return titleRow;
+    }
 
-	/**
-	 * @param titleRow
-	 *            the titleRow to set
-	 */
-	public void setTitleRow(int titleRow) {
-		this.titleRow = titleRow;
-	}
+    /**
+     * @param titleRow the titleRow to set
+     */
+    public WriteParam<T> setTitleRow(int titleRow) {
+        this.titleRow = titleRow;
+        return this;
+    }
 
-	/**
-	 * @return the dataStartRow
-	 */
-	public int getDataStartRow() {
-		return dataStartRow;
-	}
+    /**
+     * @return the dataStartRow
+     */
+    public int getDataStartRow() {
+        return dataStartRow;
+    }
 
-	/**
-	 * @param dataStartRow
-	 *            the dataStartRow to set
-	 */
-	public void setDataStartRow(int dataStartRow) {
-		this.dataStartRow = dataStartRow;
-	}
+    /**
+     * @param dataStartRow the dataStartRow to set
+     */
+    public WriteParam<T> setDataStartRow(int dataStartRow) {
+        this.dataStartRow = dataStartRow;
+        return this;
+    }
 
-	/**
-	 * @return the displayGridLines
-	 */
-	public boolean isDisplayGridLines() {
-		return displayGridLines;
-	}
+    /**
+     * @return the displayGridLines
+     */
+    public boolean isDisplayGridLines() {
+        return displayGridLines;
+    }
 
-	/**
-	 * @param displayGridLines
-	 *            the displayGridLines to set
-	 */
-	public void setDisplayGridLines(boolean displayGridLines) {
-		this.displayGridLines = displayGridLines;
-	}
+    /**
+     * @param displayGridLines the displayGridLines to set
+     */
+    public WriteParam<T> setDisplayGridLines(boolean displayGridLines) {
+        this.displayGridLines = displayGridLines;
+        return this;
+    }
 
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
 
-	/**
-	 * @param password
-	 *            the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /**
+     * @param password the password to set
+     */
+    public WriteParam<T> setPassword(String password) {
+        this.password = password;
+        return this;
+    }
 
-	/**
-	 * @return the titleRowHeight
-	 */
-	public float getTitleRowHeight() {
-		return titleRowHeight;
-	}
+    /**
+     * @return the titleRowHeight
+     */
+    public float getTitleRowHeight() {
+        return titleRowHeight;
+    }
 
-	/**
-	 * @param titleRowHeight
-	 *            the titleRowHeight to set
-	 */
-	public void setTitleRowHeight(float titleRowHeight) {
-		this.titleRowHeight = titleRowHeight;
-	}
+    /**
+     * @param titleRowHeight the titleRowHeight to set
+     */
+    public WriteParam<T> setTitleRowHeight(float titleRowHeight) {
+        this.titleRowHeight = titleRowHeight;
+        return this;
+    }
 
-	/**
-	 * @return the dataRowHeight
-	 */
-	public float getDataRowHeight() {
-		return dataRowHeight;
-	}
+    /**
+     * @return the dataRowHeight
+     */
+    public float getDataRowHeight() {
+        return dataRowHeight;
+    }
 
-	/**
-	 * @param dataRowHeight
-	 *            the dataRowHeight to set
-	 */
-	public void setDataRowHeight(float dataRowHeight) {
-		this.dataRowHeight = dataRowHeight;
-	}
+    /**
+     * @param dataRowHeight the dataRowHeight to set
+     */
+    public WriteParam<T> setDataRowHeight(float dataRowHeight) {
+        this.dataRowHeight = dataRowHeight;
+        return this;
+    }
 
-	/**
-	 * @return the valueFormat
-	 */
-	public ValueFormat getValueFormat() {
-		return valueFormat;
-	}
+    /**
+     * @return the valueFormat
+     */
+    public ValueFormat getValueFormat() {
+        return valueFormat;
+    }
 
-	/**
-	 * @return the mergeCell
-	 */
-	public boolean isMergeCell() {
-		return mergeCell;
-	}
+    /**
+     * @return the mergeCell
+     */
+    public boolean isMergeCell() {
+        return mergeCell;
+    }
 
-	/**
-	 * @param mergeCell
-	 *            the mergeCell to set
-	 */
-	public void setMergeCell(boolean mergeCell) {
-		this.mergeCell = mergeCell;
-	}
+    /**
+     * @param mergeCell the mergeCell to set
+     */
+    public WriteParam<T> setMergeCell(boolean mergeCell) {
+        this.mergeCell = mergeCell;
+        return this;
+    }
 
-	public void putFormat(String propertyName, DataFormat format) {
-		getValueFormat().put(propertyName, format);
-	}
+    public WriteParam<T> putFormat(String propertyName, DataFormat format) {
+        valueFormat.put(propertyName, format);
+        return this;
+    }
 
-	public void putFormat(Class<?> clazz, DataFormat format) {
-		getValueFormat().put(clazz, format);
-	}
+    public WriteParam<T> putFormat(Class<?> clazz, DataFormat format) {
+        valueFormat.put(clazz, format);
+        return this;
+    }
 
 }

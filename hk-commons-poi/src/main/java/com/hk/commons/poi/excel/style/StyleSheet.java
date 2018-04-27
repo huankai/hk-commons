@@ -1,82 +1,85 @@
 /**
- * 
+ *
  */
 package com.hk.commons.poi.excel.style;
 
 import org.apache.poi.ss.usermodel.Font;
 
 /**
- * @author huangkai
+ * 样式
  *
+ * @author huangkai
  */
 public interface StyleSheet {
 
-	public enum Fonts {
+    /**
+     * 字体
+     */
+    enum Fonts {
 
-		SONTTI("宋体"), 
-		
-		HEITI("黑体"),
-		
-		YAHEI("微软雅黑");
+        SONTTI("宋体"),
 
-		private String fontName;
+        HEITI("黑体"),
 
-		private Fonts(String fontName) {
-			this.fontName = fontName;
-		}
+        YAHEI("微软雅黑");
 
-		public String getFontName() {
-			return fontName;
-		}
+        private String fontName;
 
-	}
+        Fonts(String fontName) {
+            this.fontName = fontName;
+        }
 
-	/**
-	 * 
-	 * 无样式
-	 */
-	short NONE_STYLE = 0xffffffff;
+        public String getFontName() {
+            return fontName;
+        }
 
-	/*
-	 * ********************************* 下划线 **************************************
-	 */
+    }
 
-	enum UnderLineStyle {
+    /**
+     * 无样式
+     */
+    short NONE_STYLE = 0xffffffff;
 
-		/**
-		 * 下划线 ：无
-		 */
-		U_NONE(Font.U_NONE),
+    /**
+     * 下划线
+     */
 
-		/**
-		 * 下划线 ：单下划线与字体同宽
-		 */
-		U_SINGLE(Font.U_SINGLE),
+    enum UnderLineStyle {
 
-		/**
-		 * 下划线 :双下划线与字体同宽
-		 */
-		U_DOUBLE(Font.U_DOUBLE),
+        /**
+         * 下划线 ：无
+         */
+        U_NONE(Font.U_NONE),
 
-		/**
-		 * 下划线 ：单下划线与单元格同宽
-		 */
-		U_SINGLE_ACCOUNTING(Font.U_SINGLE_ACCOUNTING),
+        /**
+         * 下划线 ：单下划线与字体同宽
+         */
+        U_SINGLE(Font.U_SINGLE),
 
-		/**
-		 * 下划线 :双下划线与单元格同宽
-		 */
-		U_DOUBLE_ACCOUNTING(Font.U_DOUBLE_ACCOUNTING);
+        /**
+         * 下划线 :双下划线与字体同宽
+         */
+        U_DOUBLE(Font.U_DOUBLE),
 
-		private byte value;
+        /**
+         * 下划线 ：单下划线与单元格同宽
+         */
+        U_SINGLE_ACCOUNTING(Font.U_SINGLE_ACCOUNTING),
 
-		UnderLineStyle(byte value) {
-			this.value = value;
-		}
+        /**
+         * 下划线 :双下划线与单元格同宽
+         */
+        U_DOUBLE_ACCOUNTING(Font.U_DOUBLE_ACCOUNTING);
 
-		public byte getValue() {
-			return value;
-		}
-	}
+        private byte value;
+
+        UnderLineStyle(byte value) {
+            this.value = value;
+        }
+
+        public byte getValue() {
+            return value;
+        }
+    }
 
 }

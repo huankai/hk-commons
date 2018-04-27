@@ -42,14 +42,14 @@ public abstract class AbstractReadHandler<T> implements ReadableHandler<T> {
      * 解析的一些参数
      */
 
-    protected final ReadableParam<T> readParam;
+    protected final ReadParam<T> readParam;
 
     /**
      * 标题信息，解析标题的时候才会有值
      */
     protected List<Title> titles;
 
-    protected AbstractReadHandler(ReadableParam<T> readParam) {
+    protected AbstractReadHandler(ReadParam<T> readParam) {
         this.readParam = readParam;
     }
 

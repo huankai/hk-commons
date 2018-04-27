@@ -14,7 +14,7 @@ import com.hk.commons.poi.excel.style.StyleSheet;
  * @author huangkai
  * @date 2017年9月14日下午3:34:37
  */
-public class CellStyleBuilder {
+public abstract class CellStyleBuilder {
 
 	/**
 	 * 创建单元格样式
@@ -79,7 +79,7 @@ public class CellStyleBuilder {
 	 * 创建单元格字体，并设置样式
 	 * 
 	 * @param workbook
-	 * @param rowStyle
+	 * @param style
 	 * @return
 	 */
 	private static Font createFont(Workbook workbook, CustomCellStyle style) {

@@ -3,21 +3,16 @@
  */
 package com.hk.commons.poi.excel.read;
 
+import com.google.common.io.Files;
+import com.hk.commons.poi.excel.exceptions.ReadableExcelException;
+import com.hk.commons.poi.excel.model.ReadParam;
+import com.hk.commons.poi.excel.read.handler.*;
+import com.hk.commons.util.StringUtils;
+import org.apache.poi.poifs.filesystem.FileMagic;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.apache.poi.poifs.filesystem.FileMagic;
-
-import com.google.common.io.Files;
-import com.hk.commons.poi.excel.exceptions.ReadableExcelException;
-import com.hk.commons.poi.excel.model.ReadableParam;
-import com.hk.commons.poi.excel.read.handler.ReadableHandler;
-import com.hk.commons.poi.excel.read.handler.SaxXlsReadHandler;
-import com.hk.commons.poi.excel.read.handler.SaxXlsxReadHandler;
-import com.hk.commons.poi.excel.read.handler.SimpleSaxXlsReadHandler;
-import com.hk.commons.poi.excel.read.handler.SimpleSaxXlsxReadHandler;
-import com.hk.commons.util.StringUtils;
 
 /**
  * @author huangkai
@@ -38,7 +33,7 @@ public class SimpleSaxReadableExcel<T> extends AbstractReadableExcel<T> {
 	/**
 	 * @param param
 	 */
-	public SimpleSaxReadableExcel(ReadableParam<T> param) {
+	public SimpleSaxReadableExcel(ReadParam<T> param) {
 		this(param, new SimpleSaxXlsReadHandler<>(param), new SimpleSaxXlsxReadHandler<>(param));
 	}
 
@@ -47,7 +42,7 @@ public class SimpleSaxReadableExcel<T> extends AbstractReadableExcel<T> {
 	 * @param xlsReadHandler
 	 * @param xlsxReadHandler
 	 */
-	public SimpleSaxReadableExcel(ReadableParam<T> param, SaxXlsReadHandler<T> xlsReadHandler,
+	public SimpleSaxReadableExcel(ReadParam<T> param, SaxXlsReadHandler<T> xlsReadHandler,
 			SaxXlsxReadHandler<T> xlsxReadHandler) {
 		super(param);
 		this.xlsReadHandler = xlsReadHandler;

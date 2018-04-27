@@ -3,12 +3,12 @@
  */
 package com.hk.commons.poi.excel.read;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
-
+import com.hk.commons.poi.ReabableException;
+import com.hk.commons.poi.excel.model.ReadParam;
+import com.hk.commons.poi.excel.model.ReadResult;
+import com.hk.commons.poi.excel.read.handler.ReadableHandler;
+import com.hk.commons.poi.excel.util.ReadExcelUtils;
+import com.hk.commons.util.AssertUtils;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.util.IOUtils;
@@ -16,12 +16,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
-import com.hk.commons.poi.ReabableException;
-import com.hk.commons.poi.excel.model.ReadResult;
-import com.hk.commons.poi.excel.model.ReadableParam;
-import com.hk.commons.poi.excel.read.handler.ReadableHandler;
-import com.hk.commons.poi.excel.util.ReadExcelUtils;
-import com.hk.commons.util.AssertUtils;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
 
 /**
  * @author kally
@@ -36,7 +35,7 @@ public abstract class AbstractReadableExcel<T> implements ReadableExcel<T> {
 	 */
 	protected final Class<T> beanClazz;
 
-	protected AbstractReadableExcel(ReadableParam<T> readParam) {
+	protected AbstractReadableExcel(ReadParam<T> readParam) {
 		AssertUtils.notNull(readParam, "ReadParam must not be null");
 		AssertUtils.isTrue(readParam.getTitleRow() < readParam.getDataStartRow(), "标题行必须小于数据开始行");
 		this.beanClazz = readParam.getBeanClazz();

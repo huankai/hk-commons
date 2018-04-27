@@ -3,13 +3,13 @@
  */
 package com.hk.commons.poi.excel.read.handler;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-
+import com.hk.commons.poi.excel.exceptions.InvalidCellReadableExcelException;
+import com.hk.commons.poi.excel.exceptions.ReadableExcelException;
+import com.hk.commons.poi.excel.model.ErrorLog;
+import com.hk.commons.poi.excel.model.ReadParam;
+import com.hk.commons.poi.excel.model.ReadResult;
+import com.hk.commons.util.CollectionUtils;
+import com.hk.commons.util.StringUtils;
 import org.apache.commons.collections4.keyvalue.DefaultKeyValue;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.hssf.util.CellReference;
@@ -31,13 +31,11 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.hk.commons.poi.excel.exceptions.InvalidCellReadableExcelException;
-import com.hk.commons.poi.excel.exceptions.ReadableExcelException;
-import com.hk.commons.poi.excel.model.ErrorLog;
-import com.hk.commons.poi.excel.model.ReadResult;
-import com.hk.commons.poi.excel.model.ReadableParam;
-import com.hk.commons.util.CollectionUtils;
-import com.hk.commons.util.StringUtils;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * Sax (2007) 解析
@@ -52,7 +50,7 @@ public class SimpleSaxXlsxReadHandler<T> extends AbstractSaxReadHandler<T> imple
 	 */
 	private boolean emptyRow = true;
 
-	public SimpleSaxXlsxReadHandler(ReadableParam<T> param) {
+	public SimpleSaxXlsxReadHandler(ReadParam<T> param) {
 		super(param);
 	}
 

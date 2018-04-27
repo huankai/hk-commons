@@ -6,7 +6,7 @@ package com.hk.commons.poi.excel.read.handler;
 import com.google.common.collect.Lists;
 import com.hk.commons.poi.excel.exceptions.InvalidCellReadableExcelException;
 import com.hk.commons.poi.excel.model.InvalidCell;
-import com.hk.commons.poi.excel.model.ReadableParam;
+import com.hk.commons.poi.excel.model.ReadParam;
 import com.hk.commons.poi.excel.model.SheetData;
 import com.hk.commons.poi.excel.model.Title;
 import org.apache.commons.collections4.KeyValue;
@@ -38,7 +38,7 @@ public abstract class AbstractSaxReadHandler<T> extends AbstractReadHandler<T> {
 	 */
 	private SheetData<T> sheetData;
 
-	protected AbstractSaxReadHandler(ReadableParam<T> param) {
+	protected AbstractSaxReadHandler(ReadParam<T> param) {
 		super(param);
 	}
 

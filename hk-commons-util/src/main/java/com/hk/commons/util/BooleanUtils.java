@@ -8,9 +8,9 @@ package com.hk.commons.util;
  */
 public abstract class BooleanUtils extends org.apache.commons.lang3.BooleanUtils {
 
-    public static final String TRUE_MESSAGE = "boolean.true";
+    public static final String TRUE_CHINEASE = "是";
 
-    public static final String FALSE_MESSAGE = "boolean.false";
+    public static final String FALSE_CHINEASE = "否";
 
     /**
      * <pre>
@@ -49,7 +49,7 @@ public abstract class BooleanUtils extends org.apache.commons.lang3.BooleanUtils
         }
         final String trimValue = args.trim();
         return StringUtils.equalsIgnoreCase("yes", trimValue)
-                || StringUtils.equals(SpringContextHolder.getMessage(TRUE_MESSAGE, TRUE_MESSAGE), trimValue)
+                || StringUtils.equals(TRUE_CHINEASE, trimValue)
                 || StringUtils.equalsIgnoreCase("true", trimValue)
                 || StringUtils.equalsIgnoreCase("y", trimValue)
                 || StringUtils.equalsIgnoreCase("on", trimValue)
@@ -63,8 +63,7 @@ public abstract class BooleanUtils extends org.apache.commons.lang3.BooleanUtils
      * @return
      */
     public static String toBooleanChinese(boolean bool) {
-        return bool ? SpringContextHolder.getMessage(TRUE_MESSAGE, TRUE_MESSAGE)
-                : SpringContextHolder.getMessage(FALSE_MESSAGE, FALSE_MESSAGE);
+        return bool ? TRUE_CHINEASE : FALSE_CHINEASE;
     }
 
 }

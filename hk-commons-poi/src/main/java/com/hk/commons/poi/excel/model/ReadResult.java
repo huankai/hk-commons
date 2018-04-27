@@ -74,7 +74,7 @@ public class ReadResult<T> implements Serializable {
      * @return
      */
     public Set<String> getSheetNameSet() {
-        return sheetDataList.stream().map(item -> item.getSheetName()).collect(Collectors.toSet());
+        return sheetDataList.stream().map(SheetData::getSheetName).collect(Collectors.toSet());
     }
 
     /**

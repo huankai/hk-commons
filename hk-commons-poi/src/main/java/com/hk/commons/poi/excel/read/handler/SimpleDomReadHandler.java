@@ -3,8 +3,12 @@
  */
 package com.hk.commons.poi.excel.read.handler;
 
-import java.util.List;
-
+import com.google.common.collect.Lists;
+import com.hk.commons.poi.excel.exceptions.InvalidCellReadableExcelException;
+import com.hk.commons.poi.excel.model.ErrorLog;
+import com.hk.commons.poi.excel.model.InvalidCell;
+import com.hk.commons.poi.excel.model.ReadParam;
+import com.hk.commons.poi.excel.model.SheetData;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
@@ -14,12 +18,7 @@ import org.apache.poi.ss.util.WorkbookUtil;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeansException;
 
-import com.google.common.collect.Lists;
-import com.hk.commons.poi.excel.exceptions.InvalidCellReadableExcelException;
-import com.hk.commons.poi.excel.model.ErrorLog;
-import com.hk.commons.poi.excel.model.InvalidCell;
-import com.hk.commons.poi.excel.model.ReadableParam;
-import com.hk.commons.poi.excel.model.SheetData;
+import java.util.List;
 
 /**
  * 使用注解Dom解析
@@ -29,7 +28,7 @@ import com.hk.commons.poi.excel.model.SheetData;
  */
 public class SimpleDomReadHandler<T> extends AbstractDomReadHandler<T> {
 
-	public SimpleDomReadHandler(ReadableParam<T> param) {
+	public SimpleDomReadHandler(ReadParam<T> param) {
 		super(param);
 	}
 

@@ -12,7 +12,7 @@ import com.hk.commons.poi.excel.style.StyleSheet;
  * @author huangkai
  *
  */
-public class StyleCellUtils {
+public abstract class StyleCellUtils {
 
 	/**
 	 * @param cellStyle

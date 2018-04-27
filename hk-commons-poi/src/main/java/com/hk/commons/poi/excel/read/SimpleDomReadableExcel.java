@@ -3,14 +3,14 @@
  */
 package com.hk.commons.poi.excel.read;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-
-import com.hk.commons.poi.excel.model.ReadableParam;
+import com.hk.commons.poi.excel.model.ReadParam;
 import com.hk.commons.poi.excel.read.handler.DomReadHandler;
 import com.hk.commons.poi.excel.read.handler.ReadableHandler;
 import com.hk.commons.poi.excel.read.handler.SimpleDomReadHandler;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author huangkai
@@ -27,7 +27,7 @@ public class SimpleDomReadableExcel<T> extends AbstractReadableExcel<T> {
 	 * 
 	 * @param readParam
 	 */
-	public SimpleDomReadableExcel(ReadableParam<T> readParam) {
+	public SimpleDomReadableExcel(ReadParam<T> readParam) {
 		this(readParam, new SimpleDomReadHandler<>(readParam));
 	}
 
@@ -36,7 +36,7 @@ public class SimpleDomReadableExcel<T> extends AbstractReadableExcel<T> {
 	 * @param readParam
 	 * @param handler
 	 */
-	public SimpleDomReadableExcel(ReadableParam<T> readParam, DomReadHandler<T> handler) {
+	public SimpleDomReadableExcel(ReadParam<T> readParam, DomReadHandler<T> handler) {
 		super(readParam);
 		this.handler = handler;
 	}
