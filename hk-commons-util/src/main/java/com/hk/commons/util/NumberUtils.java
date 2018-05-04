@@ -2,6 +2,8 @@ package com.hk.commons.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * @author huangkai
@@ -29,9 +31,6 @@ public abstract class NumberUtils extends org.springframework.util.NumberUtils {
      * @return
      */
     public static boolean equals(Number n1, Number n2) {
-        if (null == n1 && null == n2) {
-            return true;
-        }
         if (!n1.getClass().equals(n2.getClass())) {
             return false;
         }
@@ -62,6 +61,49 @@ public abstract class NumberUtils extends org.springframework.util.NumberUtils {
      */
     public static boolean nequals(Number n1, Number n2) {
         return !equals(n1, n2);
+    }
+
+    /**
+     * 格式化数值为百分比，默认小数位保留2位
+     *
+     * @param value 值
+     * @return
+     */
+    public static String formatPercent(Object value) {
+        return formatPercent(value, 2);
+    }
+
+    /**
+     * 格式化数值为百分比
+     *
+     * @param value                 值
+     * @param maximumFractionDigits 小数位最大位数
+     * @return
+     */
+    public static String formatPercent(Object value, int maximumFractionDigits) {
+        NumberFormat format = NumberFormat.getPercentInstance();
+        format.setMaximumFractionDigits(maximumFractionDigits);
+        return format.format(value);
+    }
+
+    /**
+     * 格式化数值，默认保留两位小数
+     * @param value
+     * @return
+     */
+    public static String formatDecimal(Object value) {
+        return formatDecimal(value, "#.##");
+    }
+
+    /**
+     *
+     * @param value
+     * @param pattern
+     * @return
+     */
+    public static String formatDecimal(Object value, String pattern) {
+        DecimalFormat format = new DecimalFormat(pattern);
+        return format.format(value);
     }
 
 }

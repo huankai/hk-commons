@@ -6,6 +6,7 @@ package com.hk.commons.util.encrypt;
  * @author huangkai
  * @date 2017-11-24 16:12
  */
+@Deprecated
 public interface Encrypt {
 	
 	/**

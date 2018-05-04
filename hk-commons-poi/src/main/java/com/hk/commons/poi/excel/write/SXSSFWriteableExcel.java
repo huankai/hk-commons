@@ -4,6 +4,8 @@
 package com.hk.commons.poi.excel.write;
 
 import com.hk.commons.poi.excel.write.handler.SimpleWriteableHandler;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -23,6 +25,8 @@ public final class SXSSFWriteableExcel<T> extends AbstractWriteableExcel<T> {
      * 如果rowAccessWindowSize <= 0 ,关闭自动刷新并累积内存中的所有行
      * </pre>
      */
+    @Getter
+    @Setter
     private int rowAccessWindowSize = SXSSFWorkbook.DEFAULT_WINDOW_SIZE;
 
     /**
@@ -31,6 +35,8 @@ public final class SXSSFWriteableExcel<T> extends AbstractWriteableExcel<T> {
      * 如果是在一个已存在的工作表中添加新的工作表，请设置此参数，也可将行追加到现有的工作表
      * </pre>
      */
+    @Getter
+    @Setter
     private XSSFWorkbook xssfWorkbook;
 
     /**
@@ -40,11 +46,15 @@ public final class SXSSFWriteableExcel<T> extends AbstractWriteableExcel<T> {
      * 如果设置为true,会有性能上的损失。
      * </pre>
      */
+    @Getter
+    @Setter
     private boolean compressTmpFiles;
 
     /**
      *
      */
+    @Getter
+    @Setter
     private boolean useSharedStringsTable;
 
     public SXSSFWriteableExcel() {
@@ -56,7 +66,7 @@ public final class SXSSFWriteableExcel<T> extends AbstractWriteableExcel<T> {
     }
 
     public SXSSFWriteableExcel(int rowAccessWindowSize) {
-        this(rowAccessWindowSize, null);
+        this(rowAccessWindowSize, new SimpleWriteableHandler<>());
     }
 
     public SXSSFWriteableExcel(int rowAccessWindowSize, WriteableHandler<T> writeableHandler) {
@@ -64,70 +74,9 @@ public final class SXSSFWriteableExcel<T> extends AbstractWriteableExcel<T> {
         this.rowAccessWindowSize = rowAccessWindowSize;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.hk.commons.poi.excel.write.AbstractWriteableExcel#createWorkbook()
-     */
     @Override
     protected Workbook createWorkbook() {
         return new SXSSFWorkbook(xssfWorkbook, rowAccessWindowSize, compressTmpFiles, useSharedStringsTable);
-    }
-
-    /**
-     * @return the rowAccessWindowSize
-     */
-    public int getRowAccessWindowSize() {
-        return rowAccessWindowSize;
-    }
-
-    /**
-     * @param rowAccessWindowSize the rowAccessWindowSize to set
-     */
-    public void setRowAccessWindowSize(int rowAccessWindowSize) {
-        this.rowAccessWindowSize = rowAccessWindowSize;
-    }
-
-    /**
-     * @return the xssfWorkbook
-     */
-    public XSSFWorkbook getXssfWorkbook() {
-        return xssfWorkbook;
-    }
-
-    /**
-     * @param xssfWorkbook the xssfWorkbook to set
-     */
-    public void setXssfWorkbook(XSSFWorkbook xssfWorkbook) {
-        this.xssfWorkbook = xssfWorkbook;
-    }
-
-    /**
-     * @return the compressTmpFiles
-     */
-    public boolean isCompressTmpFiles() {
-        return compressTmpFiles;
-    }
-
-    /**
-     * @param compressTmpFiles the compressTmpFiles to set
-     */
-    public void setCompressTmpFiles(boolean compressTmpFiles) {
-        this.compressTmpFiles = compressTmpFiles;
-    }
-
-    /**
-     * @return the useSharedStringsTable
-     */
-    public boolean isUseSharedStringsTable() {
-        return useSharedStringsTable;
-    }
-
-    /**
-     * @param useSharedStringsTable the useSharedStringsTable to set
-     */
-    public void setUseSharedStringsTable(boolean useSharedStringsTable) {
-        this.useSharedStringsTable = useSharedStringsTable;
     }
 
 }

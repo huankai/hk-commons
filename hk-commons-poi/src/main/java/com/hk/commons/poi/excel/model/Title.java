@@ -3,6 +3,7 @@
  */
 package com.hk.commons.poi.excel.model;
 
+import lombok.Data;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.util.CellAddress;
 
@@ -12,6 +13,7 @@ import org.apache.poi.ss.util.CellAddress;
  * @author kally
  * @date 2018年1月10日下午3:45:32
  */
+@Data
 public class Title {
 
 	/**
@@ -71,73 +73,6 @@ public class Title {
 		this.column = column;
 		this.cellReference = new CellAddress(row, column).formatAsString();
 		this.propertyName = propertyName;
-		this.value = value;
-	}
-
-	/**
-	 * @return the row
-	 */
-	public int getRow() {
-		return row;
-	}
-
-	/**
-	 * @param row
-	 *            the row to set
-	 */
-	public void setRow(int row) {
-		this.row = row;
-	}
-
-	/**
-	 * @return the column
-	 */
-	public int getColumn() {
-		return column;
-	}
-
-	/**
-	 * @param column
-	 *            the column to set
-	 */
-	public void setColumn(int column) {
-		this.column = column;
-	}
-
-	/**
-	 * @return the cellReference
-	 */
-	public String getCellReference() {
-		return cellReference;
-	}
-
-	/**
-	 * @param cellReference
-	 *            the cellReference to set
-	 */
-	public void setCellReference(String cellReference) {
-		this.cellReference = cellReference;
-	}
-
-	/**
-	 * @return the propertyName
-	 */
-	public String getPropertyName() {
-		return propertyName;
-	}
-
-	/**
-	 * @return the value
-	 */
-	public String getValue() {
-		return value;
-	}
-
-	/**
-	 * @param value
-	 *            the value to set
-	 */
-	public void setValue(String value) {
 		this.value = value;
 	}
 

@@ -1,65 +1,48 @@
 /**
- * 
+ *
  */
 package com.hk.commons.poi.excel.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.poi.ss.usermodel.Cell;
 
 import com.hk.commons.poi.excel.style.CustomCellStyle;
 
 /**
  * @author huangkai
- *
  */
 public class StyleTitle extends Title {
 
+    private static final int WIDTH_UNITS = 256;
 
-	/**
-	 * 列宽
-	 */
-	private int columnWidth;
 
-	/**
-	 * 样式
-	 */
-	private CustomCellStyle style;
+    /**
+     * 列宽
+     */
+    @Setter
+    private int columnWidth;
 
-	public StyleTitle(Cell cell, String propertyName) {
-		super(cell, propertyName);
-	}
-	
-	public StyleTitle(int row, int column, String value, String propertyName) {
-		super(row, column, value, propertyName);
-	}
-	
-	/**
-	 * @return the columnWidth
-	 */
-	public int getColumnWidth() {
-		return columnWidth;
-	}
+    /**
+     * 样式
+     */
+    @Getter
+    @Setter
+    private CustomCellStyle style;
 
-	/**
-	 * @param columnWidth
-	 *            the columnWidth to set
-	 */
-	public void setColumnWidth(int columnWidth) {
-		this.columnWidth = columnWidth * 256;
-	}
+    public StyleTitle(Cell cell, String propertyName) {
+        super(cell, propertyName);
+    }
 
-	/**
-	 * @return the style
-	 */
-	public CustomCellStyle getStyle() {
-		return style;
-	}
+    public StyleTitle(int row, int column, String value, String propertyName) {
+        super(row, column, value, propertyName);
+    }
 
-	/**
-	 * @param style
-	 *            the style to set
-	 */
-	public void setStyle(CustomCellStyle style) {
-		this.style = style;
-	}
+    /**
+     * @return the columnWidth
+     */
+    public int getColumnWidth() {
+        return columnWidth * WIDTH_UNITS;
+    }
 
 }

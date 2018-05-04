@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.hk.commons.poi.excel.annotations.NestedProperty;
 import com.hk.commons.poi.excel.annotations.WriteExcel;
-import com.hk.commons.poi.excel.exceptions.WriteableExcelException;
+import com.hk.commons.poi.excel.exception.WriteableExcelException;
 import com.hk.commons.poi.excel.model.ExcelColumnInfo;
 import com.hk.commons.poi.excel.model.StyleTitle;
 import com.hk.commons.poi.excel.style.CustomCellStyle;
@@ -51,7 +51,7 @@ public abstract class WriteExcelUtils {
      *
      * @param clazz    beanClass
      * @param titleRow 标题行
-     * @return
+     * @return 解析后的Excel 列信息,每一列都是一个 com.hk.commons.poi.excel.model.ExcelColumnInfo
      */
     public static List<ExcelColumnInfo> parse(Class<?> clazz, final int titleRow) {
         List<ExcelColumnInfo> result = Lists.newArrayList();
@@ -69,28 +69,28 @@ public abstract class WriteExcelUtils {
      * @param nestedPrefix           nested属性前缀
      * @param result                 结果list
      */
-    private static void addWriteExcel(final int titleRow, Class<?> parameterizedTypeClass, Class<?> wrapClass,
-                                      String nestedPrefix, List<ExcelColumnInfo> result) {
+    private static void addWriteExcel(final int titleRow, Class<?> parameterizedTypeClass, Class<?> wrapClass, String nestedPrefix, List<ExcelColumnInfo> result) {
         if (null != wrapClass) {
             if (ClassUtils.isAssignable(Iterable.class, wrapClass)) {
                 nestedPrefix = StringUtils.isEmpty(nestedPrefix) ? StringUtils.EMPTY : nestedPrefix + NESTED_PROPERTY;
             } else {
-                nestedPrefix = StringUtils.isEmpty(nestedPrefix) ? StringUtils.EMPTY
-                        : nestedPrefix + PropertyAccessor.NESTED_PROPERTY_SEPARATOR;
+                nestedPrefix = StringUtils.isEmpty(nestedPrefix) ? StringUtils.EMPTY : nestedPrefix + PropertyAccessor.NESTED_PROPERTY_SEPARATOR;
             }
         } else {
             nestedPrefix = StringUtils.isEmpty(nestedPrefix) ? StringUtils.EMPTY : nestedPrefix;
         }
         Map<String, WriteExcel> maps = getWriteExcelAnnotationList(parameterizedTypeClass);
+        ExcelColumnInfo info;
+        StyleTitle styleTitle;
         for (Entry<String, WriteExcel> entry : maps.entrySet()) {
             WriteExcel writeExcel = entry.getValue();
-            ExcelColumnInfo info = new ExcelColumnInfo();
+            info = new ExcelColumnInfo();
             info.setStatistics(writeExcel.isStatistics());
             info.setCommentAuthor(writeExcel.author());
             info.setCommentVisible(writeExcel.visible());
 
             CustomCellStyle titleStyle = StyleCellUtils.toCustomCellStyle(writeExcel.titleStyle());
-            StyleTitle styleTitle = new StyleTitle(titleRow, writeExcel.index(), writeExcel.value(),
+            styleTitle = new StyleTitle(titleRow, writeExcel.index(), writeExcel.value(),
                     nestedPrefix + entry.getKey());
             styleTitle.setColumnWidth(writeExcel.width());
             styleTitle.setStyle(titleStyle);
@@ -103,6 +103,7 @@ public abstract class WriteExcelUtils {
         List<Field> nestedFieldList = FieldUtils.getFieldsListWithAnnotation(parameterizedTypeClass,
                 NestedProperty.class);
         if (nestedFieldList.size() > 1) {
+            // 如果有多个 NestedProperty的注解,对于合并单元格是个麻烦事,如果你有好的想法,可以提出来
             throw new WriteableExcelException("暂不支持多个有NestedProperty注解标记的属性");
         }
         nestedFieldList.forEach(item -> {
@@ -111,7 +112,6 @@ public abstract class WriteExcelUtils {
                 addWriteExcel(titleRow, ptclass, item.getType(), item.getName(), result);
             }
         });
-
     }
 
     /**

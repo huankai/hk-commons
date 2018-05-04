@@ -1,4 +1,4 @@
-package com.hk.commons.poi.excel.exceptions;
+package com.hk.commons.poi.excel.exception;
 
 import com.hk.commons.poi.ReabableException;
 

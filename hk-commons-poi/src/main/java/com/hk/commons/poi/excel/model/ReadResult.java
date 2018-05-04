@@ -5,6 +5,8 @@ package com.hk.commons.poi.excel.model;
 
 import com.google.common.collect.Lists;
 import com.hk.commons.util.StringUtils;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -25,16 +27,20 @@ public class ReadResult<T> implements Serializable {
     /**
      * 总错误信息
      */
+    @Getter
     private List<ErrorLog<T>> errorLogList = Lists.newArrayList();
 
     /**
      * 解析的每个工作表数据
      */
+    @Getter
     private List<SheetData<T>> sheetDataList = Lists.newArrayList();
 
     /**
      * 解析的标题行信息
      */
+    @Getter
+    @Setter
     private List<Title> titleList;
 
     /**
@@ -121,39 +127,5 @@ public class ReadResult<T> implements Serializable {
         return !errorLogList.isEmpty();
     }
 
-    /**
-     * @return the errorLogList
-     */
-    public List<ErrorLog<T>> getErrorLogList() {
-        return errorLogList;
-    }
-
-    /**
-     * @param errorLogList the errorLogList to set
-     */
-    public void setErrorLogList(List<ErrorLog<T>> errorLogList) {
-        this.errorLogList = errorLogList;
-    }
-
-    /**
-     * @return the sheetDataList
-     */
-    public List<SheetData<T>> getSheetDataList() {
-        return sheetDataList;
-    }
-
-    /**
-     * @return the titleList
-     */
-    public List<Title> getTitleList() {
-        return titleList;
-    }
-
-    /**
-     * @param titleList the titleList to set
-     */
-    public void setTitleList(List<Title> titleList) {
-        this.titleList = titleList;
-    }
 
 }

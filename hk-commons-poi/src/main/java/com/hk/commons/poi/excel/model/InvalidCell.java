@@ -3,6 +3,7 @@
  */
 package com.hk.commons.poi.excel.model;
 
+import lombok.Data;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.util.CellAddress;
 
@@ -12,6 +13,7 @@ import org.apache.poi.ss.util.CellAddress;
  * @author kally
  * @date 2018年1月10日下午3:44:48
  */
+@Data
 public class InvalidCell {
 
 	/**
@@ -86,96 +88,6 @@ public class InvalidCell {
 		this.message = message;
 		this.value = value;
 		this.title = title;
-	}
-
-	/**
-	 * @return the row
-	 */
-	public int getRow() {
-		return row;
-	}
-
-	/**
-	 * @param row
-	 *            the row to set
-	 */
-	public void setRow(int row) {
-		this.row = row;
-	}
-
-	/**
-	 * @return the column
-	 */
-	public int getColumn() {
-		return column;
-	}
-
-	/**
-	 * @param column
-	 *            the column to set
-	 */
-	public void setColumn(int column) {
-		this.column = column;
-	}
-
-	/**
-	 * @return the cellReference
-	 */
-	public String getCellReference() {
-		return cellReference;
-	}
-
-	/**
-	 * @param cellReference
-	 *            the cellReference to set
-	 */
-	public void setCellReference(String cellReference) {
-		this.cellReference = cellReference;
-	}
-
-	/**
-	 * @return the title
-	 */
-	public Title getTitle() {
-		return title;
-	}
-
-	/**
-	 * @param title
-	 *            the title to set
-	 */
-	public void setTitle(Title title) {
-		this.title = title;
-	}
-
-	/**
-	 * @return the message
-	 */
-	public String getMessage() {
-		return message;
-	}
-
-	/**
-	 * @param message
-	 *            the message to set
-	 */
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	/**
-	 * @return the value
-	 */
-	public Object getValue() {
-		return value;
-	}
-
-	/**
-	 * @param value
-	 *            the value to set
-	 */
-	public void setValue(Object value) {
-		this.value = value;
 	}
 
 }

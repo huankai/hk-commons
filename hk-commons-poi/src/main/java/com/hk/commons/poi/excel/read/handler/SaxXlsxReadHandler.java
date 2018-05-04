@@ -8,6 +8,6 @@ package com.hk.commons.poi.excel.read.handler;
  * @author kally
  *
  */
-public interface SaxXlsxReadHandler<T> extends ReadableHandler<T> {
+public interface SaxXlsxReadHandler<T> extends ReadHandler<T> {
 
 }

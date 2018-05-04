@@ -4,11 +4,13 @@
 package com.hk.commons.poi.excel.read.handler;
 
 import com.google.common.collect.Lists;
-import com.hk.commons.poi.excel.exceptions.InvalidCellReadableExcelException;
+import com.hk.commons.poi.excel.exception.InvalidCellReadableExcelException;
 import com.hk.commons.poi.excel.model.InvalidCell;
 import com.hk.commons.poi.excel.model.ReadParam;
 import com.hk.commons.poi.excel.model.SheetData;
 import com.hk.commons.poi.excel.model.Title;
+import com.hk.commons.util.BeanWrapperUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.KeyValue;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeansException;
@@ -72,12 +74,15 @@ public abstract class AbstractSaxReadHandler<T> extends AbstractReadHandler<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	protected T parseToData(int rowNum) throws InvalidCellReadableExcelException {
-		BeanWrapper wrapper = createParamBeanWrapper();
-		List<InvalidCell> invalidCells = Lists.newArrayList();
 		List<KeyValue<Integer, String>> columnValues = getRowColumnValues();
+		if (CollectionUtils.isEmpty(columnValues)) {
+			return null;
+		}
+		BeanWrapper wrapper = BeanWrapperUtils.createBeanWrapper(readParam.getBeanClazz());
+		List<InvalidCell> invalidCells = Lists.newArrayList();
 		for (KeyValue<Integer, String> keyValue : columnValues) {
 			try {
-				setWrapperBeanValue(wrapper, keyValue.getKey(), -1, keyValue.getValue());
+				setWrapperBeanValue(wrapper, keyValue.getKey(), keyValue.getValue());
 			} catch (BeansException e) {
 				if (LOGGER.isErrorEnabled()) {
 					LOGGER.error(e.getMessage(), e);
