@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Sax (97-2003) 解析
+ * Sax parse 97~2003
  *
  * @author huangkai
  */

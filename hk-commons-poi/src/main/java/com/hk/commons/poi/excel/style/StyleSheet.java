@@ -19,6 +19,10 @@ public interface StyleSheet {
 
         SONTTI("宋体"),
 
+        NEW_SONTTI("新宋体"),
+
+        CONSOLAS("Consolas"),
+
         HEITI("黑体"),
 
         YAHEI("微软雅黑");

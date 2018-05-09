@@ -5,5 +5,6 @@ POI 解析 Excel 文件
  - 导出使用注解定义每列的样式
  - 支持导出数据类型的列统计
  - 支持嵌套属性的导入与导出，目前还不支持 Collection 的嵌套属性导入
+ - Collection的嵌套属性导入，需要根据具体的业务来解析
 
 更多例子请点击  [这里](https://github.com/huankai/hk-examples/tree/master/hk-poi-example)

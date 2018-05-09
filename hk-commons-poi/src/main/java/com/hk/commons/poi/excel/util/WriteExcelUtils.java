@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.hk.commons.poi.excel.annotations.NestedProperty;
 import com.hk.commons.poi.excel.annotations.WriteExcel;
-import com.hk.commons.poi.excel.exception.WriteableExcelException;
+import com.hk.commons.poi.excel.exception.ExcelWriteException;
 import com.hk.commons.poi.excel.model.ExcelColumnInfo;
 import com.hk.commons.poi.excel.model.StyleTitle;
 import com.hk.commons.poi.excel.style.CustomCellStyle;
@@ -104,7 +104,7 @@ public abstract class WriteExcelUtils {
                 NestedProperty.class);
         if (nestedFieldList.size() > 1) {
             // 如果有多个 NestedProperty的注解,对于合并单元格是个麻烦事,如果你有好的想法,可以提出来
-            throw new WriteableExcelException("暂不支持多个有NestedProperty注解标记的属性");
+            throw new ExcelWriteException("暂不支持多个有NestedProperty注解标记的属性");
         }
         nestedFieldList.forEach(item -> {
             Class<?> ptclass = TypeUtils.getParameterizedTypeClass(parameterizedTypeClass, item.getName());

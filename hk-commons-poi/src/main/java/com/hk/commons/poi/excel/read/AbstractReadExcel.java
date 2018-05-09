@@ -3,7 +3,7 @@
  */
 package com.hk.commons.poi.excel.read;
 
-import com.hk.commons.poi.ReabableException;
+import com.hk.commons.poi.excel.exception.ExcelReadException;
 import com.hk.commons.poi.excel.model.ReadParam;
 import com.hk.commons.poi.excel.model.ReadResult;
 import com.hk.commons.poi.excel.read.handler.ReadHandler;
@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * @author kally
  */
-abstract class AbstractReadExcel<T> implements ReadExcel<T> {
+abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -55,7 +55,7 @@ abstract class AbstractReadExcel<T> implements ReadExcel<T> {
             return readableHandler.process(file);
         } catch (EncryptedDocumentException | IOException | SAXException | OpenXML4JException e) {
             logger.error(e.getMessage(), e);
-            throw new ReabableException(e.getMessage(), e);
+            throw new ExcelReadException(e.getMessage(), e);
         }
     }
 
@@ -76,7 +76,7 @@ abstract class AbstractReadExcel<T> implements ReadExcel<T> {
             return readableHandler.process(in);
         } catch (EncryptedDocumentException | IOException | SAXException | OpenXML4JException e) {
             logger.error(e.getMessage(), e);
-            throw new ReabableException(e.getMessage(), e);
+            throw new ExcelReadException(e.getMessage(), e);
         } finally {
             IOUtils.closeQuietly(in);
         }

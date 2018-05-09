@@ -1,12 +1,12 @@
 /**
- * 
+ *
  */
 package com.hk.commons.poi.excel.read.handler;
 
 /**
- * Sax 解析
- * @author kally
+ * Sax Parse Excel 07(xlsx)
  *
+ * @author kally
  */
 public interface SaxXlsxReadHandler<T> extends ReadHandler<T> {
 

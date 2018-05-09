@@ -1,11 +1,12 @@
 /**
- * 
+ *
  */
 package com.hk.commons.poi.excel.util;
 
 import com.google.common.collect.Maps;
 import com.hk.commons.poi.excel.annotations.NestedProperty;
 import com.hk.commons.poi.excel.annotations.ReadExcel;
+import com.hk.commons.poi.excel.exception.ExcelReadException;
 import com.hk.commons.util.FieldUtils;
 import com.hk.commons.util.StringUtils;
 import com.hk.commons.util.TypeUtils;
@@ -20,144 +21,148 @@ import java.util.stream.IntStream;
 
 /**
  * 读取Excel 工具类
- * 
+ *
  * @author kally
  * @date 2018年1月11日下午12:49:37
  */
 public abstract class ReadExcelUtils {
 
-	/**
-	 * 
-	 * @param beanClass
-	 * @return
-	 */
-	public static Map<Integer, String> getReadExcelAnnotationMapping(Class<?> beanClass) {
-		Map<Integer, String> map = Maps.newHashMap();
-		putReadExcel(beanClass,null,null,map);
-		return map;
-	}
+    /**
+     * 解析标示有 @ReadExcel 注解的属性列与属性名的map,
+     * 包含嵌套的属性，嵌套的属性必须有 NestedProperty.class 修饰
+     *
+     * @param beanClass 指定的 beanClass
+     * @return 标示有 ReadExcel.class 注解的属性列与属性名的map
+     */
+    public static Map<Integer, String> getReadExcelAnnotationMapping(Class<?> beanClass) {
+        Map<Integer, String> map = Maps.newHashMap();
+        putReadExcel(beanClass, null, null, map);
+        return map;
+    }
 
-	private static void putReadExcel(Class<?> beanClass, Class<?> wrapClass, String nestedPrefix, Map<Integer, String> map) {
-		if (null != wrapClass) {
-			if (ClassUtils.isAssignable(Iterable.class, wrapClass)) {
-				nestedPrefix = StringUtils.isEmpty(nestedPrefix) ? StringUtils.EMPTY
-						: nestedPrefix + WriteExcelUtils.NESTED_PROPERTY;
-			}
-			/*
-			 * else if(wrapClass.isArray()) { nestedPath = StringUtils.isBlank(nestedPath) ?
+
+    private static void putReadExcel(Class<?> beanClass, Class<?> wrapClass, String nestedPrefix, Map<Integer, String> map) {
+        if (null != wrapClass) {
+            if (ClassUtils.isAssignable(Iterable.class, wrapClass)) {
+                nestedPrefix = StringUtils.isEmpty(nestedPrefix) ? StringUtils.EMPTY
+                        : nestedPrefix + WriteExcelUtils.NESTED_PROPERTY;
+            }
+            /*
+             * else if(wrapClass.isArray()) { nestedPath = StringUtils.isBlank(nestedPath) ?
 			 * StringUtils.EMPTY : nestedPath + "."; }
 			 */
-			else {
-				nestedPrefix = StringUtils.isEmpty(nestedPrefix) ? 
-						StringUtils.EMPTY : nestedPrefix + PropertyAccessor.NESTED_PROPERTY_SEPARATOR;
-			}
-		} else {
-			nestedPrefix = StringUtils.isEmpty(nestedPrefix) ? StringUtils.EMPTY : nestedPrefix;
-		}
+            else {
+                nestedPrefix = StringUtils.isEmpty(nestedPrefix) ?
+                        StringUtils.EMPTY : nestedPrefix + PropertyAccessor.NESTED_PROPERTY_SEPARATOR;
+            }
+        } else {
+            nestedPrefix = StringUtils.isEmpty(nestedPrefix) ? StringUtils.EMPTY : nestedPrefix;
+        }
 
-		List<Field> fieldList = getFieldWithExcelCellAnnotations(beanClass);
-		for (Field field : fieldList) {
-			int[] arr = getExcelCellAnnotationColumns(field.getAnnotation(ReadExcel.class));
-			for (int column : arr) {
-				map.put(column, nestedPrefix + field.getName());
-			}
-		}
-		
-		List<Field> nestedFieldList = FieldUtils.getFieldsListWithAnnotation(beanClass, NestedProperty.class);
-		nestedFieldList.forEach(item -> {
-			Class<?> parameterizedTypeClass = TypeUtils.getParameterizedTypeClass(beanClass, item.getName());
-			if (null != parameterizedTypeClass && !BeanUtils.isSimpleProperty(parameterizedTypeClass)) {
-				putReadExcel(parameterizedTypeClass, item.getType(), item.getName(), map);
-			}
-		});
-	}
+        List<Field> fieldList = getFieldWithExcelCellAnnotations(beanClass);
+        for (Field field : fieldList) {
+            int[] arr = getExcelCellAnnotationColumns(field.getAnnotation(ReadExcel.class));
+            for (int column : arr) {
+                map.put(column, nestedPrefix + field.getName());
+            }
+        }
 
-	/**
-	 * @param beanClazz
-	 * @param columnIndex
-	 * @return
-	 */
-	public static String getPropertyName(Class<?> beanClazz, final int columnIndex) {
-		return getAnnotationField(beanClazz, columnIndex).getName();
-	}
+        List<Field> nestedFieldList = FieldUtils.getFieldsListWithAnnotation(beanClass, NestedProperty.class);
+        nestedFieldList.forEach(item -> {
+            Class<?> parameterizedTypeClass = TypeUtils.getParameterizedTypeClass(beanClass, item.getName());
+            if (null != parameterizedTypeClass && !BeanUtils.isSimpleProperty(parameterizedTypeClass)) {
+                putReadExcel(parameterizedTypeClass, item.getType(), item.getName(), map);
+            }
+        });
+    }
 
-	/**
-	 * 返回指定类(包括父类)有 com.hk.commons.poi.excel.annotations.ImportExcel 注解标识的属性
-	 * 
-	 * @param cls
-	 * @return
-	 */
-	public static List<Field> getFieldWithExcelCellAnnotations(Class<?> cls) {
-		return FieldUtils.getFieldsListWithAnnotation(cls, ReadExcel.class);
-	}
+    /**
+     * 获取标示有ReadExcel 注解字段指定列的字段名
+     *
+     * @param beanClazz   beanClass
+     * @param columnIndex 指定列
+     * @return 属性名
+     */
+    public static String getPropertyName(Class<?> beanClazz, final int columnIndex) {
+        return getAnnotationField(beanClazz, columnIndex).getName();
+    }
 
-	/**
-	 * 
-	 * @param beanClazz
-	 * @param columnIndex
-	 * @return
-	 */
-	public static ReadExcel getAnnotation(Class<?> beanClazz, final int columnIndex) {
-		return getAnnotationField(beanClazz, columnIndex).getAnnotation(ReadExcel.class);
-	}
+    /**
+     * 返回指定类(包括父类)有 com.hk.commons.poi.excel.annotations.ReadExcel 注解标识的属性
+     *
+     * @param cls 指定 class
+     * @return 包含有 ReadExcel注解的属性
+     */
+    public static List<Field> getFieldWithExcelCellAnnotations(Class<?> cls) {
+        return FieldUtils.getFieldsListWithAnnotation(cls, ReadExcel.class);
+    }
 
-	/**
-	 * 
-	 * @param beanClazz
-	 * @param columnIndex
-	 * @return
-	 */
-	private static Field getAnnotationField(Class<?> beanClazz, final int columnIndex) {
-		List<Field> fields = FieldUtils.getFieldsListWithAnnotation(beanClazz, ReadExcel.class);
-		return fields.stream().filter(f -> {
-			ReadExcel readExcel = f.getAnnotation(ReadExcel.class);
-			return readExcel.end() == -1 ? readExcel.start() == columnIndex
-					: columnIndex >= readExcel.start() && columnIndex <= readExcel.end();
-		}).findFirst().get();
-	}
+    /**
+     * @param beanClazz
+     * @param columnIndex
+     * @return
+     */
+    public static ReadExcel getAnnotation(Class<?> beanClazz, final int columnIndex) {
+        return getAnnotationField(beanClazz, columnIndex).getAnnotation(ReadExcel.class);
+    }
 
-	/**
-	 * @param beanClass
-	 * @param propertyName
-	 * @return
-	 */
-	public static int[] getPropertyAnnotationColumns(Class<?> beanClass, String propertyName) {
-		List<Field> fields = FieldUtils.getFieldsListWithAnnotation(beanClass, ReadExcel.class);
-		ReadExcel excelCell = fields.stream().filter(field -> StringUtils.equals(field.getName(), propertyName))
-				.findFirst().get().getAnnotation(ReadExcel.class);
-		return getExcelCellAnnotationColumns(excelCell);
-	}
+    /**
+     * @param beanClass
+     * @param columnIndex
+     * @return
+     */
+    private static Field getAnnotationField(Class<?> beanClass, final int columnIndex) {
+        List<Field> fields = FieldUtils.getFieldsListWithAnnotation(beanClass, ReadExcel.class);
+        return fields.stream().filter(f -> {
+            ReadExcel readExcel = f.getAnnotation(ReadExcel.class);
+            return readExcel.end() == -1 ? readExcel.start() == columnIndex
+                    : columnIndex >= readExcel.start() && columnIndex <= readExcel.end();
+        }).findFirst().orElseThrow(() -> new ExcelReadException(beanClass.getName() + "不包含列[" + columnIndex + "]的属性名"));
+    }
 
-	/**
-	 * 
-	 * @param readExcel
-	 * @return
-	 */
-	public static int[] getExcelCellAnnotationColumns(ReadExcel readExcel) {
-		if (readExcel.start() < readExcel.end()) {
-			return IntStream.range(readExcel.start(), readExcel.end() + 1).toArray();
-		}
-		return new int[] { readExcel.start() };
-	}
+    /**
+     * @param beanClass
+     * @param propertyName
+     * @return
+     */
+    public static int[] getPropertyAnnotationColumns(Class<?> beanClass, String propertyName) {
+        List<Field> fields = FieldUtils.getFieldsListWithAnnotation(beanClass, ReadExcel.class);
+        ReadExcel excelCell = fields.stream().filter(field -> StringUtils.equals(field.getName(), propertyName))
+                .findFirst()
+                .orElseThrow(() -> new ExcelReadException(beanClass.getName() + "属性名[" + propertyName + "]的没有标示 " + ReadExcel.class.getName()))
+                .getAnnotation(ReadExcel.class);
+        return getExcelCellAnnotationColumns(excelCell);
+    }
 
-	/**
-	 * @param beanClass
-	 * @param propertyName
-	 * @return
-	 */
-	public static int getFirstPropertyAnnotationColumn(Class<?> beanClass, String propertyName) {
-		return gePropertyAnnotationColumn(beanClass, propertyName, 0);
-	}
+    /**
+     * @param readExcel
+     * @return
+     */
+    public static int[] getExcelCellAnnotationColumns(ReadExcel readExcel) {
+        if (readExcel.start() < readExcel.end()) {
+            return IntStream.range(readExcel.start(), readExcel.end() + 1).toArray();
+        }
+        return new int[]{readExcel.start()};
+    }
 
-	/**
-	 * @param beanClass
-	 * @param propertyName
-	 * @param index
-	 * @throws ArrayIndexOutOfBoundsException
-	 * @return
-	 */
-	public static int gePropertyAnnotationColumn(Class<?> beanClass, String propertyName, int index) {
-		return getPropertyAnnotationColumns(beanClass, propertyName)[index];
-	}
+    /**
+     * @param beanClass
+     * @param propertyName
+     * @return
+     */
+    public static int getFirstPropertyAnnotationColumn(Class<?> beanClass, String propertyName) {
+        return gePropertyAnnotationColumn(beanClass, propertyName, 0);
+    }
+
+    /**
+     * @param beanClass
+     * @param propertyName
+     * @param index
+     * @return
+     * @throws ArrayIndexOutOfBoundsException
+     */
+    public static int gePropertyAnnotationColumn(Class<?> beanClass, String propertyName, int index) {
+        return getPropertyAnnotationColumns(beanClass, propertyName)[index];
+    }
 
 }

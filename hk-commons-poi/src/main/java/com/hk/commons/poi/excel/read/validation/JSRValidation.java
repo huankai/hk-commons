@@ -4,7 +4,7 @@
 package com.hk.commons.poi.excel.read.validation;
 
 import com.google.common.collect.Lists;
-import com.hk.commons.poi.excel.exception.ReadableExcelException;
+import com.hk.commons.poi.excel.exception.ExcelReadException;
 import com.hk.commons.poi.excel.model.InvalidCell;
 import com.hk.commons.poi.excel.model.Title;
 import com.hk.commons.util.CollectionUtils;
@@ -32,13 +32,13 @@ public class JSRValidation<T> implements Validationable<T> {
     /**
      * groups
      */
-    private Class<?>[] groups;
+    private final Class<?>[] groups;
 
     /**
      * @param groups
      */
     public JSRValidation(Class<?>... groups) {
-        this.groups = null == groups ? new Class<?>[]{} : groups;
+        this.groups = (null == groups) ? new Class<?>[]{} : groups;
     }
 
     /**
@@ -77,9 +77,10 @@ public class JSRValidation<T> implements Validationable<T> {
             List<InvalidCell> result = Lists.newArrayListWithExpectedSize(violationSet.size());
             violationSet.iterator().forEachRemaining(item -> {
                 String propertyName = item.getPropertyPath().toString();
-                Title title = titleList.stream().filter(titleItem -> StringUtils.equals(propertyName, titleItem.getPropertyName()))
+                Title title = titleList.stream()
+                        .filter(titleItem -> StringUtils.equals(propertyName, titleItem.getPropertyName()))
                         .findFirst()
-                        .orElseThrow(() -> new ReadableExcelException("找不到对应的标题: " + propertyName));
+                        .orElseThrow(() -> new ExcelReadException("根据属性名[" + propertyName + "]找不到对应的标题"));
                 result.add(new InvalidCell(rowNumber, title.getColumn(), item.getInvalidValue(), title, item.getMessageTemplate()));
             });
             return result;

@@ -121,7 +121,7 @@ public class CustomCellStyle implements StyleSheet {
     protected UnderLineStyle underline;
 
     /**
-     *
+     * 是否有删除线
      */
     protected boolean strikeout;
 

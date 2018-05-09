@@ -16,7 +16,6 @@ public class StyleTitle extends Title {
 
     private static final int WIDTH_UNITS = 256;
 
-
     /**
      * 列宽
      */

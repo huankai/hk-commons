@@ -6,7 +6,7 @@ package com.hk.commons.poi.excel.write.handler;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.hk.commons.fastjson.JsonUtils;
-import com.hk.commons.poi.excel.exception.WriteableExcelException;
+import com.hk.commons.poi.excel.exception.ExcelWriteException;
 import com.hk.commons.poi.excel.model.DataFormat;
 import com.hk.commons.poi.excel.model.ExcelColumnInfo;
 import com.hk.commons.poi.excel.model.StyleTitle;
@@ -81,7 +81,7 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
             this.workbook.write(out);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            throw new WriteableExcelException(e.getMessage(), e);
+            throw new ExcelWriteException(e.getMessage(), e);
         } finally {
             IOUtils.closeQuietly(out);
         }

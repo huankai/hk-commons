@@ -1,10 +1,10 @@
 /**
- * 
+ *
  */
 package com.hk.commons.poi.excel.read.handler;
 
+import com.hk.commons.poi.excel.exception.ExcelReadException;
 import com.hk.commons.poi.excel.exception.InvalidCellReadableExcelException;
-import com.hk.commons.poi.excel.exception.ReadableExcelException;
 import com.hk.commons.poi.excel.model.ErrorLog;
 import com.hk.commons.poi.excel.model.ReadParam;
 import com.hk.commons.poi.excel.model.ReadResult;
@@ -17,7 +17,6 @@ import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.util.IOUtils;
 import org.apache.poi.util.SAXHelper;
 import org.apache.poi.xssf.eventusermodel.ReadOnlySharedStringsTable;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
@@ -39,174 +38,157 @@ import java.util.List;
 
 /**
  * Sax (2007) 解析
- * 
- * @author huangkai
  *
+ * @author huangkai
  */
-public class SimpleSaxXlsxReadHandler<T> extends AbstractSaxReadHandler<T> implements SaxXlsxReadHandler<T>,SheetContentsHandler {
+public class SimpleSaxXlsxReadHandler<T> extends AbstractSaxReadHandler<T> implements SaxXlsxReadHandler<T>, SheetContentsHandler {
 
-	/**
-	 * 是否为空行
-	 */
-	private boolean emptyRow = true;
+    /**
+     * 是否为空行
+     */
+    private boolean emptyRow = true;
 
-	public SimpleSaxXlsxReadHandler(ReadParam<T> param) {
-		super(param);
-	}
+    public SimpleSaxXlsxReadHandler(ReadParam<T> param) {
+        super(param);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.hk.commons.poi.excel.read.handler.ReadableHandler#process(java.io.File)
-	 */
-	@Override
-	public ReadResult<T> process(File file)
-			throws IOException, EncryptedDocumentException, SAXException, OpenXML4JException {
-		return processOPCPackage(OPCPackage.open(file, PackageAccess.READ));
-	}
+    @Override
+    public ReadResult<T> process(File file)
+            throws IOException, EncryptedDocumentException, SAXException, OpenXML4JException {
+        return processOPCPackage(OPCPackage.open(file, PackageAccess.READ));
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.hk.commons.poi.excel.read.handler.ReadableHandler#process(java.io.
-	 * InputStream)
-	 */
-	@Override
-	public ReadResult<T> process(InputStream in)
-			throws IOException, EncryptedDocumentException, SAXException, OpenXML4JException {
-		return processOPCPackage(OPCPackage.open(in));
-	}
+    @Override
+    public ReadResult<T> process(InputStream in)
+            throws IOException, EncryptedDocumentException, SAXException, OpenXML4JException {
+        return processOPCPackage(OPCPackage.open(in));
+    }
 
-	/**
-	 * 解析工作薄
-	 * 
-	 * @param opcPackage
-	 * @return {@link ReadResult}
-	 * @throws IOException
-	 * @throws SAXException
-	 * @throws OpenXML4JException
-	 */
-	protected ReadResult<T> processOPCPackage(OPCPackage opcPackage)
-			throws IOException, SAXException, OpenXML4JException {
-		ReadResult<T> result = doProcessOPCPackage(opcPackage);
-		validate(result);
-		return result;
-	}
+    /**
+     * 解析工作薄
+     *
+     * @param opcPackage opcPackage
+     * @return {@link ReadResult}
+     * @throws IOException
+     * @throws SAXException
+     * @throws OpenXML4JException
+     */
+    protected ReadResult<T> processOPCPackage(OPCPackage opcPackage)
+            throws IOException, SAXException, OpenXML4JException {
+        ReadResult<T> result = doProcessOPCPackage(opcPackage);
+        validate(result);
+        return result;
+    }
 
-	/**
-	 * 解析工作薄
-	 * 
-	 * @param opcPackage
-	 * @return {@link ReadResult}
-	 * @throws IOException
-	 * @throws SAXException
-	 * @throws OpenXML4JException
-	 */
-	private ReadResult<T> doProcessOPCPackage(OPCPackage opcPackage)
-			throws IOException, SAXException, OpenXML4JException {
-		ReadResult<T> result = new ReadResult<T>();
-		ReadOnlySharedStringsTable stringsTable = new ReadOnlySharedStringsTable(opcPackage);
-		XSSFReader reader = new XSSFReader(opcPackage);
-		SheetIterator sheetsData = (SheetIterator) reader.getSheetsData();
-		for (int sheetIndex = 0; sheetsData.hasNext(); sheetIndex++) {
-			InputStream inputStream = sheetsData.next();
-			try {
-				if (readParam.isParseAll() || (sheetIndex >= readParam.getSheetStartIndex()
-						&& sheetIndex <= readParam.getSheetMaxIndex())) {
-					cleanSheetData();
-					getSheetData().setSheetIndex(sheetIndex);
-					processSheet(reader.getStylesTable(), stringsTable, this, inputStream);
-					if (CollectionUtils.isEmpty(result.getTitleList())) {
-						result.setTitleList(titles);
-					}
-					getSheetData().setSheetName(sheetsData.getSheetName());
-					List<ErrorLog<T>> errorLogs = getSheetData().getErrorLogs();
-					if (CollectionUtils.isNotEmpty(errorLogs)) {
-						errorLogs.forEach(item -> item.setSheetName(sheetsData.getSheetName()));
-						result.addErrorLogList(errorLogs);
-					}
-					result.addSheetData(getSheetData());
-				}
-			} catch (ParserConfigurationException e) {
-				throw new ReadableExcelException(e.getMessage(), e);
-			} finally {
-				IOUtils.closeQuietly(inputStream);
-			}
-		}
-		return result;
-	}
+    /**
+     * 解析工作薄
+     *
+     * @param opcPackage opcPackage
+     * @return {@link ReadResult}
+     * @throws IOException
+     * @throws SAXException
+     * @throws OpenXML4JException
+     */
+    private ReadResult<T> doProcessOPCPackage(OPCPackage opcPackage)
+            throws IOException, SAXException, OpenXML4JException {
+        ReadResult<T> result = new ReadResult<>();
+        ReadOnlySharedStringsTable stringsTable = new ReadOnlySharedStringsTable(opcPackage);
+        XSSFReader reader = new XSSFReader(opcPackage);
+        SheetIterator sheetsData = (SheetIterator) reader.getSheetsData();
+        try {
+            for (int sheetIndex = 0; sheetsData.hasNext(); sheetIndex++) {
+                if (readParam.isParseAll() || (sheetIndex >= readParam.getSheetStartIndex() && sheetIndex <= readParam.getSheetMaxIndex())) {
+                    cleanSheetData();
+                    getSheetData().setSheetIndex(sheetIndex);
+                    processSheet(reader.getStylesTable(), stringsTable, this, sheetsData.next());
+                    if (CollectionUtils.isEmpty(result.getTitleList())) {
+                        result.setTitleList(titles);
+                    }
+                    getSheetData().setSheetName(sheetsData.getSheetName());
+                    List<ErrorLog<T>> errorLogs = getSheetData().getErrorLogs();
+                    if (CollectionUtils.isNotEmpty(errorLogs)) {
+                        errorLogs.forEach(item -> item.setSheetName(sheetsData.getSheetName()));
+                        result.addErrorLogList(errorLogs);
+                    }
+                    result.addSheetData(getSheetData());
+                }
+            }
+        } catch (ParserConfigurationException e) {
+            throw new ExcelReadException(e.getMessage(), e);
+        }
+        return result;
+    }
 
-	/**
-	 * 解析每一个工作表
-	 * 
-	 * @param stylesTable
-	 * @param stringsTable
-	 * @param saxHandler
-	 * @param inputStream
-	 * @throws SAXException
-	 * @throws ParserConfigurationException
-	 * @throws IOException
-	 */
-	private void processSheet(StylesTable stylesTable, ReadOnlySharedStringsTable stringsTable,
-			SheetContentsHandler saxHandler, InputStream inputStream)
-			throws SAXException, ParserConfigurationException, IOException {
-		XMLReader xmlReader = SAXHelper.newXMLReader();
-		ContentHandler handler = new XSSFSheetXMLHandler(stylesTable, null, stringsTable, saxHandler,
-				new DataFormatter(), !readParam.isOutputFormulaValues());
-		xmlReader.setContentHandler(handler);
-		xmlReader.parse(new InputSource(inputStream));
-	}
+    /**
+     * 解析每一个工作表
+     *
+     * @param stylesTable stylesTable
+     * @param stringsTable stringsTable
+     * @param saxHandler saxHandler
+     * @param inputStream inputStream
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     * @throws IOException
+     */
+    private void processSheet(StylesTable stylesTable, ReadOnlySharedStringsTable stringsTable,
+                              SheetContentsHandler saxHandler, InputStream inputStream)
+            throws SAXException, ParserConfigurationException, IOException {
+        XMLReader xmlReader = SAXHelper.newXMLReader();
+        ContentHandler handler = new XSSFSheetXMLHandler(stylesTable, null, stringsTable, saxHandler,
+                new DataFormatter(), !readParam.isOutputFormulaValues());
+        xmlReader.setContentHandler(handler);
+        xmlReader.parse(new InputSource(inputStream));
+    }
 
-	/**
-	 * 开始行
-	 */
-	@Override
-	public void startRow(int rowNum) {
-		emptyRow = true;
-		clearRowValues();
-	}
+    /**
+     * 开始行
+     */
+    @Override
+    public void startRow(int rowNum) {
+        emptyRow = true;
+        clearRowValues();
+    }
 
-	/**
-	 * 结束行
-	 */
-	@Override
-	public void endRow(int rowNum) {
-		if (isTitleRow(rowNum)) {// 标题行
-			if (CollectionUtils.isEmpty(titles)) {
-				parseTitleRow();
-			}
-		} else if (readParam.getDataStartRow() <= rowNum && !emptyRow) {// 数据行
-			try {
-				getSheetData().add(parseToData(rowNum));
-			} catch (InvalidCellReadableExcelException e) {
-				@SuppressWarnings("unchecked")
-				ErrorLog<T> errorLog = new ErrorLog<>(null, rowNum, (T) e.getTarget(), e.getInvalidCells());
-				getSheetData().addErrorLog(errorLog);
-			}
-		}
-	}
+    /**
+     * 结束行
+     */
+    @Override
+    public void endRow(int rowNum) {
+        if (isTitleRow(rowNum)) {// 标题行
+            if (CollectionUtils.isEmpty(titles)) {
+                parseTitleRow();
+            }
+        } else if (readParam.getDataStartRow() <= rowNum && !emptyRow) {// 数据行
+            try {
+                getSheetData().add(parseToData(rowNum));
+            } catch (InvalidCellReadableExcelException e) {
+                @SuppressWarnings("unchecked")
+                ErrorLog<T> errorLog = new ErrorLog<>(null, rowNum, (T) e.getTarget(), e.getInvalidCells());
+                getSheetData().addErrorLog(errorLog);
+            }
+        }
+    }
 
-	/**
-	 * 单元格
-	 */
-	@Override
-	public void cell(String cellReference, String formattedValue, XSSFComment comment) {
-		if (StringUtils.isNotBlank(formattedValue)) {
-			emptyRow = false;
-			CellReference reference = new CellReference(cellReference);
-			int thisRow = reference.getRow();
-			int thisCol = reference.getCol();
-			if (thisRow < readParam.getTitleRow() || (thisRow != readParam.getTitleRow() && thisCol > getMaxColumnIndex())) {
-				return; // 小于标题行的内容、大于标题行的最大列不解析
-			}
-			getRowColumnValues().add(new DefaultKeyValue<Integer, String>(thisCol, formattedValue));
-		}
-	}
+    /**
+     * 单元格
+     */
+    @Override
+    public void cell(String cellReference, String formattedValue, XSSFComment comment) {
+        if (StringUtils.isNotBlank(formattedValue)) {
+            emptyRow = false;
+            CellReference reference = new CellReference(cellReference);
+            int thisRow = reference.getRow();
+            int thisCol = reference.getCol();
+            if (thisRow < readParam.getTitleRow() || (thisRow != readParam.getTitleRow() && thisCol > getMaxColumnIndex())) {
+                return; // 小于标题行的内容、大于标题行的最大列不解析
+            }
+            getRowColumnValues().add(new DefaultKeyValue<>(thisCol, formattedValue));
+        }
+    }
 
-	@Override
-	public void headerFooter(String text, boolean isHeader, String tagName) {
-		// Not Used
-	}
+    @Override
+    public void headerFooter(String text, boolean isHeader, String tagName) {
+        // Not Used
+    }
 
 }

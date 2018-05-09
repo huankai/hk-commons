@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2017年9月11日下午5:42:52
  */
 @SuppressWarnings("serial")
-public class InvalidCellReadableExcelException extends ReadableExcelException {
+public class InvalidCellReadableExcelException extends ExcelReadException {
 
     /**
      * 失效的单元格数据

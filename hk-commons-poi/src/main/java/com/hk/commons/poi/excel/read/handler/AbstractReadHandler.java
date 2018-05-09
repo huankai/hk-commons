@@ -4,30 +4,26 @@
 package com.hk.commons.poi.excel.read.handler;
 
 import com.google.common.collect.Lists;
-import com.hk.commons.poi.excel.exception.ReadableExcelException;
+import com.hk.commons.poi.excel.exception.ExcelReadException;
 import com.hk.commons.poi.excel.model.*;
 import com.hk.commons.poi.excel.read.interceptor.ValidationInterceptor;
 import com.hk.commons.poi.excel.read.validation.Validationable;
-import com.hk.commons.poi.excel.util.WriteExcelUtils;
-import com.hk.commons.util.BooleanUtils;
 import com.hk.commons.util.CollectionUtils;
 import com.hk.commons.util.ObjectUtils;
 import com.hk.commons.util.StringUtils;
-import com.hk.commons.util.date.DatePattern;
-import com.hk.commons.util.date.DateTimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeansException;
-import org.springframework.util.ClassUtils;
 
-import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 
 /**
  * @author huangkai
  */
+@SuppressWarnings("unchecked")
 public abstract class AbstractReadHandler<T> {
 
     protected Logger LOGGER = LoggerFactory.getLogger(getClass());
@@ -50,19 +46,19 @@ public abstract class AbstractReadHandler<T> {
     /**
      * 获取指定列的标题信息
      *
-     * @param columnIndex
-     * @return
+     * @param columnIndex columnIndex
+     * @return column mapping title
      */
     protected final Title getTitle(int columnIndex) {
         return titles.stream().filter(item -> item.getColumn() == columnIndex).findFirst()
-                .orElseThrow(() -> new ReadableExcelException("第[" + columnIndex + "]列 Title 不存在"));
+                .orElseThrow(() -> new ExcelReadException("第[" + columnIndex + "]列 Title 不存在"));
     }
 
     /**
      * 获取标题值
      *
-     * @param columnIndex
-     * @return
+     * @param columnIndex columnIndex
+     * @return column mapping title value
      */
     protected final String getTitleValue(int columnIndex) {
         return getTitle(columnIndex).getValue();
@@ -71,8 +67,8 @@ public abstract class AbstractReadHandler<T> {
     /**
      * 获取列对应的属性名
      *
-     * @param columnIndex
-     * @return
+     * @param columnIndex columnIndex
+     * @return column mapping title propertyName
      */
     protected final String getPropertyName(int columnIndex) {
         return getTitle(columnIndex).getPropertyName();
@@ -81,7 +77,7 @@ public abstract class AbstractReadHandler<T> {
     /**
      * 设置解析的标题
      *
-     * @param titles
+     * @param titles setTitles
      */
     protected void setTitles(List<Title> titles) {
         this.titles = titles;
@@ -91,7 +87,7 @@ public abstract class AbstractReadHandler<T> {
      * 是否为标题行
      *
      * @param rowNum
-     * @return
+     * @return if (rowNum == titleRow),return to true;otherwise, return to false
      */
     protected final boolean isTitleRow(int rowNum) {
         return rowNum == readParam.getTitleRow();
@@ -115,24 +111,25 @@ public abstract class AbstractReadHandler<T> {
      */
     protected void setWrapperBeanValue(BeanWrapper wrapper, int columnIndex, Object value)
             throws BeansException {
-        value = trimToValue(value);
-        if (ObjectUtils.isNotEmpty(value)) {
+        if (Objects.nonNull(value)) {
             String propertyName = getPropertyName(columnIndex);
             if (StringUtils.isNotEmpty(propertyName)) {
-                boolean isNestedProperty = StringUtils.indexOf(propertyName, WriteExcelUtils.NESTED_PROPERTY) != -1;
-                if (isNestedProperty) {
-                    propertyName = String.format(propertyName, 0);
-                }
-                Object propertyValue = wrapper.getPropertyValue(propertyName);
-                if (null != propertyName && isNestedProperty) {//此入未完成...
-//                    propertyName = StringUtils.replacePattern(propertyName,"d")
-                }
-                Class<?> propertyType = wrapper.getPropertyType(propertyName);
-                if (ClassUtils.isAssignable(Boolean.class, propertyType)) {
-                    value = BooleanUtils.toBoolean(value.toString());
-                } else if (ClassUtils.isAssignable(Date.class, propertyType)) {
-                    value = DateTimeUtils.stringToDate(value.toString(), DatePattern.values());
-                }
+                value = trimToValue(value);
+//                boolean isNestedProperty = StringUtils.indexOf(propertyName, WriteExcelUtils.NESTED_PROPERTY) != -1;
+//                if (isNestedProperty) {
+//                    propertyName = String.format(propertyName, 0);
+//                }
+//                Object propertyValue = wrapper.getPropertyValue(propertyName);
+//                if (null != propertyName && isNestedProperty) {//此入未完成...
+////                    propertyName = StringUtils.replacePattern(propertyName,"d")
+//                }
+//                Class<?> propertyType = wrapper.getPropertyType(propertyName);
+//                if (ClassUtils.isAssignable(Boolean.class, propertyType)) {
+//                    value = BooleanUtils.toBoolean(value.toString());
+//
+//                } else if (ClassUtils.isAssignable(Date.class, propertyType)) {
+//                    value = DateTimeUtils.stringToDate(value.toString(), DatePattern.values());
+//                }
                 wrapper.setPropertyValue(propertyName, value);
             }
         }
@@ -150,8 +147,8 @@ public abstract class AbstractReadHandler<T> {
      * "a\nb" ---------> "ab"
      * </pre>
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return trim value
      */
     private Object trimToValue(Object value) {
         String result = ObjectUtils.toString(value);
@@ -167,7 +164,7 @@ public abstract class AbstractReadHandler<T> {
     /**
      * 数据有效性验证
      *
-     * @param result
+     * @param result result
      */
     protected void validate(ReadResult<T> result) {
         List<Validationable<T>> validationables = readParam.getValidationList();
@@ -193,7 +190,7 @@ public abstract class AbstractReadHandler<T> {
                         interceptor.afterValidate(t);
                     }
                     if (!invalidCells.isEmpty()) {
-                        result.addErrorLog(new ErrorLog<T>(dataSheet.getSheetName(), rowIndex, t, invalidCells));
+                        result.addErrorLog(new ErrorLog<>(dataSheet.getSheetName(), rowIndex, t, invalidCells));
                         listIterator.remove();
                     }
                     rowIndex++;

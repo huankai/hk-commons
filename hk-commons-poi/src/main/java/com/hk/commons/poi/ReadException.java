@@ -1,0 +1,19 @@
+package com.hk.commons.poi;
+
+/**
+ * 读取异常
+ *
+ * @author kally
+ */
+@SuppressWarnings("serial")
+public class ReadException extends POIException {
+
+    public ReadException(String message) {
+        super(message);
+    }
+
+    public ReadException(String message, Throwable t) {
+        super(message, t);
+    }
+
+}

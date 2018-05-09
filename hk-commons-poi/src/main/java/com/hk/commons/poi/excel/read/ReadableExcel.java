@@ -12,7 +12,7 @@ import java.io.InputStream;
  * @author kally
  * @date 2018年1月10日下午3:41:13
  */
-public interface ReadExcel<T> {
+public interface ReadableExcel<T> {
 
     /**
      * xls 后缀

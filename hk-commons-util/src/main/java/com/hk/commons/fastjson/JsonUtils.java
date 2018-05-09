@@ -13,6 +13,7 @@ import com.hk.commons.fastjson.support.joda.JodaLocalDateDeserializer;
 import com.hk.commons.fastjson.support.joda.JodaLocalDateTimeDeserializer;
 import com.hk.commons.fastjson.support.joda.JodaLocalTimeDeserializer;
 import com.hk.commons.util.CollectionUtils;
+import com.hk.commons.util.date.DatePattern;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -56,7 +57,20 @@ public final class JsonUtils {
      * @see #FEATURES
      */
     public static String toJSONString(Object object) throws JSONException {
-        return toJSONString(object, true);
+        return toJSONString(object, DatePattern.YYYY_MM_DD);
+    }
+
+    /**
+     * <pre>
+     *  转换成Json字符串,使用默认的序列化特征
+     * </pre>
+     *
+     * @param object 序列化的对象
+     * @return 序列化后的对象字符串表现形式
+     * @see #FEATURES
+     */
+    public static String toJSONString(Object object, DatePattern datePattern) throws JSONException {
+        return toJSONString(object, true, datePattern);
     }
 
     /**
@@ -68,7 +82,20 @@ public final class JsonUtils {
      * @return 序列化后的对象字符串表现形式
      */
     public static String toFormatJSONString(Object object) throws JSONException {
-        return toJSONString(object, true, null, SerializerFeature.PrettyFormat);
+        return toFormatJSONString(object, DatePattern.YYYY_MM_DD);
+    }
+
+    /**
+     * <pre>
+     *  转换成Json字符串,使用默认的序列化特征，并使用 漂亮的格式特征
+     * </pre>
+     *
+     * @param object      序列化的对象
+     * @param datePattern datePattern
+     * @return 序列化后的对象字符串表现形式
+     */
+    public static String toFormatJSONString(Object object, DatePattern datePattern) throws JSONException {
+        return toJSONString(object, true, datePattern, null, SerializerFeature.PrettyFormat);
     }
 
     /**
@@ -78,8 +105,8 @@ public final class JsonUtils {
      * @param useDefaultFeature 是否使用默认的序列化特征
      * @return 序列化后的对象字符串表现形式
      */
-    public static String toJSONString(Object object, boolean useDefaultFeature) throws JSONException {
-        return toJSONString(object, useDefaultFeature, null);
+    public static String toJSONString(Object object, boolean useDefaultFeature, DatePattern pattern) throws JSONException {
+        return toJSONString(object, useDefaultFeature, pattern, null);
     }
 
     /**
@@ -90,7 +117,19 @@ public final class JsonUtils {
      * @return 序列化后的对象字符串表现形式
      */
     public static String toJSONString(Object object, String... properties) throws JSONException {
-        return toJSONString(object, true, new SerializeFilter[]{new SimplePropertyPreFilter(properties)});
+        return toJSONString(object, DatePattern.YYYY_MM_DD, properties);
+    }
+
+    /**
+     * 指定属性转换为Json字符串
+     *
+     * @param object     序列化的对象
+     * @param pattern    pattern
+     * @param properties 要序列化的对象属性名
+     * @return 序列化后的对象字符串表现形式
+     */
+    public static String toJSONString(Object object, DatePattern pattern, String... properties) throws JSONException {
+        return toJSONString(object, true, pattern, new SerializeFilter[]{new SimplePropertyPreFilter(properties)});
     }
 
     /**
@@ -101,7 +140,19 @@ public final class JsonUtils {
      * @return 序列化后的对象字符串表现形式
      */
     public static String toJSONStringExcludes(Object object, String... excludeProperties) {
-        return toJSONString(object, true, new SerializeFilter[]{new PropertyPreFilters().addFilter().addExcludes(excludeProperties)});
+        return toJSONString(object, DatePattern.YYYY_MM_DD, excludeProperties);
+    }
+
+    /**
+     * 过滤指定的属性
+     *
+     * @param object            序列化的对象
+     * @param pattern           pattern
+     * @param excludeProperties 要序列化的过滤的属性名
+     * @return 序列化后的对象字符串表现形式
+     */
+    public static String toJSONStringExcludes(Object object, DatePattern pattern, String... excludeProperties) {
+        return toJSONString(object, true, pattern, new SerializeFilter[]{new PropertyPreFilters().addFilter().addExcludes(excludeProperties)});
     }
 
     /**
@@ -111,14 +162,14 @@ public final class JsonUtils {
      * @param serializerFeatures 指定序列化特征
      * @return 序列化后的对象字符串表现形式
      */
-    public static String toJSONString(Object object, boolean useDefaultFeature, SerializeFilter[] filters, SerializerFeature... serializerFeatures)
+    public static String toJSONString(Object object, boolean useDefaultFeature, DatePattern datePattern, SerializeFilter[] filters, SerializerFeature... serializerFeatures)
             throws JSONException {
         List<SerializerFeature> features = Lists.newArrayList();
         if (useDefaultFeature) {
             CollectionUtils.addAll(features, FEATURES);
         }
         CollectionUtils.addAll(features, serializerFeatures);
-        return JSON.toJSONString(object, CONFIG, filters, features.toArray(new SerializerFeature[]{}));
+        return JSON.toJSONString(object, CONFIG, filters, datePattern.getPattern(), JSON.DEFAULT_GENERATE_FEATURE, features.toArray(new SerializerFeature[]{}));
     }
 
     /**

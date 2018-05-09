@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hk.commons.poi.excel.read.handler;
 
 import com.google.common.collect.Lists;
@@ -21,9 +18,13 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * 使用 Dom 解析Excel
+ * <pre>
+ * Use Dom Parse Excel
+ * Dom parse Excel Only a small file can be parsed,if you want to parse to large file,please see AbstractSaxReadHandler
+ * </pre>
  *
  * @author huangkai
+ * @see AbstractSaxReadHandler
  */
 public abstract class AbstractDomReadHandler<T> extends AbstractReadHandler<T> implements DomReadHandler<T> {
 
@@ -53,7 +54,7 @@ public abstract class AbstractDomReadHandler<T> extends AbstractReadHandler<T> i
     /**
      * 解析工作薄并验证
      *
-     * @return
+     * @return result
      */
     protected ReadResult<T> processWorkbook() {
         ReadResult<T> result = doProcessWorkbook();
@@ -64,7 +65,6 @@ public abstract class AbstractDomReadHandler<T> extends AbstractReadHandler<T> i
     /**
      * 工作表解析初始化设置
      *
-     * @param workbook
      */
     private void sheetParseInit() {
         int maxSheetsIndex = workbook.getNumberOfSheets() - 1;
@@ -79,7 +79,7 @@ public abstract class AbstractDomReadHandler<T> extends AbstractReadHandler<T> i
     /**
      * 解析工作薄
      *
-     * @return
+     * @return result
      */
     protected final ReadResult<T> doProcessWorkbook() {
         ReadResult<T> result = new ReadResult<>();
@@ -103,7 +103,7 @@ public abstract class AbstractDomReadHandler<T> extends AbstractReadHandler<T> i
     /**
      * 返回工作表
      *
-     * @return
+     * @return workbook
      */
     public final Workbook getWorkbook() {
         return workbook;

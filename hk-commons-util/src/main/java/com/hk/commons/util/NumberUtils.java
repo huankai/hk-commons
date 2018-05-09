@@ -52,6 +52,18 @@ public abstract class NumberUtils extends org.springframework.util.NumberUtils {
         return (n1 instanceof Double || n1 instanceof BigDecimal) && n1.doubleValue() == n2.doubleValue();
     }
 
+    public static boolean equalsAny(Number value, Number... arr) {
+        if (ArrayUtils.isEmpty(arr)) {
+            return false;
+        }
+        for (Number item : arr) {
+            if (equals(value, item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * 比较两个Number是否不相等
      *
@@ -88,6 +100,7 @@ public abstract class NumberUtils extends org.springframework.util.NumberUtils {
 
     /**
      * 格式化数值，默认保留两位小数
+     *
      * @param value
      * @return
      */
@@ -96,7 +109,6 @@ public abstract class NumberUtils extends org.springframework.util.NumberUtils {
     }
 
     /**
-     *
      * @param value
      * @param pattern
      * @return
