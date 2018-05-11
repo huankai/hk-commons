@@ -342,7 +342,17 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
                 cacheDataCellStyle.put(propertyName, cellStyle);
             }
         }
-        cell.setCellStyle(cellStyle);
+        setCellStyle(cell, cellStyle);
+    }
+
+    /**
+     * CellStyle set
+     *
+     * @param cell  cell
+     * @param style style
+     */
+    protected final void setCellStyle(Cell cell, CellStyle style) {
+        cell.setCellStyle(style);
     }
 
     /**

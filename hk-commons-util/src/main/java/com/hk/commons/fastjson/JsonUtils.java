@@ -91,7 +91,7 @@ public final class JsonUtils {
      * </pre>
      *
      * @param object      序列化的对象
-     * @param datePattern datePattern
+     * @param datePattern 指定日期序列化格式
      * @return 序列化后的对象字符串表现形式
      */
     public static String toFormatJSONString(Object object, DatePattern datePattern) throws JSONException {
@@ -103,6 +103,7 @@ public final class JsonUtils {
      *
      * @param object            序列化的对象
      * @param useDefaultFeature 是否使用默认的序列化特征
+     * @param pattern 指定日期序列化格式
      * @return 序列化后的对象字符串表现形式
      */
     public static String toJSONString(Object object, boolean useDefaultFeature, DatePattern pattern) throws JSONException {
@@ -140,7 +141,7 @@ public final class JsonUtils {
      * @return 序列化后的对象字符串表现形式
      */
     public static String toJSONStringExcludes(Object object, String... excludeProperties) {
-        return toJSONString(object, DatePattern.YYYY_MM_DD, excludeProperties);
+        return toJSONStringExcludes(object, DatePattern.YYYY_MM_DD, excludeProperties);
     }
 
     /**
