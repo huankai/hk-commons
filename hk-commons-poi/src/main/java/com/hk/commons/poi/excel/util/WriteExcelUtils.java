@@ -56,7 +56,7 @@ public abstract class WriteExcelUtils {
     public static List<ExcelColumnInfo> parse(Class<?> clazz, final int titleRow) {
         List<ExcelColumnInfo> result = Lists.newArrayList();
         addWriteExcel(titleRow, clazz, null, null, result);
-        result.sort(Comparator.comparingInt(ExcelColumnInfo::getSortColumn));
+        result.sort(Comparator.comparingInt((column) -> column.getTitle().getColumn()));
         return result;
     }
 

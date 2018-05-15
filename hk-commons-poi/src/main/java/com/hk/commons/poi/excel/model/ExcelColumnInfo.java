@@ -37,8 +37,4 @@ public class ExcelColumnInfo {
      */
     private CustomCellStyle dataStyle;
 
-    public int getSortColumn() {
-        return title.getColumn();
-    }
-
 }
