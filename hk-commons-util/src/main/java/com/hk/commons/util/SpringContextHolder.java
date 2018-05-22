@@ -35,7 +35,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
         return applicationContext.getBean(name);
     }
 
-    public static ApplicationContext getApplicationContext(){
+    public static ApplicationContext getApplicationContext() {
         return applicationContext;
     }
 
@@ -51,14 +51,13 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     }
 
     /**
-     *
      * @param code
      * @param defaultMessage
      * @param args
      * @return
      */
-    public static String getMessage(String code,String defaultMessage,Object... args){
-       return applicationContext.getMessage(code,args,defaultMessage, Locale.getDefault());
+    public static String getMessage(String code, String defaultMessage, Object... args) {
+        return applicationContext.getMessage(code, args, defaultMessage, Locale.getDefault());
     }
 
     @Override
