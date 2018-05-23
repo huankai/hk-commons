@@ -1,9 +1,9 @@
 package com.hk.commons.util;
 
+import com.google.common.collect.Lists;
 import com.hk.commons.annotations.EnumDisplay;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,14 +16,23 @@ import java.util.List;
 public abstract class EnumDisplayUtils {
 
     /**
+     * @param enumValue enumValue
+     * @return
+     */
+    public static String getDisplayTest(Object enumValue) {
+        return getDisplayText(enumValue, true);
+    }
+
+    /**
      * 获取 EnumDisplay注解修饰的value
      *
      * @param enumValue
+     * @param usei18n
      * @return
      */
-    public static String getDisplayText(Object enumValue) {
+    public static String getDisplayText(Object enumValue, boolean useI18n) {
         EnumDisplay enumDisplay = getEnumDisplay(enumValue);
-        return SpringContextHolder.getMessage(enumDisplay.value(), enumDisplay.value());
+        return useI18n ? SpringContextHolder.getMessage(enumDisplay.value(), enumDisplay.value()) : enumDisplay.value();
     }
 
     /**
@@ -58,41 +67,63 @@ public abstract class EnumDisplayUtils {
         return null == enumDisplay ? null : enumDisplay.order();
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    /**
+     * @param enumValue
+     * @param enumClass
+     * @return
+     */
     public static String getDisplayText(String enumValue, Class<? extends Enum> enumClass) {
+        return getDisplayText(enumValue, enumClass, true);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    /**
+     *
+     */
+    public static String getDisplayText(String enumValue, Class<? extends Enum> enumClass, boolean useI18n) {
         Object value = Enum.valueOf(enumClass, enumValue);
-        return getDisplayText(value);
+        return getDisplayText(value, useI18n);
+    }
+
+    /**
+     * @param enumClass 枚举类
+     * @param <TEnum>
+     * @return
+     */
+    public static <TEnum extends Enum<?>> List<EnumItem> getEnumItems(Class<TEnum> enumClass) {
+        return getEnumItems(enumClass, true);
     }
 
     /**
      * 读取枚举项列表。
      *
-     * @param type
+     * @param enumClass 枚举类
+     * @param useI18n   是否使用国际化
      * @return 枚举项的列表 1.value为枚举值value
      * 2.如果枚举项有@EnumDisplay标注，text则取标注的value属性，order取标注的order属性
      * 3.如果没有@EnumDisplay标注，text值为枚举值value，order为0
      */
-    public static <TEnum extends Enum<?>> List<EnumItem> getEnumItems(Class<TEnum> type) {
-        List<EnumItem> items = new ArrayList<>();
-        Field[] fields = type.getFields();
+    public static <TEnum extends Enum<?>> List<EnumItem> getEnumItems(Class<TEnum> enumClass, boolean useI18n) {
+        List<EnumItem> items = Lists.newArrayList();
+        Field[] fields = enumClass.getFields();
+        EnumItem item;
         for (Field field : fields) {
-            if (!field.isEnumConstant()) {
-                continue;
-            }
-            EnumItem item = new EnumItem();
-            try {
-                Object value = field.get(null);
-                item.setValue(value);
-                item.setText(value.toString());
-                item.setOrder(0);
-                EnumDisplay ed = field.getAnnotation(EnumDisplay.class);
-                if (null != ed) {
-                    item.setText(SpringContextHolder.getMessage(ed.value(), ed.value()));
-                    item.setOrder(ed.order());
+            if (field.isEnumConstant()) {
+                item = new EnumItem();
+                try {
+                    Object value = field.get(null);
+                    item.setValue(value);
+                    item.setText(value.toString());
+                    item.setOrder(0);
+                    EnumDisplay ed = field.getAnnotation(EnumDisplay.class);
+                    if (null != ed) {
+                        item.setText(useI18n ? SpringContextHolder.getMessage(ed.value(), ed.value()) : ed.value());
+                        item.setOrder(ed.order());
+                    }
+                    items.add(item);
+                } catch (IllegalArgumentException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
                 }
-                items.add(item);
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                throw new RuntimeException(e);
             }
         }
         return items;
