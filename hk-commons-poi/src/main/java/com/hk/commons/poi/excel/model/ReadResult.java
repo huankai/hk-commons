@@ -9,10 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -79,8 +76,8 @@ public class ReadResult<T> implements Serializable {
      *
      * @return
      */
-    public Set<String> getSheetNameSet() {
-        return sheetDataList.stream().map(SheetData::getSheetName).collect(Collectors.toSet());
+    public List<String> getSheetNameSet() {
+        return sheetDataList.stream().map(SheetData::getSheetName).collect(Collectors.toList());
     }
 
     /**
@@ -89,9 +86,12 @@ public class ReadResult<T> implements Serializable {
      * @return
      */
     public List<T> getAllSheetData() {
-        List<T> result = Lists.newArrayList();
-        sheetDataList.forEach(item -> result.addAll(item.getData()));
-        return result;
+        return sheetDataList.stream()
+                .map(SheetData::getData)
+                .reduce(Lists.newArrayList(), (result, dataSheetItem) -> {
+                    result.addAll(dataSheetItem);
+                    return result;
+                });
     }
 
     /**

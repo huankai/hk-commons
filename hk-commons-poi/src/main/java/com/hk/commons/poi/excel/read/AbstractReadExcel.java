@@ -109,6 +109,7 @@ abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
      * @author kally
      * @date 2018年1月11日上午11:39:42
      */
+    @FunctionalInterface
     interface ColumnProperty {
 
         Map<Integer, String> getColumnProperties();

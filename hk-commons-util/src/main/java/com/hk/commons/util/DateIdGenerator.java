@@ -1,9 +1,9 @@
 package com.hk.commons.util;
 
+import com.hk.commons.util.date.DatePattern;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import com.hk.commons.util.date.DatePattern;
 
 /**
  * 日期Id生成器
@@ -23,8 +23,7 @@ public class DateIdGenerator extends TimestampIDGenerator {
 	}
 
 	public DateIdGenerator(DatePattern pattern) {
-		this();
-		this.pattern = pattern;
+		this(null,null,pattern);
 	}
 
 	public DateIdGenerator(String prefix, String suffix) {

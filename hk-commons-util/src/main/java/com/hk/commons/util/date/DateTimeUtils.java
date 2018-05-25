@@ -18,6 +18,8 @@ import java.util.*;
  */
 public abstract class DateTimeUtils {
 
+    public static final DatePattern[] PATTERNS = DatePattern.values();
+
     public static final String[] DATE_PATTERN = datePatterns();
 
     /**
@@ -92,7 +94,7 @@ public abstract class DateTimeUtils {
     }
 
     public static String[] datePatterns() {
-        return datePatterns(DatePattern.values());
+        return datePatterns(PATTERNS);
     }
 
     private static String[] datePatterns(DatePattern... patterns) {
