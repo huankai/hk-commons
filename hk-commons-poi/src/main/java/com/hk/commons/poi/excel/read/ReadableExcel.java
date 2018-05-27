@@ -27,7 +27,6 @@ public interface ReadableExcel<T> {
     /**
      * 从文件中读取
      *
-     * @param param 解析文件的参数
      * @param file  Excel文件
      * @return
      */
@@ -36,7 +35,6 @@ public interface ReadableExcel<T> {
     /**
      * 从文件流中读取
      *
-     * @param param 解析文件的参数
      * @param in    Excel文件流
      * @return
      */

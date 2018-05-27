@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hk.commons.poi.excel.read.handler;
 
 import com.hk.commons.poi.excel.model.ReadResult;

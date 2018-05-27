@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hk.commons.poi.excel.read.validation;
 
 import com.google.common.collect.Lists;
@@ -44,14 +41,14 @@ public class JSRValidation<T> implements Validationable<T> {
     /**
      * 验证对象并将不通过的单元格转换为对象
      *
-     * @param obj       验证对象
+     * @param t       验证对象
      * @param rowNumber 对象所在Excel 行
      * @param titleList 标题行
      * @return 不通过的单元格转换为对象
      */
     @Override
-    public List<InvalidCell> validate(T e, int rowNumber, List<Title> titleList) {
-        return getValidateInfo(validate(e), rowNumber, titleList);
+    public List<InvalidCell> validate(T t, int rowNumber, List<Title> titleList) {
+        return getValidateInfo(validate(t), rowNumber, titleList);
     }
 
     /**

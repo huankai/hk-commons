@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hk.commons.poi.excel.style;
 
 import org.apache.poi.ss.usermodel.Font;

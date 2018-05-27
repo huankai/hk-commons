@@ -37,7 +37,7 @@ public interface ValidationInterceptor<T> {
 	/**
 	 * 所有对象验证之后执行
 	 * 
-	 * @param t
+	 * @param result
 	 */
 	void afterComplate(ReadResult<T> result);
 

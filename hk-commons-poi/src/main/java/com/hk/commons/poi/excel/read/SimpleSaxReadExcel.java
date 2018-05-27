@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hk.commons.poi.excel.read;
 
 import com.google.common.io.Files;

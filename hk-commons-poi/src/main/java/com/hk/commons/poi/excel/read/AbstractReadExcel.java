@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hk.commons.poi.excel.read;
 
 import com.hk.commons.poi.excel.exception.ExcelReadException;
@@ -86,7 +83,7 @@ abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
      * 从流中创建解析文件处理器
      *
      * @param in
-     * @return {@link ReadableHandler}
+     * @return {@link ReadHandler}
      */
     protected abstract ReadHandler<T> createReadableHandler(InputStream in) throws IOException;
 
@@ -94,7 +91,7 @@ abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
      * 从File中创建解析文件处理器
      *
      * @param file
-     * @return {@link ReadableHandler}
+     * @return {@link ReadHandler}
      */
     protected abstract ReadHandler<T> createReadableHandler(File file) throws IOException;
 
