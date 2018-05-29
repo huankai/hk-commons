@@ -1,5 +1,8 @@
 package com.hk.commons.util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * String 相关工具类
  *
@@ -13,6 +16,36 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
     public static final String COLON_SEPARATE = ":";
 
     public static final String COMMA_SEPARATE = ",";
+
+    private static final Pattern LINE_PATTERN = Pattern.compile("_(\\w)");
+
+
+    /**
+     * 下划线转小驼峰
+     *
+     * @param str
+     * @return
+     */
+    public static String lineToSmallHump(String str) {
+        return lineToHump(uncapitalize(str));
+    }
+
+    private static String lineToHump(String str) {
+        Matcher matcher = LINE_PATTERN.matcher(str);
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            matcher.appendReplacement(sb, matcher.group(1).toUpperCase());
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
+    }
+
+    /**
+     * 下划线转大驼峰
+     */
+    public static String lineToBigHump(String str) {
+        return lineToHump(capitalize(str));
+    }
 
     /**
      * 与任意字符串比较，如果只要有一个相同的，返回 true,否则返回false
