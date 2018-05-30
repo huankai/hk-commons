@@ -1,7 +1,6 @@
 package com.hk.commons.util;
 
 import com.google.common.collect.Maps;
-import org.springframework.util.ObjectUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -25,20 +24,6 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         return !isEmpty(coll);
     }
 
-
-    public static boolean contains(Iterable<?> iterable, Object element) {
-        if (iterable != null) {
-            Iterator<?> iterator = iterable.iterator();
-            while ((iterator.hasNext())) {
-                Object e = iterator.next();
-                if (ObjectUtils.nullSafeEquals(e, element)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     /**
      * 是否为一个空Map
      *
@@ -59,6 +44,19 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     public static <T> boolean addAll(Collection<T> list1, Collection<T> list2) {
         if (isNotEmpty(list2)) {
             return list1.addAll(list2);
+        }
+        return false;
+    }
+
+    public static boolean contains(Iterable<?> iterable, Object element) {
+        if (null != iterable) {
+            Iterator<?> iterator = iterable.iterator();
+            while (iterator.hasNext()) {
+                Object e = iterator.next();
+                if (ObjectUtils.nullSafeEquals(e, element)) {
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -287,4 +285,6 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         }
         return result;
     }
+
+
 }
