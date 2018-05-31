@@ -131,6 +131,7 @@ public abstract class DateTimeIntervalUtils {
         /**
          * 开始时间
          */
+
         private LocalDateTime start;
 
         /**
