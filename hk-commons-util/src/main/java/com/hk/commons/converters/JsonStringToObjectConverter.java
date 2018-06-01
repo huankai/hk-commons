@@ -1,6 +1,7 @@
 package com.hk.commons.converters;
 
-import com.hk.commons.fastjson.JsonUtils;
+
+import com.hk.commons.util.JsonUtils;
 
 /**
  * Json字符串转换为指定的类型

@@ -1,5 +1,6 @@
 package com.hk.commons.http.post;
 
+import com.hk.commons.util.JsonUtils;
 import org.apache.http.Consts;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -10,7 +11,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 
-import com.hk.commons.fastjson.JsonUtils;
 
 /**
  * JsonPost请求

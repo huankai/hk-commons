@@ -1,4 +1,4 @@
-package com.hk.commons.fastjson;
+package com.hk.commons.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
@@ -12,7 +12,6 @@ import com.hk.commons.fastjson.support.joda.JodaDateTimeDeserializer;
 import com.hk.commons.fastjson.support.joda.JodaLocalDateDeserializer;
 import com.hk.commons.fastjson.support.joda.JodaLocalDateTimeDeserializer;
 import com.hk.commons.fastjson.support.joda.JodaLocalTimeDeserializer;
-import com.hk.commons.util.CollectionUtils;
 import com.hk.commons.util.date.DatePattern;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
