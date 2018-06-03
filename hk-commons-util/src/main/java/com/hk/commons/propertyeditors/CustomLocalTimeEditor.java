@@ -1,12 +1,18 @@
 package com.hk.commons.propertyeditors;
 
+import com.hk.commons.util.StringUtils;
+import com.hk.commons.util.date.DatePattern;
+import org.springframework.beans.BeanWrapper;
+
 import java.beans.PropertyEditorSupport;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import com.hk.commons.util.StringUtils;
-import com.hk.commons.util.date.DatePattern;
 
+/**
+ * BeanWrapper LocalTime support.
+ * @see com.hk.commons.util.BeanWrapperUtils#registryDefaultEditor(BeanWrapper)
+ */
 public class CustomLocalTimeEditor extends PropertyEditorSupport {
 
 	@Override

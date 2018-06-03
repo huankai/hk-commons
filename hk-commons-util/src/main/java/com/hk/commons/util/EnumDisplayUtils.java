@@ -27,7 +27,7 @@ public abstract class EnumDisplayUtils {
      * 获取 EnumDisplay注解修饰的value
      *
      * @param enumValue
-     * @param usei18n
+     * @param useI18n
      * @return
      */
     public static String getDisplayText(Object enumValue, boolean useI18n) {
@@ -62,9 +62,9 @@ public abstract class EnumDisplayUtils {
      * @param enumValue
      * @return
      */
-    public static Integer getDisplayOrder(Object enumValue) {
+    public static int getDisplayOrder(Object enumValue) {
         EnumDisplay enumDisplay = getEnumDisplay(enumValue);
-        return null == enumDisplay ? null : enumDisplay.order();
+        return null == enumDisplay ? 0 : enumDisplay.order();
     }
 
     /**
@@ -76,7 +76,6 @@ public abstract class EnumDisplayUtils {
         return getDisplayText(enumValue, enumClass, true);
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
     /**
      *
      */
