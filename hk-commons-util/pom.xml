@@ -26,6 +26,7 @@
         <spring.version>4.3.13.RELEASE</spring.version>
         <joda.version>2.9.9</joda.version>
         <slf4j.api.version>1.7.25</slf4j.api.version>
+        <faster.jackson.version>2.8.10</faster.jackson.version>
     </properties>
 
     <dependencies>
@@ -33,6 +34,12 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${faster.jackson.version}</version>
         </dependency>
 
         <dependency>
