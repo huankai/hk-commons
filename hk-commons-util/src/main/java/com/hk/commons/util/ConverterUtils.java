@@ -13,7 +13,7 @@ import com.hk.commons.converters.TimestampToJodaDateTimeConverter;
 /**
  * 转换工具类
  * 
- * @author huangkai
+ * @author: kevin
  * @date 2017年8月30日上午10:39:23
  */
 public class ConverterUtils {

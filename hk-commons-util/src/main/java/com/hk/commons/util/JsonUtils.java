@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * FastJson 工具类
  *
- * @author huangkai
+ * @author kevin
  */
 public final class JsonUtils {
 
@@ -166,9 +166,9 @@ public final class JsonUtils {
             throws JSONException {
         List<SerializerFeature> features = Lists.newArrayList();
         if (useDefaultFeature) {
-            CollectionUtils.addAll(features, FEATURES);
+            CollectionUtils.addAllNotNull(features, FEATURES);
         }
-        CollectionUtils.addAll(features, serializerFeatures);
+        CollectionUtils.addAllNotNull(features, serializerFeatures);
         return JSON.toJSONString(object, CONFIG, filters, datePattern.getPattern(), JSON.DEFAULT_GENERATE_FEATURE, features.toArray(new SerializerFeature[]{}));
     }
 

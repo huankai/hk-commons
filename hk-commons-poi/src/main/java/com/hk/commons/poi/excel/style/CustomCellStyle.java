@@ -12,7 +12,7 @@ import com.hk.commons.poi.excel.model.DataFormat;
 import com.hk.commons.poi.excel.util.CellStyleBuilder;
 
 /**
- * @author huangkai
+ * @author: kevin
  */
 @Data
 public class CustomCellStyle implements StyleSheet {

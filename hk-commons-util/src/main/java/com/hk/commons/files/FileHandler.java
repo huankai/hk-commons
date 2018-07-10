@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 文件上传处理
  *
- * @author huangkai
+ * @author: kevin
  * @date 2017年8月18日下午1:04:27
  */
 public interface FileHandler {

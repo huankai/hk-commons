@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 解析Excel的错误日志信息
  * 
- * @author kally
+ * @author: kevin
  * @date 2018年1月10日下午3:42:58
  */
 @Data

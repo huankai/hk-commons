@@ -9,7 +9,7 @@ import com.hk.commons.util.date.DatePattern;
 /**
  * DateTime
  * 
- * @author huangkai
+ * @author: kevin
  *
  */
 public class JodaLocalTimeDeserializer extends AbstractJodaDeserializer<LocalTime> {

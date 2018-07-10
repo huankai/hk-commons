@@ -15,7 +15,7 @@ import com.hk.commons.poi.excel.write.handler.WriteableHandler;
 /**
  * 比 XSSFWriteableExcel 效率高
  *
- * @author huangkai
+ * @author: kevin
  */
 public final class SXSSFWriteableExcel<T> extends AbstractWriteableExcel<T> {
 

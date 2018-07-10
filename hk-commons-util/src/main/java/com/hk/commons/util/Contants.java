@@ -5,7 +5,7 @@ import java.nio.charset.Charset;
 /**
  * 常量接口
  *
- * @author: huangkai
+ * @author: kevin
  * @date 2018-05-18 12:43
  */
 public interface Contants {

@@ -9,7 +9,7 @@ import com.hk.commons.util.date.DatePattern;
 /**
  * Period
  * 
- * @author huangkai
+ * @author: kevin
  *
  */
 public class JodaPeriodDeserializer extends AbstractJodaDeserializer<Period> {

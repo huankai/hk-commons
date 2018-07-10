@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 
 /**
  * 
- * @author huangkai
+ * @author: kevin
  * @date 2017年09月18日上午9:16:49
  */
 public class ThreadLocalUtils {

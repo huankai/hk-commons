@@ -5,7 +5,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 /**
- * @author: huangkai
+ * @author: kevin
  * @date 2018-05-11 10:31
  */
 public class StringToJodaDateTimeConverter extends StringGenericConverter<DateTime> {

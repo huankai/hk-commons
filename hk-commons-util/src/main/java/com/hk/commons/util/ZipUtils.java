@@ -5,7 +5,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * @author: huangkai
+ * @author: kevin
  * @date 2018-05-30 08:42
  */
 public class ZipUtils {

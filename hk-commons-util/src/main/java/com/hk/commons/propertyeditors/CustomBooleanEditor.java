@@ -7,7 +7,7 @@ import org.springframework.beans.BeanWrapper;
 /**
  * BeanWraper Editor
  *
- * @author: huangkai
+ * @author: kevin
  * @date 2018-05-08 09:55
  * @see com.hk.commons.util.BeanWrapperUtils#registryDefaultEditor(BeanWrapper)
  */

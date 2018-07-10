@@ -6,7 +6,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 
 /**
  * Delete
- * @author huangkai
+ * @author: kevin
  * @date 2017年9月28日上午9:39:20
  */
 public class SimpleDeleteHttpExecutor extends AbstractDeleteHttpExecutor<String> {

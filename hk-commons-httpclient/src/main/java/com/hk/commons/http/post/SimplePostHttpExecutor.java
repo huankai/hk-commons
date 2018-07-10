@@ -19,7 +19,7 @@ import com.hk.commons.util.StringUtils;
 /**
  * POST请求
  * 
- * @author huangkai
+ * @author: kevin
  * @date 2017年9月28日上午9:31:16
  */
 public class SimplePostHttpExecutor extends AbstractPostHttpExecutor<String, Map<String, Object>> {

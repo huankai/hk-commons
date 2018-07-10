@@ -12,7 +12,7 @@ import com.hk.commons.util.StringUtils;
 /**
  * String转换器
  * 
- * @author huangkai
+ * @author: kevin
  * @date 2017年9月1日上午11:35:56
  * @param <T>
  */

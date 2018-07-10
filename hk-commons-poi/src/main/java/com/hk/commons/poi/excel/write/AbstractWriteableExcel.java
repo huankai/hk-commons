@@ -11,7 +11,7 @@ import com.hk.commons.poi.excel.model.WriteParam;
 import com.hk.commons.poi.excel.write.handler.WriteableHandler;
 
 /**
- * @author huangkai
+ * @author: kevin
  *
  */
 public abstract class AbstractWriteableExcel<T> implements WriteableExcel<T> {

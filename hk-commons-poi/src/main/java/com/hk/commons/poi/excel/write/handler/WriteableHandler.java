@@ -10,7 +10,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import com.hk.commons.poi.excel.model.WriteParam;
 
 /**
- * @author huangkai
+ * @author: kevin
  *
  */
 public interface WriteableHandler<T> {

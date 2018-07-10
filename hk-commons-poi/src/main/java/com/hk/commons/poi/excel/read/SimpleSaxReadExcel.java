@@ -14,7 +14,7 @@ import java.util.Locale;
 /**
  * Sax 解析Excel
  *
- * @author huangkai
+ * @author: kevin
  */
 public class SimpleSaxReadExcel<T> extends AbstractReadExcel<T> {
 
@@ -58,7 +58,7 @@ public class SimpleSaxReadExcel<T> extends AbstractReadExcel<T> {
     }
 
     @Override
-    protected ReadHandler<T> createReadableHandler(File file) throws IOException {
+    protected ReadHandler<T> createReadableHandler(File file) {
         String extension = Files.getFileExtension(file.getName()).toLowerCase(Locale.ENGLISH);
         if (StringUtils.equals(XLS_EXTENSION, extension)) {
             return xlsReadHandler;

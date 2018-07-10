@@ -11,7 +11,7 @@ import com.hk.commons.util.StringUtils;
 /**
  * 写入单个工作表数据
  * 
- * @author huangkai
+ * @author: kevin
  *
  */
 public class SimpleWriteableHandler<T> extends AbstractWriteableHandler<T> {

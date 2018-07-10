@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * 集合工具类
  *
- * @author huangkai
+ * @author kevin
  * @date 2017年9月1日下午1:31:18
  */
 public abstract class CollectionUtils extends org.springframework.util.CollectionUtils {
@@ -42,17 +42,12 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
      * @return
      */
     public static <T> boolean addAll(Collection<T> list1, Collection<T> list2) {
-        if (isNotEmpty(list2)) {
-            return list1.addAll(list2);
-        }
-        return false;
+        return isNotEmpty(list2) && list1.addAll(list2);
     }
 
     public static boolean contains(Iterable<?> iterable, Object element) {
         if (null != iterable) {
-            Iterator<?> iterator = iterable.iterator();
-            while (iterator.hasNext()) {
-                Object e = iterator.next();
+            for (Object e : iterable) {
                 if (ObjectUtils.nullSafeEquals(e, element)) {
                     return true;
                 }
@@ -88,7 +83,7 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         Map<String, V> finalMap = new LinkedHashMap<>();
         result.entrySet().stream()
                 .sorted(reversed ? Map.Entry.<String, V>comparingByValue().reversed()
-                        : Map.Entry.<String, V>comparingByValue())
+                        : Map.Entry.comparingByValue())
                 .forEachOrdered(e -> finalMap.put(e.getKey(), e.getValue()));
         return finalMap;
     }
@@ -120,7 +115,7 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         Map<K, Object> finalMap = new LinkedHashMap<>();
         result.entrySet().stream()
                 .sorted(reversed ? Map.Entry.<K, Object>comparingByKey().reversed()
-                        : Map.Entry.<K, Object>comparingByKey())
+                        : Map.Entry.comparingByKey())
                 .forEachOrdered(e -> finalMap.put(e.getKey(), e.getValue()));
         return finalMap;
     }
@@ -133,17 +128,14 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
      * @return
      */
     @SafeVarargs
-    public static <T> boolean addAll(Collection<T> list1, final T... args) {
+    public static <T> void addAllNotNull(Collection<T> list1, final T... args) {
         if (ArrayUtils.isNotEmpty(args)) {
-            int originalSize = list1.size();
             for (T t : args) {
-                if (!Objects.isNull(t)) {
+                if (Objects.nonNull(t)) {
                     list1.add(t);
                 }
             }
-            return list1.size() != originalSize;
         }
-        return false;
     }
 
     /**

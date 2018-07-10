@@ -4,7 +4,7 @@ import com.hk.commons.util.date.DatePattern;
 
 /**
  * Excel格式
- * @author huangkai
+ * @author: kevin
  *
  */
 public enum DataFormat {

@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * 值格式化
  *
- * @author huangkai
+ * @author: kevin
  */
 public class ValueFormat {
 

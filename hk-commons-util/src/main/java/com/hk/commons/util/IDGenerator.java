@@ -6,7 +6,7 @@ import java.util.UUID;
  * ID生成器
  *
  * @param <T>
- * @author huangkai
+ * @author: kevin
  * @date 2017年8月22日下午1:32:03
  */
 @FunctionalInterface

@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.util.Map;
 
 /**
- * @author kally
+ * @author kevin
  */
 abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
 
@@ -103,7 +103,7 @@ abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
     protected abstract ColumnProperty getColumnProperty();
 
     /**
-     * @author kally
+     * @author: kevin
      * @date 2018年1月11日上午11:39:42
      */
     @FunctionalInterface
@@ -116,7 +116,7 @@ abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
     /**
      * 使用注解解析
      *
-     * @author kally
+     * @author: kevin
      * @date 2018年1月11日上午11:44:24
      */
     protected class AnnotationColumnProperty implements ColumnProperty {

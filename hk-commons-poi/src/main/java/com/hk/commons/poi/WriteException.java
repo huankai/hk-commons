@@ -3,7 +3,7 @@ package com.hk.commons.poi;
 /**
  * 写入异常
  *
- * @author kally
+ * @author: kevin
  */
 @SuppressWarnings("serial")
 public class WriteException extends POIException {

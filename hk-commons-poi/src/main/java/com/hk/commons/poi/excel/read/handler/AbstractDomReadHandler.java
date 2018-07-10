@@ -23,7 +23,7 @@ import java.util.List;
  * Dom parse Excel Only a small file can be parsed,if you want to parse to large file,please see AbstractSaxReadHandler
  * </pre>
  *
- * @author huangkai
+ * @author: kevin
  * @see AbstractSaxReadHandler
  */
 public abstract class AbstractDomReadHandler<T> extends AbstractReadHandler<T> implements DomReadHandler<T> {

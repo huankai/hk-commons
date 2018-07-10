@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * 与Bean相关的工具类
  *
- * @author huangkai
+ * @author kevin
  * @date 2017年9月12日上午10:01:39
  */
 public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
@@ -30,7 +30,7 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
     @SuppressWarnings("unchecked")
     public static <T> T mapToBean(Map<String, Object> map, Class<T> clazz) {
         BeanWrapper beanWrapper = BeanWrapperUtils.createBeanWrapper(clazz);
-        map.forEach((key, value) -> beanWrapper.setPropertyValue(key, value));
+        map.forEach(beanWrapper::setPropertyValue);
         return (T) beanWrapper.getWrappedInstance();
     }
 
@@ -60,7 +60,6 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
         }
         return result;
     }
-
 
     /**
      * 复制不为空的属性

@@ -25,7 +25,7 @@ import com.hk.commons.util.StringUtils;
 
 /**
  * 请求接口抽象实现
- * @author huangkai
+ * @author: kevin
  *
  */
 public abstract class AbstractHttpExecutor<T,P> implements HttpExecutor<T, P> {

@@ -6,11 +6,10 @@ import com.hk.commons.poi.excel.read.handler.ReadHandler;
 import com.hk.commons.poi.excel.read.handler.SimpleDomReadHandler;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author huangkai
+ * @author: kevin
  */
 public class SimpleDomReadExcel<T> extends AbstractReadExcel<T> {
 
@@ -37,13 +36,13 @@ public class SimpleDomReadExcel<T> extends AbstractReadExcel<T> {
 
 
     @Override
-    protected ReadHandler<T> createReadableHandler(InputStream in) throws IOException {
+    protected ReadHandler<T> createReadableHandler(InputStream in) {
         return handler;
     }
 
 
     @Override
-    protected ReadHandler<T> createReadableHandler(File file) throws IOException {
+    protected ReadHandler<T> createReadableHandler(File file) {
         return handler;
     }
 

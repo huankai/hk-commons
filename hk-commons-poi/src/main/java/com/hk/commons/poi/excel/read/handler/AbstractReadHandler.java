@@ -18,7 +18,7 @@ import java.util.ListIterator;
 import java.util.Objects;
 
 /**
- * @author huangkai
+ * @author: kevin
  */
 @SuppressWarnings("unchecked")
 public abstract class AbstractReadHandler<T> {

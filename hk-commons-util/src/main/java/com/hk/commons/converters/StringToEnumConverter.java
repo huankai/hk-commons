@@ -3,7 +3,7 @@ package com.hk.commons.converters;
 /**
  * String To Enum 转换
  * 
- * @author huangkai
+ * @author: kevin
  * @date 2017年09月20日上午9:05:45
  * @param <T>
  */

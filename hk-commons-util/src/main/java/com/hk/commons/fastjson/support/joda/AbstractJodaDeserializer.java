@@ -20,7 +20,7 @@ import com.hk.commons.util.date.DatePattern;
 /**
  * Joda 日期与 Fast json 整合 DateTime
  * 
- * @author huangkai
+ * @author: kevin
  *
  */
 @SuppressWarnings("unchecked")

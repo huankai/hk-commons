@@ -3,7 +3,7 @@ package com.hk.commons.poi;
 /**
  * 读取异常
  *
- * @author kally
+ * @author: kevin
  */
 @SuppressWarnings("serial")
 public class ReadException extends POIException {

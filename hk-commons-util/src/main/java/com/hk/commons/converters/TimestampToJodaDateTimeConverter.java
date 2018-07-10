@@ -11,7 +11,7 @@ import org.springframework.core.convert.converter.GenericConverter;
 /**
  * java.sql.Date -> org.joda.time.DateTime.DateTime
  * 
- * @author huangkai
+ * @author: kevin
  * @date 2017年12月14日下午4:34:27
  */
 public class TimestampToJodaDateTimeConverter implements GenericConverter {

@@ -9,7 +9,7 @@ import java.lang.reflect.Type;
 import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 /**
- * @author huangkai
+ * @author: kevin
  *
  */
 @SuppressWarnings("restriction")

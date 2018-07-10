@@ -14,7 +14,7 @@ import org.apache.http.protocol.HTTP;
 
 /**
  * JsonPost请求
- * @author huangkai
+ * @author: kevin
  * @date 2017年9月28日上午9:31:24
  */
 public class JsonPostHttpExecutor extends AbstractPostHttpExecutor<String,Object> {

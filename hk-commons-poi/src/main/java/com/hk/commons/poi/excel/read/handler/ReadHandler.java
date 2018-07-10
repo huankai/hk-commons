@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author kally
+ * @author: kevin
  * @date 2018年1月10日下午5:41:31
  */
 public interface ReadHandler<T> {

@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import com.hk.commons.poi.excel.model.WriteParam;
 
 /**
- * @author huangkai
+ * @author: kevin
  *
  */
 public interface WriteableExcel<T> {

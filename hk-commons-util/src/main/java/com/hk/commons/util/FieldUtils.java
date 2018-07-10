@@ -1,17 +1,17 @@
 package com.hk.commons.util;
 
+import org.springframework.util.ReflectionUtils;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.util.ReflectionUtils;
-
 /**
  * 字段工具类
  *
- * @author huangkai
+ * @author kevin
  * @date 2017年8月31日上午11:12:57
  */
 public abstract class FieldUtils {
@@ -83,7 +83,7 @@ public abstract class FieldUtils {
 		final List<Field> allFields = new ArrayList<>();
 		Class<?> currentClass = cls;
 		while (null != currentClass) {
-			CollectionUtils.addAll(allFields, currentClass.getDeclaredFields());
+			CollectionUtils.addAllNotNull(allFields, currentClass.getDeclaredFields());
 			currentClass = currentClass.getSuperclass();
 		}
 		return allFields;

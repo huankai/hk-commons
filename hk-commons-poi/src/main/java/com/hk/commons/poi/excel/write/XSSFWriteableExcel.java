@@ -10,7 +10,7 @@ import com.hk.commons.poi.excel.write.handler.SimpleWriteableHandler;
 import com.hk.commons.poi.excel.write.handler.WriteableHandler;
 
 /**
- * @author huangkai
+ * @author: kevin
  *
  */
 public final class XSSFWriteableExcel<T> extends AbstractWriteableExcel<T> {

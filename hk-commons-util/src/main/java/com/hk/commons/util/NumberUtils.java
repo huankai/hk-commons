@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 /**
- * @author huangkai
+ * @author: kevin
  * @date 2017-11-24 17:00
  */
 public abstract class NumberUtils extends org.springframework.util.NumberUtils {

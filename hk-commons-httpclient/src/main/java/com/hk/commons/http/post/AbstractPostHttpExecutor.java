@@ -12,7 +12,7 @@ import com.hk.commons.http.AbstractHttpExecutor;
 
 /**
  * Post请求
- * @author huangkai
+ * @author: kevin
  *
  * @param <T>
  * @param <P>

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * EnumDisplay Util
  *
- * @author huangkai
+ * @author: kevin
  * @date 2017年10月20日上午9:33:12
  * @see EnumDisplay
  */

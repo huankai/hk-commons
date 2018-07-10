@@ -8,7 +8,7 @@ import com.hk.commons.util.date.DatePattern;
 /**
  * String to YearMouth
  * 
- * @author huangkai
+ * @author: kevin
  * @date 2017年11月16日上午9:22:26
  */
 public class StringToYearMonthConverter extends StringGenericConverter<YearMonth> {

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 解析数据时出现的异常，记录每个单元格的错误信息
  *
- * @author huangkai
+ * @author: kevin
  * @date 2017年9月11日下午5:42:52
  */
 @SuppressWarnings("serial")

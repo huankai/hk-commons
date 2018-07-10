@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * BeanWrapper LocalDate support
  *
- * @author huangkai
+ * @author: kevin
  * @see com.hk.commons.util.BeanWrapperUtils#registryDefaultEditor(BeanWrapper)
  */
 public class CustomLocalDateEditor extends PropertyEditorSupport {

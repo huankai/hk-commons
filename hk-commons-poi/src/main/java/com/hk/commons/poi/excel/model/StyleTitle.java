@@ -10,7 +10,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import com.hk.commons.poi.excel.style.CustomCellStyle;
 
 /**
- * @author huangkai
+ * @author: kevin
  */
 public class StyleTitle extends Title {
 

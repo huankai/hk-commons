@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 区间日期工具类
  *
- * @author huangkai
+ * @author: kevin
  * @date 2017年12月14日下午1:35:43
  */
 public abstract class DateTimeIntervalUtils {
@@ -118,7 +118,7 @@ public abstract class DateTimeIntervalUtils {
     /**
      * 区间日期
      *
-     * @author huangkai
+     * @author: kevin
      * @date 2017年12月14日下午3:00:12
      */
     public static class IntervalDate {

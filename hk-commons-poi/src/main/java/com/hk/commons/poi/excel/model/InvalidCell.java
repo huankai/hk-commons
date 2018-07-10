@@ -10,7 +10,7 @@ import org.apache.poi.ss.util.CellAddress;
 /**
  * 验证出错的单元格信息
  * 
- * @author kally
+ * @author: kevin
  * @date 2018年1月10日下午3:44:48
  */
 @Data

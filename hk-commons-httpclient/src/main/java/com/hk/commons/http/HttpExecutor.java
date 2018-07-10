@@ -4,7 +4,7 @@ import java.io.IOException;
 
 /**
  * Http 请求接口
- * @author Administrator
+ * @author kevin
  *
  */
 public interface HttpExecutor<T,P> {

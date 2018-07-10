@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * 使用JSR 注解验证
  *
- * @author kally
+ * @author: kevin
  * @date 2018年1月10日下午5:24:31
  */
 public class JSRValidation<T> implements Validationable<T> {

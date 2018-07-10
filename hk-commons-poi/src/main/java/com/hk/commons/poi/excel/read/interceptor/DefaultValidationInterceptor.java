@@ -8,7 +8,7 @@ import com.hk.commons.poi.excel.model.ReadResult;
 /**
  * 默认验证拦截器
  *
- * @author huangkai
+ * @author: kevin
  */
 public class DefaultValidationInterceptor<T> implements ValidationInterceptor<T> {
 

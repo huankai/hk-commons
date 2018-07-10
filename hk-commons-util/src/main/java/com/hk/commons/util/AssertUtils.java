@@ -5,7 +5,7 @@ import org.springframework.util.Assert;
 /**
  * Assert utils
  * 
- * @author huangkai
+ * @author: kevin
  * @date 2017年8月31日上午10:09:14
  */
 public abstract class AssertUtils extends Assert {
