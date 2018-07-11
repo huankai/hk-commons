@@ -102,7 +102,7 @@ public final class JsonUtils {
      *
      * @param object            序列化的对象
      * @param useDefaultFeature 是否使用默认的序列化特征
-     * @param pattern 指定日期序列化格式
+     * @param pattern           指定日期序列化格式
      * @return 序列化后的对象字符串表现形式
      */
     public static String toJSONString(Object object, boolean useDefaultFeature, DatePattern pattern) throws JSONException {
@@ -156,6 +156,18 @@ public final class JsonUtils {
     }
 
     /**
+     * 过滤指定的属性
+     *
+     * @param object            序列化的对象
+     * @param pattern           pattern
+     * @param excludeProperties 要序列化的过滤的属性名
+     * @return 序列化后的对象字符串表现形式
+     */
+    public static String toJSONStringExcludes(Object object,String[] excludeProperties, SerializerFeature... serializerFeatures) {
+        return toJSONString(object, true, DatePattern.YYYY_MM_DD_HH_MM_SS, new SerializeFilter[]{new PropertyPreFilters().addFilter().addExcludes(excludeProperties)}, serializerFeatures);
+    }
+
+    /**
      * @param object             序列化的对象
      * @param useDefaultFeature  是否使用默认的Feature
      * @param filters            序列化的Filter
@@ -167,6 +179,9 @@ public final class JsonUtils {
         List<SerializerFeature> features = Lists.newArrayList();
         if (useDefaultFeature) {
             CollectionUtils.addAllNotNull(features, FEATURES);
+        }
+        if (null == datePattern) {
+            datePattern = DatePattern.YYYY_MM_DD_HH_MM_SS;
         }
         CollectionUtils.addAllNotNull(features, serializerFeatures);
         return JSON.toJSONString(object, CONFIG, filters, datePattern.getPattern(), JSON.DEFAULT_GENERATE_FEATURE, features.toArray(new SerializerFeature[]{}));

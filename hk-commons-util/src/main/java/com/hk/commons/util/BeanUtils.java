@@ -9,7 +9,6 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * 与Bean相关的工具类
@@ -82,7 +81,7 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
                                 readMethod.setAccessible(true);
                             }
                             Object value = readMethod.invoke(source);
-                            if (Objects.nonNull(value)) {
+                            if (ObjectUtils.isNotEmpty(value)) {
                                 if (!Modifier.isPublic(writeMethod.getDeclaringClass().getModifiers())) {
                                     writeMethod.setAccessible(true);
                                 }
