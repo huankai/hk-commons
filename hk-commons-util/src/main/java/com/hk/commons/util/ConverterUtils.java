@@ -1,14 +1,12 @@
 package com.hk.commons.util;
 
-import org.springframework.core.convert.converter.GenericConverter;
-import org.springframework.core.convert.support.DefaultConversionService;
-
 import com.hk.commons.converters.StringToBooleanConverter;
 import com.hk.commons.converters.StringToDateConverter;
 import com.hk.commons.converters.StringToNumberConverter.StringToBigIntegerConverter;
 import com.hk.commons.converters.StringToNumberConverter.StringToIntegerConverter;
 import com.hk.commons.converters.StringToNumberConverter.StringToLongConverter;
-import com.hk.commons.converters.TimestampToJodaDateTimeConverter;
+import org.springframework.core.convert.converter.GenericConverter;
+import org.springframework.core.convert.support.DefaultConversionService;
 
 /**
  * 转换工具类
@@ -34,7 +32,7 @@ public class ConverterUtils {
 		DEFAULT_CONVERSIONSERVICE.addConverter(new StringToLongConverter());
 		DEFAULT_CONVERSIONSERVICE.addConverter(new StringToIntegerConverter());
 		DEFAULT_CONVERSIONSERVICE.addConverter(new StringToBigIntegerConverter());
-		DEFAULT_CONVERSIONSERVICE.addConverter(new TimestampToJodaDateTimeConverter());
+//		DEFAULT_CONVERSIONSERVICE.addConverter(new TimestampToJodaDateTimeConverter());
 	}
 
 	private ConverterUtils() {

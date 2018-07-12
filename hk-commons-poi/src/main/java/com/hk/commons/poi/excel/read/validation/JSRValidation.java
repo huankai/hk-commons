@@ -1,6 +1,5 @@
 package com.hk.commons.poi.excel.read.validation;
 
-import com.google.common.collect.Lists;
 import com.hk.commons.poi.excel.exception.ExcelReadException;
 import com.hk.commons.poi.excel.model.InvalidCell;
 import com.hk.commons.poi.excel.model.Title;
@@ -10,6 +9,7 @@ import com.hk.commons.util.StringUtils;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -41,7 +41,7 @@ public class JSRValidation<T> implements Validationable<T> {
     /**
      * 验证对象并将不通过的单元格转换为对象
      *
-     * @param t       验证对象
+     * @param t         验证对象
      * @param rowNumber 对象所在Excel 行
      * @param titleList 标题行
      * @return 不通过的单元格转换为对象
@@ -71,7 +71,7 @@ public class JSRValidation<T> implements Validationable<T> {
      */
     private List<InvalidCell> getValidateInfo(Set<ConstraintViolation<Object>> violationSet, int rowNumber, List<Title> titleList) {
         if (CollectionUtils.isNotEmpty(violationSet)) {
-            List<InvalidCell> result = Lists.newArrayListWithExpectedSize(violationSet.size());
+            List<InvalidCell> result = new ArrayList<>(violationSet.size());
             violationSet.iterator().forEachRemaining(item -> {
                 String propertyName = item.getPropertyPath().toString();
                 Title title = titleList.stream()

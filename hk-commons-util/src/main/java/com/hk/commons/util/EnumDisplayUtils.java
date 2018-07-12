@@ -1,9 +1,11 @@
 package com.hk.commons.util;
 
-import com.google.common.collect.Lists;
 import com.hk.commons.annotations.EnumDisplay;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,13 +105,13 @@ public abstract class EnumDisplayUtils {
      * 3.如果没有@EnumDisplay标注，text值为枚举值value，order为0
      */
     public static <TEnum extends Enum<?>> List<EnumItem> getEnumItems(Class<TEnum> enumClass, boolean useI18n) {
-        List<EnumItem> items = Lists.newArrayList();
+        List<EnumItem> items = new ArrayList<>();
         Field[] fields = enumClass.getFields();
         EnumItem item;
-        for (Field field : fields) {
-            if (field.isEnumConstant()) {
-                item = new EnumItem();
-                try {
+        try {
+            for (Field field : fields) {
+                if (field.isEnumConstant()) {
+                    item = new EnumItem();
                     Object value = field.get(null);
                     item.setValue(value);
                     item.setText(value.toString());
@@ -120,25 +122,19 @@ public abstract class EnumDisplayUtils {
                         item.setOrder(ed.order());
                     }
                     items.add(item);
-                } catch (IllegalArgumentException | IllegalAccessException e) {
-                    throw new RuntimeException(e);
                 }
             }
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
         return items;
     }
 
+    @Data
+    @EqualsAndHashCode(callSuper = true)
     public static class EnumItem extends TextValueItem {
 
         private int order;
-
-        public int getOrder() {
-            return order;
-        }
-
-        public void setOrder(int order) {
-            this.order = order;
-        }
 
     }
 

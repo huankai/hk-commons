@@ -3,8 +3,6 @@
  */
 package com.hk.commons.poi.excel.write.handler;
 
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.hk.commons.poi.excel.exception.ExcelWriteException;
 import com.hk.commons.poi.excel.model.DataFormat;
 import com.hk.commons.poi.excel.model.ExcelColumnInfo;
@@ -61,7 +59,7 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
      * 每一个属性列都有相同的样式
      * </pre>
      */
-    private Map<String, CellStyle> cacheDataCellStyle = Maps.newHashMap();
+    private Map<String, CellStyle> cacheDataCellStyle = new HashMap<>();
 
     /**
      * 统计样式
@@ -170,11 +168,11 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
             Drawing<?> drawing = sheet.createDrawingPatriarch();
             int rowIndex = params.getDataStartRow();
 
-            Map<Integer, String> statisFormula = Maps.newHashMap();// 记录需要统计的列与公式
+            Map<Integer, String> statisFormula = new HashMap<>();// 记录需要统计的列与公式
             List<ExcelColumnInfo> columnInfoList = getColumnInfoList();
 
             // 记录nested属性所在每个列、与属性名称的Map
-            Map<Integer, String> columnNestedPropertyMap = Maps.newHashMap();
+            Map<Integer, String> columnNestedPropertyMap = new HashMap<>();
 
             String nestedPropertyPrefix = null;// Nested属性前缀 ，如 users[].name ，则此值为 users
             for (ExcelColumnInfo excelColumnInfo : columnInfoList) {
@@ -207,7 +205,7 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
                         }
                     } else {
                         final int firstRow = rowIndex;
-                        Set<Integer> margeCellColumnList = Sets.newHashSet();
+                        Set<Integer> margeCellColumnList = new HashSet<>();
                         for (int index = 0; index < collection.size(); index++) {
                             Row row = createDataRow(sheet, item, rowIndex++);
                             for (Entry<Integer, String> entry : columnNestedPropertyMap.entrySet()) {
@@ -431,20 +429,8 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
             } else if (ClassUtils.isAssignableValue(Year.class, value)) {
                 cell.setCellValue(((Year) value).getValue());
 
-            } else if (ClassUtils.isAssignableValue(YearMonth.class, value) || ClassUtils.isAssignableValue(org.joda.time.YearMonth.class, value)) {
+            } else if (ClassUtils.isAssignableValue(YearMonth.class, value)) {
                 cell.setCellValue(value.toString());
-
-            } else if (ClassUtils.isAssignableValue(org.joda.time.LocalDate.class, value)) {
-                DataFormat format = params.getValueFormat().getFormat(propertyName, org.joda.time.LocalDate.class);
-                cell.setCellValue(((org.joda.time.LocalDate) value).toString(format.getPattern()));
-
-            } else if (ClassUtils.isAssignableValue(org.joda.time.LocalDateTime.class, value)) {
-                DataFormat format = params.getValueFormat().getFormat(propertyName, org.joda.time.LocalDateTime.class);
-                cell.setCellValue(((org.joda.time.LocalDateTime) value).toString(format.getPattern()));
-
-            } else if (ClassUtils.isAssignableValue(org.joda.time.LocalTime.class, value)) {
-                DataFormat format = params.getValueFormat().getFormat(propertyName, org.joda.time.LocalTime.class);
-                cell.setCellValue(((org.joda.time.LocalTime) value).toString(format.getPattern()));
 
             } else {
                 cell.setCellValue(JsonUtils.toJSONString(value));

@@ -71,7 +71,10 @@ public enum DatePattern {
     }
 
     public static DatePattern parse(String pattern) {
-        return Arrays.stream(values()).filter(item -> StringUtils.equals(item.pattern, pattern)).findFirst().orElse(YYYY_MM_DD_HH_MM_SS);
+        return Arrays.stream(values())
+                .filter(item -> StringUtils.equals(item.pattern, pattern))
+                .findFirst()
+                .orElse(YYYY_MM_DD_HH_MM_SS);
     }
 
 }

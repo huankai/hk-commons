@@ -1,12 +1,12 @@
 package com.hk.commons.poi.excel.model;
 
-import com.google.common.collect.Maps;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -19,9 +19,9 @@ public class ValueFormat {
     /**
      * 默认格式化方式
      */
-    private static Map<Object, DataFormat> DEFAULT_FROMAT = Maps.newHashMap();
+    private static Map<Object, DataFormat> DEFAULT_FROMAT = new HashMap<>();
 
-    private Map<Object, DataFormat> mapper = Maps.newHashMap();
+    private Map<Object, DataFormat> mapper = new HashMap<>();
 
     static {
         DEFAULT_FROMAT.put(String.class, DataFormat.TEXT_FORMAT);
@@ -37,11 +37,8 @@ public class ValueFormat {
         DEFAULT_FROMAT.put(Double.TYPE, DataFormat.DECIMAL_FORMAT_2);
         DEFAULT_FROMAT.put(BigDecimal.class, DataFormat.DECIMAL_FORMAT_2);
         DEFAULT_FROMAT.put(LocalDateTime.class, DataFormat.DATETIME_FORMAT);
-        DEFAULT_FROMAT.put(org.joda.time.LocalDateTime.class, DataFormat.DATETIME_FORMAT);
         DEFAULT_FROMAT.put(LocalDate.class, DataFormat.DATE_FORMAT);
-        DEFAULT_FROMAT.put(org.joda.time.LocalDate.class, DataFormat.DATE_FORMAT);
         DEFAULT_FROMAT.put(LocalTime.class, DataFormat.TIME_FORMAT);
-        DEFAULT_FROMAT.put(org.joda.time.LocalTime.class, DataFormat.TIME_FORMAT);
     }
 
     public ValueFormat() {

@@ -1,7 +1,5 @@
 package com.hk.commons.poi.excel.util;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.hk.commons.poi.excel.annotations.NestedProperty;
 import com.hk.commons.poi.excel.annotations.WriteExcel;
 import com.hk.commons.poi.excel.exception.ExcelWriteException;
@@ -18,9 +16,7 @@ import org.springframework.util.ClassUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 /**
@@ -54,7 +50,7 @@ public abstract class WriteExcelUtils {
      * @return 解析后的Excel 列信息,每一列都是一个 com.hk.commons.poi.excel.model.ExcelColumnInfo
      */
     public static List<ExcelColumnInfo> parse(Class<?> clazz, final int titleRow) {
-        List<ExcelColumnInfo> result = Lists.newArrayList();
+        List<ExcelColumnInfo> result = new ArrayList<>();
         addWriteExcel(titleRow, clazz, null, null, result);
         result.sort(Comparator.comparingInt((column) -> column.getTitle().getColumn()));
         return result;
@@ -107,7 +103,7 @@ public abstract class WriteExcelUtils {
             throw new ExcelWriteException("暂不支持多个有NestedProperty注解标记的属性");
         }
         nestedFieldList.forEach(item -> {
-            Class<?> ptclass = TypeUtils.getParameterizedTypeClass(parameterizedTypeClass, item.getName());
+            Class<?> ptclass = TypeUtils.getCollectionParameterizedTypeClass(parameterizedTypeClass, item.getName());
             if (null != ptclass && !BeanUtils.isSimpleProperty(ptclass)) {
                 addWriteExcel(titleRow, ptclass, item.getType(), item.getName(), result);
             }
@@ -143,7 +139,7 @@ public abstract class WriteExcelUtils {
     private static Map<String, WriteExcel> getWriteExcelAnnotationList(Class<?> cls) {
         List<Field> fields = getFieldWithWriteExcelAnnotationList(cls);
         List<Method> methods = getMethodWithWriteExcelAnnotationList(cls);
-        Map<String, WriteExcel> result = Maps.newHashMap();
+        Map<String, WriteExcel> result = new HashMap<>();
         fields.forEach(item -> result.put(item.getName(), item.getAnnotation(WriteExcel.class)));
         methods.forEach(item -> {
             String methodName = item.getName();

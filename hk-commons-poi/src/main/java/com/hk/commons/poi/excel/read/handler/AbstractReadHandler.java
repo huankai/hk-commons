@@ -1,6 +1,5 @@
 package com.hk.commons.poi.excel.read.handler;
 
-import com.google.common.collect.Lists;
 import com.hk.commons.poi.excel.exception.ExcelReadException;
 import com.hk.commons.poi.excel.model.*;
 import com.hk.commons.poi.excel.read.interceptor.ValidationInterceptor;
@@ -13,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeansException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Objects;
@@ -153,7 +153,8 @@ public abstract class AbstractReadHandler<T> {
             result = StringUtils.trimToNull(result);
         }
         if (readParam.isIngoreLineBreak()) {
-            result = StringUtils.replaceAll(result, StringUtils.LF, StringUtils.EMPTY);
+            StringUtils.replace(result, "\t", StringUtils.EMPTY);
+//            result = StringUtils.replaceAll(result, StringUtils.LF, StringUtils.EMPTY);
         }
         return result;
     }
@@ -173,7 +174,7 @@ public abstract class AbstractReadHandler<T> {
                 ListIterator<T> listIterator = dataSheet.getData().listIterator();
                 while (listIterator.hasNext()) {
                     T t = listIterator.next();
-                    List<InvalidCell> invalidCells = Lists.newArrayList();
+                    List<InvalidCell> invalidCells = new ArrayList<>();
                     if (interceptor.beforeValidate(t)) {
                         for (Validationable<T> validationable : validationables) {
                             List<InvalidCell> errors = validationable.validate(t, rowIndex, titles);

@@ -1,7 +1,5 @@
 package com.hk.commons.util;
 
-import com.google.common.collect.Maps;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
@@ -159,7 +157,7 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         if (ArrayUtils.isEmpty(values)) {
             return Collections.emptyMap();
         }
-        Map<String, Integer> result = Maps.newHashMap();
+        Map<String, Integer> result = new HashMap<>();
         for (Map<String, Integer> map : values) {
             for (Map.Entry<String, Integer> entry : map.entrySet()) {
                 Integer value = result.get(entry.getKey());
@@ -185,7 +183,7 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         if (ArrayUtils.isEmpty(values)) {
             return Collections.emptyMap();
         }
-        Map<String, Double> result = Maps.newHashMap();
+        Map<String, Double> result = new HashMap<>();
         for (Map<String, Double> map : values) {
             for (Map.Entry<String, Double> entry : map.entrySet()) {
                 Double value = result.get(entry.getKey());
@@ -211,7 +209,7 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         if (ArrayUtils.isEmpty(values)) {
             return Collections.emptyMap();
         }
-        Map<String, Long> result = Maps.newHashMap();
+        Map<String, Long> result = new HashMap<>();
         for (Map<String, Long> map : values) {
             for (Map.Entry<String, Long> entry : map.entrySet()) {
                 Long value = result.get(entry.getKey());
@@ -237,7 +235,7 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         if (ArrayUtils.isEmpty(values)) {
             return Collections.emptyMap();
         }
-        Map<String, BigDecimal> result = Maps.newHashMap();
+        Map<String, BigDecimal> result = new HashMap<>();
         for (Map<String, BigDecimal> map : values) {
             for (Map.Entry<String, BigDecimal> entry : map.entrySet()) {
                 BigDecimal value = result.get(entry.getKey());
@@ -263,7 +261,7 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         if (ArrayUtils.isEmpty(values)) {
             return Collections.emptyMap();
         }
-        Map<String, BigInteger> result = Maps.newHashMap();
+        Map<String, BigInteger> result = new HashMap<>();
         for (Map<String, BigInteger> map : values) {
             for (Map.Entry<String, BigInteger> entry : map.entrySet()) {
                 BigInteger value = result.get(entry.getKey());

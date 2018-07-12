@@ -3,7 +3,6 @@
  */
 package com.hk.commons.poi.excel.util;
 
-import com.google.common.collect.Maps;
 import com.hk.commons.poi.excel.annotations.NestedProperty;
 import com.hk.commons.poi.excel.annotations.ReadExcel;
 import com.hk.commons.poi.excel.exception.ExcelReadException;
@@ -15,6 +14,7 @@ import org.springframework.beans.PropertyAccessor;
 import org.springframework.util.ClassUtils;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
@@ -35,7 +35,7 @@ public abstract class ReadExcelUtils {
      * @return 标示有 ReadExcel.class 注解的属性列与属性名的map
      */
     public static Map<Integer, String> getReadExcelAnnotationMapping(Class<?> beanClass) {
-        Map<Integer, String> map = Maps.newHashMap();
+        Map<Integer, String> map =  new HashMap<>();
         putReadExcel(beanClass, null, null, map);
         return map;
     }
@@ -69,7 +69,7 @@ public abstract class ReadExcelUtils {
 
         List<Field> nestedFieldList = FieldUtils.getFieldsListWithAnnotation(beanClass, NestedProperty.class);
         nestedFieldList.forEach(item -> {
-            Class<?> parameterizedTypeClass = TypeUtils.getParameterizedTypeClass(beanClass, item.getName());
+            Class<?> parameterizedTypeClass = TypeUtils.getCollectionParameterizedTypeClass(beanClass, item.getName());
             if (null != parameterizedTypeClass && !BeanUtils.isSimpleProperty(parameterizedTypeClass)) {
                 putReadExcel(parameterizedTypeClass, item.getType(), item.getName(), map);
             }

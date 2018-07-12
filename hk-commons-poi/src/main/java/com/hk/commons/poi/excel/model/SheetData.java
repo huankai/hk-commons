@@ -1,11 +1,8 @@
-/**
- *
- */
 package com.hk.commons.poi.excel.model;
 
-import com.google.common.collect.Lists;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,12 +28,12 @@ public final class SheetData<T> {
     /**
      * 工作表解析的数据
      */
-    private List<T> data = Lists.newArrayList();
+    private List<T> data = new ArrayList<>();
 
     /**
      * 解析时出现错误的日志
      */
-    private List<ErrorLog<T>> errorLogs = Lists.newArrayList();
+    private List<ErrorLog<T>> errorLogs = new ArrayList<>();
 
     public SheetData() {
 

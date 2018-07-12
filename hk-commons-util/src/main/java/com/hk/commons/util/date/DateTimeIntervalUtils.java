@@ -1,6 +1,7 @@
 package com.hk.commons.util.date;
 
-import com.google.common.collect.Lists;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -8,6 +9,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public abstract class DateTimeIntervalUtils {
      * @return
      */
     public static List<IntervalDate> getAllWeekList(LocalDateTime start, LocalDateTime end) {
-        List<IntervalDate> result = Lists.newArrayList();
+        List<IntervalDate> result = new ArrayList<>();
         int index = 1;
         LocalDateTime dayOfweekstart = start;
         while (dayOfweekstart.isBefore(end)) {
@@ -101,7 +103,7 @@ public abstract class DateTimeIntervalUtils {
      * @return
      */
     private static List<IntervalDate> getIntervalDateList(LocalDateTime start, TemporalAdjuster lastDayOf, LocalDateTime end, TemporalAdjuster firstDayOf) {
-        List<IntervalDate> result = Lists.newArrayList();
+        List<IntervalDate> result = new ArrayList<>();
         int index = 1;
         LocalDateTime dayOfweekstart = start;
         while (dayOfweekstart.isBefore(end)) {
@@ -121,6 +123,8 @@ public abstract class DateTimeIntervalUtils {
      * @author: kevin
      * @date 2017年12月14日下午3:00:12
      */
+    @Data
+    @AllArgsConstructor
     public static class IntervalDate {
 
         /**
@@ -131,43 +135,12 @@ public abstract class DateTimeIntervalUtils {
         /**
          * 开始时间
          */
-
         private LocalDateTime start;
 
         /**
          * 结束时间
          */
         private LocalDateTime end;
-
-        IntervalDate(int index, LocalDateTime start, LocalDateTime end) {
-            this.index = index;
-            this.start = start;
-            this.end = end;
-        }
-
-        public LocalDateTime getStart() {
-            return start;
-        }
-
-        public void setStart(LocalDateTime start) {
-            this.start = start;
-        }
-
-        public LocalDateTime getEnd() {
-            return end;
-        }
-
-        public void setEnd(LocalDateTime end) {
-            this.end = end;
-        }
-
-        public int getIndex() {
-            return index;
-        }
-
-        public void setIndex(int index) {
-            this.index = index;
-        }
 
     }
 

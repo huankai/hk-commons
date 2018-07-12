@@ -10,11 +10,6 @@ import java.util.zip.ZipOutputStream;
  */
 public class ZipUtils {
 
-    public static void main(String[] args) throws FileNotFoundException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ZipUtils.toZip("E:\\src\\main\\java", baos, true);
-    }
-
     public static void toZip(String dir, OutputStream out, boolean keepDirStructure) {
         try (ZipOutputStream zipOutputStream = new ZipOutputStream(out)) {
             File file = new File(dir);

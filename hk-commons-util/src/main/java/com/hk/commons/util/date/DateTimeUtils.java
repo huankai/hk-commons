@@ -1,6 +1,5 @@
 package com.hk.commons.util.date;
 
-import com.google.common.collect.Lists;
 import com.hk.commons.util.ArrayUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -90,7 +89,7 @@ public abstract class DateTimeUtils {
     }
 
     public static List<String> datePatternList() {
-        return Collections.unmodifiableList(Lists.newArrayList(DATE_PATTERN));
+        return Collections.unmodifiableList(Arrays.asList(DATE_PATTERN));
     }
 
     public static String[] datePatterns() {

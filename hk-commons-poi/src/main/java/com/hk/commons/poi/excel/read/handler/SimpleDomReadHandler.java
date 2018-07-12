@@ -1,6 +1,5 @@
 package com.hk.commons.poi.excel.read.handler;
 
-import com.google.common.collect.Lists;
 import com.hk.commons.poi.excel.exception.InvalidCellReadableExcelException;
 import com.hk.commons.poi.excel.model.ErrorLog;
 import com.hk.commons.poi.excel.model.InvalidCell;
@@ -15,6 +14,7 @@ import org.apache.poi.ss.util.WorkbookUtil;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeansException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +33,7 @@ public class SimpleDomReadHandler<T> extends AbstractDomReadHandler<T> {
     public SheetData<T> processSheet(Sheet sheet, int sheetIndex) {
         final int lastRowNum = sheet.getLastRowNum();
         final String sheetName = WorkbookUtil.createSafeSheetName(sheet.getSheetName());
-        List<ErrorLog<T>> errorLogs = Lists.newArrayList();
+        List<ErrorLog<T>> errorLogs = new ArrayList<>();
         SheetData<T> dataSheet = new SheetData<>(sheetIndex, sheetName);
         for (int rowIndex = readParam.getDataStartRow(); rowIndex <= lastRowNum; rowIndex++) {
             Row row = sheet.getRow(rowIndex);
@@ -60,7 +60,7 @@ public class SimpleDomReadHandler<T> extends AbstractDomReadHandler<T> {
         BeanWrapper wrapper = BeanWrapperUtils.createBeanWrapper(readParam.getBeanClazz());
         final int rowNum = row.getRowNum();
         final int maxColumnIndex = getMaxColumnIndex();
-        List<InvalidCell> invalidCellList = Lists.newArrayList();
+        List<InvalidCell> invalidCellList = new ArrayList<>();
         for (int columnIndex = 0; columnIndex <= maxColumnIndex; columnIndex++) {
             Cell cell = row.getCell(columnIndex, MissingCellPolicy.RETURN_BLANK_AS_NULL);
             if (null != cell) {

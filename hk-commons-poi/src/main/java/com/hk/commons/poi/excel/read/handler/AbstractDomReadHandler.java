@@ -1,6 +1,5 @@
 package com.hk.commons.poi.excel.read.handler;
 
-import com.google.common.collect.Lists;
 import com.hk.commons.poi.excel.model.ReadParam;
 import com.hk.commons.poi.excel.model.ReadResult;
 import com.hk.commons.poi.excel.model.SheetData;
@@ -15,6 +14,7 @@ import org.xml.sax.SAXException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,14 +38,14 @@ public abstract class AbstractDomReadHandler<T> extends AbstractReadHandler<T> i
     }
 
     @Override
-    public final ReadResult<T> process(InputStream in) throws IOException, EncryptedDocumentException, SAXException, OpenXML4JException {
+    public final ReadResult<T> process(InputStream in) throws IOException, EncryptedDocumentException, OpenXML4JException {
         workbook = WorkbookFactory.create(in);
         sheetParseInit();
         return processWorkbook();
     }
 
     @Override
-    public final ReadResult<T> process(File file) throws IOException, EncryptedDocumentException, SAXException, OpenXML4JException {
+    public final ReadResult<T> process(File file) throws IOException, EncryptedDocumentException, OpenXML4JException {
         workbook = WorkbookFactory.create(file);
         sheetParseInit();
         return processWorkbook();
@@ -64,7 +64,6 @@ public abstract class AbstractDomReadHandler<T> extends AbstractReadHandler<T> i
 
     /**
      * 工作表解析初始化设置
-     *
      */
     private void sheetParseInit() {
         int maxSheetsIndex = workbook.getNumberOfSheets() - 1;
@@ -135,7 +134,7 @@ public abstract class AbstractDomReadHandler<T> extends AbstractReadHandler<T> i
      * @return 标题结果
      */
     protected final List<Title> parseTitleRow(Row titleRow) {
-        List<Title> titleList = Lists.newArrayListWithExpectedSize(titleRow.getLastCellNum());
+        List<Title> titleList = new ArrayList<>(titleRow.getLastCellNum());
         titleRow.forEach(cell -> titleList.add(new Title(cell, readParam.getColumnProperties().get(cell.getColumnIndex()))));
         setTitles(titleList);
         return titleList;

@@ -9,13 +9,15 @@ import java.util.regex.Pattern;
  * @author: kevin
  * @date 2017年8月30日下午1:15:35
  */
-public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
+public abstract class StringUtils extends org.springframework.util.StringUtils {
 
     public static final String RUNG = "-";
 
     public static final String COLON_SEPARATE = ":";
 
     public static final String COMMA_SEPARATE = ",";
+
+    public static final String EMPTY = org.apache.commons.lang3.StringUtils.EMPTY;
 
     private static final Pattern LINE_PATTERN = Pattern.compile("_(\\w)");
 
@@ -55,15 +57,7 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return
      */
     public static boolean equalsAny(CharSequence cs1, CharSequence... charSequences) {
-        if (ArrayUtils.isEmpty(charSequences)) {
-            return false;
-        }
-        for (CharSequence charSequence : charSequences) {
-            if (equals(cs1, charSequence)) {
-                return true;
-            }
-        }
-        return false;
+        return org.apache.commons.lang3.StringUtils.equalsAny(cs1, charSequences);
     }
 
     /**
@@ -74,15 +68,75 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return
      */
     public static boolean equalsAnyIgnoreCase(CharSequence cs1, CharSequence... charSequences) {
-        if (ArrayUtils.isEmpty(charSequences)) {
-            return false;
-        }
-        for (CharSequence charSequence : charSequences) {
-            if (equalsIgnoreCase(cs1, charSequence)) {
-                return true;
-            }
-        }
-        return false;
+        return org.apache.commons.lang3.StringUtils.equalsAnyIgnoreCase(cs1, charSequences);
+    }
+
+    /**
+     * @param str
+     * @param defaultStr
+     * @param <T>
+     * @return
+     */
+    public static <T extends CharSequence> T defaultIfBlank(final T str, final T defaultStr) {
+        return org.apache.commons.lang3.StringUtils.defaultIfBlank(str, defaultStr);
+    }
+
+    /**
+     * @param str
+     * @param defaultStr
+     * @param <T>
+     * @return
+     */
+    public static <T extends CharSequence> T defaultIfEmpty(final T str, final T defaultStr) {
+        return org.apache.commons.lang3.StringUtils.defaultIfEmpty(str, defaultStr);
+    }
+
+    /**
+     * <p>
+     * 判断是否不为 null or  ""
+     * </p>
+     *
+     * <pre>
+     * StringUtils.isNotEmpty(null)      = false
+     * StringUtils.isNotEmpty("")        = false
+     * StringUtils.isNotEmpty("ad")      = true
+     * StringUtils.isNotEmpty(" ad ")    = true
+     * </pre>
+     *
+     * @param args
+     * @return
+     */
+    public static boolean isNotEmpty(CharSequence args) {
+        return !isEmpty(args);
+    }
+
+    /**
+     * StringUtils.isBlank(null)      = true
+     * StringUtils.isBlank("")        = true
+     * StringUtils.isBlank(" ")       = true
+     * StringUtils.isBlank("bob")     = false
+     * StringUtils.isBlank("  bob  ") = false
+     *
+     * @param args
+     * @return
+     */
+    public static boolean isBlank(CharSequence args) {
+        return org.apache.commons.lang3.StringUtils.isBlank(args);
+    }
+
+
+    /**
+     * StringUtils.isNotBlank(null)      = false
+     * StringUtils.isNotBlank("")        = false
+     * StringUtils.isNotBlank(" ")       = false
+     * StringUtils.isNotBlank("bob")     = true
+     * StringUtils.isNotBlank("  bob  ") = ftrue
+     *
+     * @param args
+     * @return
+     */
+    public static boolean isNotBlank(CharSequence args) {
+        return !isBlank(args);
     }
 
     /**
@@ -96,6 +150,16 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
     /**
+     * @param cs1
+     * @param cs2
+     * @return
+     */
+    public static boolean equalsIgnoreCase(CharSequence cs1, CharSequence cs2) {
+        return org.apache.commons.lang3.StringUtils.equalsIgnoreCase(cs1, cs2);
+
+    }
+
+    /**
      * 不相等
      *
      * @param cs1
@@ -104,6 +168,66 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static boolean notEquals(CharSequence cs1, CharSequence cs2) {
         return !equals(cs1, cs2);
+    }
+
+    /**
+     * 相等
+     *
+     * @param cs1
+     * @param cs2
+     * @return
+     */
+    public static boolean equals(CharSequence cs1, CharSequence cs2) {
+        return org.apache.commons.lang3.StringUtils.equals(cs1, cs2);
+    }
+
+    /**
+     * @param str
+     * @param suffix
+     * @return
+     */
+    public static boolean endsWith(CharSequence str, CharSequence suffix) {
+        return org.apache.commons.lang3.StringUtils.endsWith(str, suffix);
+    }
+
+    /**
+     * contains
+     *
+     * @param seq
+     * @param searchSeq
+     * @return
+     */
+    public static boolean contains(CharSequence seq, CharSequence searchSeq) {
+        return org.apache.commons.lang3.StringUtils.contains(seq, searchSeq);
+    }
+
+    /**
+     * @param sequence
+     * @param searchSequence
+     * @return
+     */
+    public static boolean startsWithAny(CharSequence sequence, CharSequence... searchSequence) {
+        return org.apache.commons.lang3.StringUtils.startsWithAny(sequence, searchSequence);
+    }
+
+    public static String substring(String str, int start) {
+        return org.apache.commons.lang3.StringUtils.substring(str, start);
+    }
+
+    public static String substringBefore(String str, String separator) {
+        return org.apache.commons.lang3.StringUtils.substringBefore(str, separator);
+    }
+
+    public static String substringAfter(String str, String separator) {
+        return org.apache.commons.lang3.StringUtils.substringAfter(str, separator);
+    }
+
+    public static String substringAfterLast(String str, String separator) {
+        return org.apache.commons.lang3.StringUtils.substringAfterLast(str, separator);
+    }
+
+    public static String trimToNull(String str) {
+        return org.apache.commons.lang3.StringUtils.trimToNull(str);
     }
 
 }

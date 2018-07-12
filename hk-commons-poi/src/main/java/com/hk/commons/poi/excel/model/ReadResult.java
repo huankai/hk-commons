@@ -3,7 +3,6 @@
  */
 package com.hk.commons.poi.excel.model;
 
-import com.google.common.collect.Lists;
 import com.hk.commons.util.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,13 +24,13 @@ public class ReadResult<T> implements Serializable {
      * 总错误信息
      */
     @Getter
-    private List<ErrorLog<T>> errorLogList = Lists.newArrayList();
+    private List<ErrorLog<T>> errorLogList = new ArrayList<>();
 
     /**
      * 解析的每个工作表数据
      */
     @Getter
-    private List<SheetData<T>> sheetDataList = Lists.newArrayList();
+    private List<SheetData<T>> sheetDataList = new ArrayList<>();
 
     /**
      * 解析的标题行信息
@@ -88,7 +87,7 @@ public class ReadResult<T> implements Serializable {
     public List<T> getAllSheetData() {
         return sheetDataList.stream()
                 .map(SheetData::getData)
-                .reduce(Lists.newArrayList(), (result, dataSheetItem) -> {
+                .reduce(new ArrayList<>(), (result, dataSheetItem) -> {
                     result.addAll(dataSheetItem);
                     return result;
                 });

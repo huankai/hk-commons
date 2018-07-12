@@ -1,9 +1,9 @@
 package com.hk.commons.poi.excel.read;
 
-import com.google.common.io.Files;
 import com.hk.commons.poi.excel.model.ReadParam;
 import com.hk.commons.poi.excel.read.handler.*;
 import com.hk.commons.util.StringUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.poifs.filesystem.FileMagic;
 
 import java.io.File;
@@ -29,16 +29,16 @@ public class SimpleSaxReadExcel<T> extends AbstractReadExcel<T> {
     private final SaxXlsxReadHandler<T> xlsxReadHandler;
 
     /**
-     * @param param
+     * @param param param
      */
     public SimpleSaxReadExcel(ReadParam<T> param) {
         this(param, new SimpleSaxXlsReadHandler<>(param), new SimpleSaxXlsxReadHandler<>(param));
     }
 
     /**
-     * @param param
-     * @param xlsReadHandler
-     * @param xlsxReadHandler
+     * @param param param
+     * @param xlsReadHandler xlsReadHandler
+     * @param xlsxReadHandler xlsxReadHandler
      */
     public SimpleSaxReadExcel(ReadParam<T> param, SaxXlsReadHandler<T> xlsReadHandler,
                               SaxXlsxReadHandler<T> xlsxReadHandler) {
@@ -59,7 +59,7 @@ public class SimpleSaxReadExcel<T> extends AbstractReadExcel<T> {
 
     @Override
     protected ReadHandler<T> createReadableHandler(File file) {
-        String extension = Files.getFileExtension(file.getName()).toLowerCase(Locale.ENGLISH);
+        String extension = FilenameUtils.getExtension(file.getName()).toLowerCase(Locale.ENGLISH);
         if (StringUtils.equals(XLS_EXTENSION, extension)) {
             return xlsReadHandler;
         } else if (StringUtils.equals(XLSX_EXTENSION, extension)) {

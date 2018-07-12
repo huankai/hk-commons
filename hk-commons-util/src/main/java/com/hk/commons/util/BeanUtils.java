@@ -1,6 +1,5 @@
 package com.hk.commons.util;
 
-import com.google.common.collect.Maps;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.FatalBeanException;
 import org.springframework.util.ClassUtils;
@@ -8,6 +7,7 @@ import org.springframework.util.ClassUtils;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -50,7 +50,7 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
      */
     public static Map<String, Object> beanToMap(Object obj, boolean containsNullValue) {
         BeanWrapper beanWrapper = BeanWrapperUtils.createBeanWrapper(obj);
-        Map<String, Object> result = Maps.newHashMap();
+        Map<String, Object> result = new HashMap<>();
         for (PropertyDescriptor descriptor : beanWrapper.getPropertyDescriptors()) {
             Object value = beanWrapper.getPropertyValue(descriptor.getName());
             if (value != null || containsNullValue) {

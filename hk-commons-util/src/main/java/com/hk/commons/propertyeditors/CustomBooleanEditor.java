@@ -24,7 +24,7 @@ public class CustomBooleanEditor extends org.springframework.beans.propertyedito
 
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
-        text = StringUtils.trim(text);
+        text = StringUtils.trimWhitespace(text);
         if (StringUtils.equals(BooleanUtils.TRUE_CHINEASE, text)) {
             setValue(Boolean.TRUE);
         } else if (StringUtils.equals(BooleanUtils.FALSE_CHINEASE, text)) {
