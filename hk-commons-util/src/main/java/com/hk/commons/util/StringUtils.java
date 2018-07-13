@@ -214,6 +214,10 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
         return org.apache.commons.lang3.StringUtils.substring(str, start);
     }
 
+    public static String substring(String str, int start, int end) {
+        return org.apache.commons.lang3.StringUtils.substring(str, start, end);
+    }
+
     public static String substringBefore(String str, String separator) {
         return org.apache.commons.lang3.StringUtils.substringBefore(str, separator);
     }
