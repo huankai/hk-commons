@@ -1,205 +1,159 @@
 package com.hk.commons.util;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import com.hk.commons.util.date.DatePattern;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 /**
- * FastJson 工具类
+ * JSON Utils
  *
- * @author kevin
+ * @author: kevin
+ * @date 2018-07-17 14:48
  */
+
 public final class JsonUtils {
 
-    public static String toJSONString(Object obj) {
-        return obj.toString();
+    private static ObjectMapper mapper;
+
+    private static ObjectMapper getMapper() {
+        if (mapper == null) {
+            synchronized (JsonUtils.class) {
+                if (mapper == null) {
+                    mapper = new ObjectMapper();
+                    configure(mapper);
+                }
+            }
+        }
+        return mapper;
     }
 
-//    /**
-//     * 默认 使用的 SerializerFeature
-//     */
-//    public static final SerializerFeature[] FEATURES = {SerializerFeature.WriteMapNullValue,
-//            SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteDateUseDateFormat,
-//            SerializerFeature.WriteNullNumberAsZero,
-//            SerializerFeature.WriteNullBooleanAsFalse, SerializerFeature.WriteNullStringAsEmpty};
-//
-//    public static final SerializeConfig CONFIG;
-//
-//    static {
-//        CONFIG = new SerializeConfig();
-//        CONFIG.put(DateTime.class, JodaDateTimeDeserializer.INSTANCE);
-//        CONFIG.put(LocalDate.class, JodaLocalDateDeserializer.INSTANCE);
-//        CONFIG.put(LocalDateTime.class, JodaLocalDateTimeDeserializer.INSTANCE);
-//        CONFIG.put(LocalTime.class, JodaLocalTimeDeserializer.INSTANCE);
-//    }
-//
-//    /**
-//     * <pre>
-//     *  转换成Json字符串,使用默认的序列化特征
-//     * </pre>
-//     *
-//     * @param object 序列化的对象
-//     * @return 序列化后的对象字符串表现形式
-//     * @see #FEATURES
-//     */
-//    public static String toJSONString(Object object) throws JSONException {
-//        return toJSONString(object, DatePattern.YYYY_MM_DD);
-//    }
-//
-//    /**
-//     * <pre>
-//     *  转换成Json字符串,使用默认的序列化特征
-//     * </pre>
-//     *
-//     * @param object 序列化的对象
-//     * @return 序列化后的对象字符串表现形式
-//     * @see #FEATURES
-//     */
-//    public static String toJSONString(Object object, DatePattern datePattern) throws JSONException {
-//        return toJSONString(object, true, datePattern);
-//    }
-//
-//    /**
-//     * <pre>
-//     *  转换成Json字符串,使用默认的序列化特征，并使用 漂亮的格式特征
-//     * </pre>
-//     *
-//     * @param object 序列化的对象
-//     * @return 序列化后的对象字符串表现形式
-//     */
-//    public static String toFormatJSONString(Object object) throws JSONException {
-//        return toFormatJSONString(object, DatePattern.YYYY_MM_DD);
-//    }
-//
-//    /**
-//     * <pre>
-//     *  转换成Json字符串,使用默认的序列化特征，并使用 漂亮的格式特征
-//     * </pre>
-//     *
-//     * @param object      序列化的对象
-//     * @param datePattern 指定日期序列化格式
-//     * @return 序列化后的对象字符串表现形式
-//     */
-//    public static String toFormatJSONString(Object object, DatePattern datePattern) throws JSONException {
-//        return toJSONString(object, true, datePattern, null, SerializerFeature.PrettyFormat);
-//    }
-//
-//    /**
-//     * 是否使用默认的字符串特征 转换Json字符串
-//     *
-//     * @param object            序列化的对象
-//     * @param useDefaultFeature 是否使用默认的序列化特征
-//     * @param pattern           指定日期序列化格式
-//     * @return 序列化后的对象字符串表现形式
-//     */
-//    public static String toJSONString(Object object, boolean useDefaultFeature, DatePattern pattern) throws JSONException {
-//        return toJSONString(object, useDefaultFeature, pattern, null);
-//    }
-//
-//    /**
-//     * 指定属性转换为Json字符串
-//     *
-//     * @param object     序列化的对象
-//     * @param properties 要序列化的对象属性名
-//     * @return 序列化后的对象字符串表现形式
-//     */
-//    public static String toJSONString(Object object, String... properties) throws JSONException {
-//        return toJSONString(object, DatePattern.YYYY_MM_DD, properties);
-//    }
-//
-//    /**
-//     * 指定属性转换为Json字符串
-//     *
-//     * @param object     序列化的对象
-//     * @param pattern    pattern
-//     * @param properties 要序列化的对象属性名
-//     * @return 序列化后的对象字符串表现形式
-//     */
-//    public static String toJSONString(Object object, DatePattern pattern, String... properties) throws JSONException {
-//        return toJSONString(object, true, pattern, new SerializeFilter[]{new SimplePropertyPreFilter(properties)});
-//    }
-//
-//    /**
-//     * 过滤指定的属性
-//     *
-//     * @param object            序列化的对象
-//     * @param excludeProperties 要序列化的过滤的属性名
-//     * @return 序列化后的对象字符串表现形式
-//     */
-//    public static String toJSONStringExcludes(Object object, String... excludeProperties) {
-//        return toJSONStringExcludes(object, DatePattern.YYYY_MM_DD, excludeProperties);
-//    }
-//
-//    /**
-//     * 过滤指定的属性
-//     *
-//     * @param object            序列化的对象
-//     * @param pattern           pattern
-//     * @param excludeProperties 要序列化的过滤的属性名
-//     * @return 序列化后的对象字符串表现形式
-//     */
-//    public static String toJSONStringExcludes(Object object, DatePattern pattern, String... excludeProperties) {
-//        return toJSONString(object, true, pattern, new SerializeFilter[]{new PropertyPreFilters().addFilter().addExcludes(excludeProperties)});
-//    }
-//
-//    /**
-//     * 过滤指定的属性
-//     *
-//     * @param object            序列化的对象
-//     * @param pattern           pattern
-//     * @param excludeProperties 要序列化的过滤的属性名
-//     * @return 序列化后的对象字符串表现形式
-//     */
-//    public static String toJSONStringExcludes(Object object,String[] excludeProperties, SerializerFeature... serializerFeatures) {
-//        return toJSONString(object, true, DatePattern.YYYY_MM_DD_HH_MM_SS, new SerializeFilter[]{new PropertyPreFilters().addFilter().addExcludes(excludeProperties)}, serializerFeatures);
-//    }
-//
-//    /**
-//     * @param object             序列化的对象
-//     * @param useDefaultFeature  是否使用默认的Feature
-//     * @param filters            序列化的Filter
-//     * @param serializerFeatures 指定序列化特征
-//     * @return 序列化后的对象字符串表现形式
-//     */
-//    public static String toJSONString(Object object, boolean useDefaultFeature, DatePattern datePattern, SerializeFilter[] filters, SerializerFeature... serializerFeatures)
-//            throws JSONException {
-//        List<SerializerFeature> features = Lists.newArrayList();
-//        if (useDefaultFeature) {
-//            CollectionUtils.addAllNotNull(features, FEATURES);
-//        }
-//        if (null == datePattern) {
-//            datePattern = DatePattern.YYYY_MM_DD_HH_MM_SS;
-//        }
-//        CollectionUtils.addAllNotNull(features, serializerFeatures);
-//        return JSON.toJSONString(object, CONFIG, filters, datePattern.getPattern(), JSON.DEFAULT_GENERATE_FEATURE, features.toArray(new SerializerFeature[]{}));
-//    }
-//
-//    /**
-//     * json字符串转对象
-//     *
-//     * @param input json字符串
-//     * @param clazz 要转化的类
-//     * @return 转化后的类
-//     */
-//    public static <T> T parseObject(String input, Class<T> clazz) throws JSONException {
-//        return JSON.parseObject(input, clazz);
-//    }
-//
-//    /**
-//     * json字符串转Map
-//     *
-//     * @param input json字符串
-//     * @return 转化后的Map
-//     */
-//    public static Map<String, Object> parseObjectToMap(String input) throws JSONException {
-//        return JSON.parseObject(input);
-//    }
-//
-//    /**
-//     * json字符串转集合
-//     *
-//     * @param input json字符串
-//     * @param clazz 要转化的包装类
-//     * @return 转化后的类
-//     */
-//    public static <T> List<T> parseObjectToList(String input, Class<T> clazz) throws JSONException {
-//        return JSON.parseArray(input, clazz);
-//    }
+    private static void configure(ObjectMapper om) {
+//        om.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+//        om.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 
+        mapper.setDateFormat(new SimpleDateFormat(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern()));
+        // 空值处理为空串
+        om.getSerializerProvider()
+                .setNullValueSerializer(new JsonSerializer<Object>() {
+                    @Override
+                    public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+                        gen.writeString(StringUtils.EMPTY);
+                    }
+                });
+        // 设置输入时忽略在JSON字符串中存在但Java对象实际没有的属性
+        om.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+        om.configure(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS, false);
+        JavaTimeModule module = new JavaTimeModule();
+        module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern())));
+        module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern())));
+
+        module.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD.getPattern())));
+        module.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD.getPattern())));
+
+        module.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.HH_MM_SS.getPattern())));
+        module.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.HH_MM_SS.getPattern())));
+        om.registerModule(module);
+    }
+
+    private static ObjectMapper indentMapper;
+
+    private static ObjectMapper getIndentMapper() {
+        if (indentMapper == null) {
+            synchronized (JsonUtils.class) {
+                if (indentMapper == null) {
+                    indentMapper = new ObjectMapper();
+                    indentMapper.enable(SerializationFeature.INDENT_OUTPUT);
+                    configure(indentMapper);
+                }
+            }
+        }
+        return indentMapper;
+    }
+
+    /**
+     * 将对象序列化为JSON string.
+     *
+     * @param obj obj
+     * @return json str
+     */
+    public static String serialize(Object obj) {
+        return serialize(obj, false);
+    }
+
+    /**
+     * 将对象序列化为 JSON string
+     *
+     * @param obj    obj
+     * @param indent indent
+     * @return json str
+     */
+    public static String serialize(Object obj, boolean indent) {
+        if (obj == null) {
+            return null;
+        }
+        ObjectMapper mapper = indent ? getIndentMapper() : getMapper();
+        try {
+            return mapper.writeValueAsString(obj);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 将json 字符串反序列化为对象
+     *
+     * @param json  json str
+     * @param clazz Class
+     * @param <T>   T
+     * @return T
+     */
+    public static <T> T deserialize(String json, Class<T> clazz) {
+        if (StringUtils.isBlank(json)) {
+            return null;
+        }
+        ObjectMapper mapper = getMapper();
+        try {
+            return mapper.readValue(json, clazz);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 将json 字符串反序列化为对象集合
+     *
+     * @param json  json str
+     * @param clazz class
+     * @param <T>   T
+     * @return List
+     */
+    public static <T> List<T> deserializeList(String json, Class<T> clazz) {
+        if (StringUtils.isBlank(json)) {
+            return null;
+        }
+        ObjectMapper mapper = getMapper();
+        try {
+            JavaType javaType = mapper.getTypeFactory().constructParametricType(List.class, clazz);
+            return mapper.readValue(json, javaType);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

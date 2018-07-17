@@ -1,10 +1,8 @@
 package com.hk.commons.http;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import com.hk.commons.util.CollectionUtils;
+import com.hk.commons.util.ConverterUtils;
+import com.hk.commons.util.StringUtils;
 import org.apache.http.Consts;
 import org.apache.http.Header;
 import org.apache.http.NameValuePair;
@@ -19,9 +17,10 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
-import com.hk.commons.util.CollectionUtils;
-import com.hk.commons.util.ConverterUtils;
-import com.hk.commons.util.StringUtils;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 请求接口抽象实现
@@ -107,16 +106,19 @@ public abstract class AbstractHttpExecutor<T, P> implements HttpExecutor<T, P> {
         StringBuilder s = new StringBuilder(uri);
         if (CollectionUtils.isNotEmpty(params)) {
             List<NameValuePair> nvps = new ArrayList<>();
-            for (Map.Entry<String, Object> entry : params.entrySet()) {
-                String value = ConverterUtils.getInstance().convert(entry.getValue(), String.class);
-                if (StringUtils.isNotBlank(value)) {
-                    nvps.add(new BasicNameValuePair(entry.getKey(), value));
+            ConverterUtils converterUtils = ConverterUtils.getInstance();
+            params.forEach((key, value) -> {
+                String _value = converterUtils.convert(value, String.class);
+                if (StringUtils.isNotBlank(_value)) {
+                    nvps.add(new BasicNameValuePair(key, _value));
                 }
+            });
+            if (!nvps.isEmpty()) {
+                if (!StringUtils.endsWith(uri, "?")) {
+                    s.append("?");
+                }
+                s.append(URLEncodedUtils.format(nvps, Consts.UTF_8));
             }
-            if (!StringUtils.endsWith(uri, "?")) {
-                s.append("?");
-            }
-            s.append(URLEncodedUtils.format(nvps, Consts.UTF_8));
         }
         return s.toString();
     }

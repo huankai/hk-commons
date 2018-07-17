@@ -29,7 +29,7 @@ public class JsonPostHttpExecutor extends AbstractPostHttpExecutor<String,Object
 
 	@Override
 	public HttpEntity generateEntity(Object params) {
-		return new StringEntity(JsonUtils.toJSONString(params), Consts.UTF_8);
+		return new StringEntity(JsonUtils.serialize(params), Consts.UTF_8);
 	}
 	
 	@Override

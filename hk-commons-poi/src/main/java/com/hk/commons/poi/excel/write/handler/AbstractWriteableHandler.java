@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hk.commons.poi.excel.write.handler;
 
 import com.hk.commons.poi.excel.exception.ExcelWriteException;
@@ -433,7 +430,7 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
                 cell.setCellValue(value.toString());
 
             } else {
-                cell.setCellValue(JsonUtils.toJSONString(value));
+                cell.setCellValue(JsonUtils.serialize(value));
             }
         }
     }

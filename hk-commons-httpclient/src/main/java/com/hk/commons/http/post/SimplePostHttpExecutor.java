@@ -1,9 +1,8 @@
 package com.hk.commons.http.post;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import com.hk.commons.util.CollectionUtils;
+import com.hk.commons.util.ConverterUtils;
+import com.hk.commons.util.StringUtils;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -12,9 +11,9 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.hk.commons.util.CollectionUtils;
-import com.hk.commons.util.ConverterUtils;
-import com.hk.commons.util.StringUtils;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * POST请求
@@ -34,7 +33,7 @@ public class SimplePostHttpExecutor extends AbstractPostHttpExecutor<String, Map
 
 	@Override
 	public HttpEntity generateEntity(Map<String, Object> params) {
-		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		List<NameValuePair> nvps = new ArrayList<>();
 		if (CollectionUtils.isNotEmpty(params)) {
 			for (Map.Entry<String, Object> entry : params.entrySet()) {
 				String value = ConverterUtils.getInstance().convert(entry.getValue(), String.class);

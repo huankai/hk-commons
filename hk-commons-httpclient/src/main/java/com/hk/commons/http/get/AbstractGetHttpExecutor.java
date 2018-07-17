@@ -1,14 +1,13 @@
 package com.hk.commons.http.get;
 
-import java.io.IOException;
-import java.net.URI;
-import java.util.Map;
-
+import com.hk.commons.http.AbstractHttpExecutor;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 
-import com.hk.commons.http.AbstractHttpExecutor;
+import java.io.IOException;
+import java.net.URI;
+import java.util.Map;
 
 
 /**
@@ -39,7 +38,7 @@ public abstract class AbstractGetHttpExecutor<T> extends AbstractHttpExecutor<T,
 	 * @param params
 	 * @return
 	 */
-	protected HttpGet buildHttpGet(String uri, Map<String, Object> params) {
+	protected final HttpGet buildHttpGet(String uri, Map<String, Object> params) {
 		HttpGet get = new HttpGet();
 		String uri_ = generateUri(uri, params);
 		get.setHeaders(generateHeaders());
