@@ -21,7 +21,6 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
 
     private static final Pattern LINE_PATTERN = Pattern.compile("_(\\w)");
 
-
     /**
      * 下划线转小驼峰
      *
@@ -150,6 +149,8 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
+     * 忽略大小写比较是否相等
+     *
      * @param cs1
      * @param cs2
      * @return
@@ -182,6 +183,8 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
+     * 是否以 suffix 结尾
+     *
      * @param str
      * @param suffix
      * @return
@@ -191,6 +194,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
+     * 是否包含指定字符串
      * contains
      *
      * @param seq
@@ -202,6 +206,8 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
+     * 是否以 searchSequence 中任意一个开始
+     *
      * @param sequence
      * @param searchSequence
      * @return
@@ -210,18 +216,47 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
         return org.apache.commons.lang3.StringUtils.startsWithAny(sequence, searchSequence);
     }
 
+    /**
+     * 截取字符串
+     *
+     * @param str
+     * @param start
+     * @return
+     */
     public static String substring(String str, int start) {
         return org.apache.commons.lang3.StringUtils.substring(str, start);
     }
 
+    /**
+     * 截取字符串
+     *
+     * @param str
+     * @param start
+     * @param end
+     * @return
+     */
     public static String substring(String str, int start, int end) {
         return org.apache.commons.lang3.StringUtils.substring(str, start, end);
     }
 
+    /**
+     * 截取之前部分
+     *
+     * @param str
+     * @param separator
+     * @return
+     */
     public static String substringBefore(String str, String separator) {
         return org.apache.commons.lang3.StringUtils.substringBefore(str, separator);
     }
 
+    /**
+     * 截取之后部分
+     *
+     * @param str
+     * @param separator
+     * @return
+     */
     public static String substringAfter(String str, String separator) {
         return org.apache.commons.lang3.StringUtils.substringAfter(str, separator);
     }
@@ -230,8 +265,24 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
         return org.apache.commons.lang3.StringUtils.substringAfterLast(str, separator);
     }
 
+    /**
+     * trim To Null
+     *
+     * @param str
+     * @return
+     */
     public static String trimToNull(String str) {
         return org.apache.commons.lang3.StringUtils.trimToNull(str);
+    }
+
+    /**
+     * trim To Empty
+     *
+     * @param str
+     * @return
+     */
+    public static String trimToEmpty(String str) {
+        return org.apache.commons.lang3.StringUtils.trimToEmpty(str);
     }
 
 }

@@ -34,7 +34,7 @@ public abstract class BeanWrapperUtils {
     /**
      * create BeanWrapper by clazz
      *
-     * @param obj clazz
+     * @param clazz clazz
      * @return BeanWrapper
      */
     public static BeanWrapper createBeanWrapper(Class<?> clazz) {

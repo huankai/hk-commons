@@ -1,13 +1,9 @@
-/**
- *
- */
 package com.hk.commons.poi.excel.model;
 
+import com.hk.commons.poi.excel.style.CustomCellStyle;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.poi.ss.usermodel.Cell;
-
-import com.hk.commons.poi.excel.style.CustomCellStyle;
 
 /**
  * @author: kevin

@@ -26,7 +26,6 @@ import java.util.List;
  * @author: kevin
  * @date 2018-07-17 14:48
  */
-
 public final class JsonUtils {
 
     private static ObjectMapper mapper;

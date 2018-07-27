@@ -35,6 +35,7 @@ public class ValueFormat {
         DEFAULT_FROMAT.put(Float.TYPE, DataFormat.DECIMAL_FORMAT_2);
         DEFAULT_FROMAT.put(Float.class, DataFormat.DECIMAL_FORMAT_2);
         DEFAULT_FROMAT.put(Double.TYPE, DataFormat.DECIMAL_FORMAT_2);
+        DEFAULT_FROMAT.put(Double.class, DataFormat.DECIMAL_FORMAT_2);
         DEFAULT_FROMAT.put(BigDecimal.class, DataFormat.DECIMAL_FORMAT_2);
         DEFAULT_FROMAT.put(LocalDateTime.class, DataFormat.DATETIME_FORMAT);
         DEFAULT_FROMAT.put(LocalDate.class, DataFormat.DATE_FORMAT);

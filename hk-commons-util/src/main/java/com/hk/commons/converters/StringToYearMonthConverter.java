@@ -1,9 +1,9 @@
 package com.hk.commons.converters;
 
+import com.hk.commons.util.date.DatePattern;
+
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-
-import com.hk.commons.util.date.DatePattern;
 
 /**
  * String to YearMouth
@@ -13,7 +13,7 @@ import com.hk.commons.util.date.DatePattern;
  */
 public class StringToYearMonthConverter extends StringGenericConverter<YearMonth> {
 
-	protected StringToYearMonthConverter() {
+	public StringToYearMonthConverter() {
 		super(YearMonth.class);
 	}
 

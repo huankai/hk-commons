@@ -1,14 +1,10 @@
-/**
- * 
- */
 package com.hk.commons.poi.excel.write;
-
-import java.io.OutputStream;
-
-import org.apache.poi.ss.usermodel.Workbook;
 
 import com.hk.commons.poi.excel.model.WriteParam;
 import com.hk.commons.poi.excel.write.handler.WriteableHandler;
+import org.apache.poi.ss.usermodel.Workbook;
+
+import java.io.OutputStream;
 
 /**
  * @author: kevin

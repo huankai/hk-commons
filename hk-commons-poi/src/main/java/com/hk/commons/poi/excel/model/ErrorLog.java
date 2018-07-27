@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hk.commons.poi.excel.model;
 
 import lombok.AllArgsConstructor;

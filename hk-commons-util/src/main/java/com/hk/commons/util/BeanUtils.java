@@ -66,7 +66,7 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
      * @param source
      * @param target
      */
-    public static <T> void copyNotNullProperties(Object source, Object target) {
+    public static void copyNotNullProperties(Object source, Object target) {
         PropertyDescriptor[] targetDescriptors = getPropertyDescriptors(target.getClass());
         for (PropertyDescriptor targetDescriptor : targetDescriptors) {
             Method writeMethod = targetDescriptor.getWriteMethod();

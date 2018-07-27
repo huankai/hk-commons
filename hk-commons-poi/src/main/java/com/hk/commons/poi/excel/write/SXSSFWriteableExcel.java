@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hk.commons.poi.excel.write;
 
 import com.hk.commons.poi.excel.write.handler.SimpleWriteableHandler;

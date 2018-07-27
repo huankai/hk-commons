@@ -13,7 +13,6 @@ import org.springframework.beans.BeanWrapper;
  */
 public class CustomBooleanEditor extends org.springframework.beans.propertyeditors.CustomBooleanEditor {
 
-
     public CustomBooleanEditor(boolean allowEmpty) {
         super(allowEmpty);
     }

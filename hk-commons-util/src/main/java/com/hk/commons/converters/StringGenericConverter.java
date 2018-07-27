@@ -55,6 +55,9 @@ public abstract class StringGenericConverter<T> implements GenericConverter {
 
     @Override
     public T convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+        if (source == null) {
+            return defaultValue;
+        }
         try {
             return doConvert(StringUtils.trimWhitespace(source.toString()));
         } catch (Exception e) {

@@ -1,8 +1,8 @@
 package com.hk.commons.converters;
 
-import java.math.BigInteger;
-
 import org.springframework.util.NumberUtils;
+
+import java.math.BigInteger;
 
 /**
  * String 转换为Number类型
@@ -13,7 +13,7 @@ import org.springframework.util.NumberUtils;
  */
 public abstract class StringToNumberConverter<T extends Number> extends StringGenericConverter<T> {
 
-	protected StringToNumberConverter(Class<T> targetType) {
+	StringToNumberConverter(Class<T> targetType) {
 		super(targetType);
 	}
 

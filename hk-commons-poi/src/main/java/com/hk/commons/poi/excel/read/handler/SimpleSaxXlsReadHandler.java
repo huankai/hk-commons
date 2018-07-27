@@ -15,9 +15,7 @@ import org.apache.poi.hssf.eventusermodel.dummyrecord.MissingCellDummyRecord;
 import org.apache.poi.hssf.model.HSSFFormulaParser;
 import org.apache.poi.hssf.record.*;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,7 +77,7 @@ public class SimpleSaxXlsReadHandler<T> extends AbstractSaxReadHandler<T> implem
     /**
      * 返回数据
      */
-    private ReadResult<T> result = new ReadResult<T>();
+    private ReadResult<T> result = new ReadResult<>();
 
     public SimpleSaxXlsReadHandler(ReadParam<T> param) {
         super(param);
@@ -87,13 +85,12 @@ public class SimpleSaxXlsReadHandler<T> extends AbstractSaxReadHandler<T> implem
 
     @Override
     public ReadResult<T> process(InputStream in)
-            throws IOException, EncryptedDocumentException, SAXException, OpenXML4JException {
+            throws IOException, EncryptedDocumentException {
         return parseFileSystem(new POIFSFileSystem(in));
     }
 
     @Override
-    public ReadResult<T> process(File file)
-            throws IOException, EncryptedDocumentException, SAXException, OpenXML4JException {
+    public ReadResult<T> process(File file)throws IOException, EncryptedDocumentException {
         return parseFileSystem(new POIFSFileSystem(file, true));
     }
 

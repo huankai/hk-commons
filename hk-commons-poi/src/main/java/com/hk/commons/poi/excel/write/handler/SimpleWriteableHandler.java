@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.hk.commons.poi.excel.write.handler;
 
 import org.apache.poi.ss.usermodel.Sheet;

@@ -32,7 +32,6 @@ public class ConverterUtils {
 		DEFAULT_CONVERSIONSERVICE.addConverter(new StringToLongConverter());
 		DEFAULT_CONVERSIONSERVICE.addConverter(new StringToIntegerConverter());
 		DEFAULT_CONVERSIONSERVICE.addConverter(new StringToBigIntegerConverter());
-//		DEFAULT_CONVERSIONSERVICE.addConverter(new TimestampToJodaDateTimeConverter());
 	}
 
 	private ConverterUtils() {
