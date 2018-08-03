@@ -216,6 +216,10 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
         return org.apache.commons.lang3.StringUtils.startsWithAny(sequence, searchSequence);
     }
 
+    public static boolean startsWith(CharSequence str, CharSequence prefix) {
+        return org.apache.commons.lang3.StringUtils.startsWith(str, prefix);
+    }
+
     /**
      * 截取字符串
      *

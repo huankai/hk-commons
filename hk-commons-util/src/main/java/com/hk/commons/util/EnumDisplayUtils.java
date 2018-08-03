@@ -74,15 +74,16 @@ public abstract class EnumDisplayUtils {
      * @param enumClass
      * @return
      */
-    public static String getDisplayText(String enumValue, Class<? extends Enum> enumClass) {
+    public static String getDisplayText(String enumValue, Class<? extends Enum<?>> enumClass) {
         return getDisplayText(enumValue, enumClass, true);
     }
 
     /**
      *
      */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static String getDisplayText(String enumValue, Class<? extends Enum> enumClass, boolean useI18n) {
-        Object value = Enum.valueOf(enumClass, enumValue);
+		Object value = Enum.valueOf(enumClass, enumValue);
         return getDisplayText(value, useI18n);
     }
 
