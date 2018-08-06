@@ -145,7 +145,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * @return
      */
     public static String[] splitByComma(String args) {
-        return split(args, "\\,");
+        return tokenizeToStringArray(args, "\\,");
     }
 
     /**

@@ -54,6 +54,16 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         return false;
     }
 
+    public static boolean containsAny(Collection<?> coll, Object... elements) {
+        if (isEmpty(coll)) {
+            return false;
+        }
+        if (ArrayUtils.isEmpty(elements)) {
+            return false;
+        }
+        return containsAny(coll, Arrays.asList(elements));
+    }
+
     /**
      * Map根据Value 从小到大排序
      *
