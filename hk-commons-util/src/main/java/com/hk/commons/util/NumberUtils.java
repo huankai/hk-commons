@@ -31,6 +31,9 @@ public abstract class NumberUtils extends org.springframework.util.NumberUtils {
      * @return
      */
     public static boolean equals(Number n1, Number n2) {
+        if (ObjectUtils.nullSafeEquals(n1, n2)) {
+            return true;
+        }
         if (!n1.getClass().equals(n2.getClass())) {
             return false;
         }

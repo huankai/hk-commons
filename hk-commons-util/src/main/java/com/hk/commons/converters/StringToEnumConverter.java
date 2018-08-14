@@ -16,8 +16,8 @@ public class StringToEnumConverter<T extends Enum<T>> extends StringGenericConve
 		this.enumType = targetType;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
+	@SuppressWarnings("unchecked")
 	protected Enum<T> doConvert(String source) {
 		return Enum.valueOf((Class<T>) enumType, source);
 	}

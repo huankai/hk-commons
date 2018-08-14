@@ -13,8 +13,8 @@ public class DefaultSmsCodeSender implements SmsCodeSender {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultSmsCodeSender.class);
 
     @Override
-    public void send(String mobile, String code) {
-        Asyn asyn = () -> LOGGER.info("Mobile : {},Code :{}", mobile, code);
+    public void send(String mobile, String code, int expireSecond) {
+        Asyn asyn = () -> LOGGER.info("[XXX] {},登陆验证码: {},请在 {} 分钟内完成验证.", mobile, code, expireSecond / 60);
         asyn.start();
     }
 }

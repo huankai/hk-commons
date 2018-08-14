@@ -19,7 +19,7 @@ public class ConverterUtils {
 	/**
 	 * 默认转换
 	 */
-	public static DefaultConversionService DEFAULT_CONVERSIONSERVICE = new DefaultConversionService();
+	public static DefaultConversionService DEFAULT_CONVERSION_SERVICE = new DefaultConversionService();
 
 	/**
 	 * 转换
@@ -27,15 +27,15 @@ public class ConverterUtils {
 	private DefaultConversionService conversionService;
 
 	static {
-		DEFAULT_CONVERSIONSERVICE.addConverter(new StringToBooleanConverter());
-		DEFAULT_CONVERSIONSERVICE.addConverter(new StringToDateConverter());
-		DEFAULT_CONVERSIONSERVICE.addConverter(new StringToLongConverter());
-		DEFAULT_CONVERSIONSERVICE.addConverter(new StringToIntegerConverter());
-		DEFAULT_CONVERSIONSERVICE.addConverter(new StringToBigIntegerConverter());
+		DEFAULT_CONVERSION_SERVICE.addConverter(new StringToBooleanConverter());
+		DEFAULT_CONVERSION_SERVICE.addConverter(new StringToDateConverter());
+		DEFAULT_CONVERSION_SERVICE.addConverter(new StringToLongConverter());
+		DEFAULT_CONVERSION_SERVICE.addConverter(new StringToIntegerConverter());
+		DEFAULT_CONVERSION_SERVICE.addConverter(new StringToBigIntegerConverter());
 	}
 
 	private ConverterUtils() {
-		conversionService = DEFAULT_CONVERSIONSERVICE;
+		conversionService = DEFAULT_CONVERSION_SERVICE;
 	}
 
 	/**

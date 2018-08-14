@@ -20,7 +20,7 @@ public abstract class ClassUtils extends org.springframework.util.ClassUtils {
         }
         Object res = params[index];
         if (res instanceof Class) {
-            return (Class) res;
+            return Class.class.cast(res);
         }
         if (res instanceof ParameterizedType) {
             return (Class<?>) ((ParameterizedType) res).getRawType();
@@ -36,10 +36,10 @@ public abstract class ClassUtils extends org.springframework.util.ClassUtils {
      * @return 泛型
      */
     public static Class<?> getGenericType(Class<?> clazz, int index) {
-        List<Type> arrys = new ArrayList<>();
-        arrys.add(clazz.getGenericSuperclass());
-        arrys.addAll(Arrays.asList(clazz.getGenericInterfaces()));
-        return arrys.stream()
+        List<Type> arrays = new ArrayList<>();
+        arrays.add(clazz.getGenericSuperclass());
+        arrays.addAll(Arrays.asList(clazz.getGenericInterfaces()));
+        return arrays.stream()
                 .filter(Objects::nonNull)
                 .map(type -> {
                     if (clazz != Object.class && !(type instanceof ParameterizedType)) {

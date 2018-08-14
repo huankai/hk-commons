@@ -1,5 +1,7 @@
 package com.hk.commons.converters;
 
+import com.hk.commons.util.AssertUtils;
+import com.hk.commons.util.ObjectUtils;
 import com.hk.commons.util.StringUtils;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.TypeDescriptor;
@@ -28,11 +30,12 @@ public abstract class StringGenericConverter<T> implements GenericConverter {
     public final Class<T> targetType;
 
     protected StringGenericConverter(Class<T> targetType) {
-        this.targetType = targetType;
+        this(null, targetType);
     }
 
-    public StringGenericConverter(T defaultValue, Class<T> targetType) {
+    protected StringGenericConverter(T defaultValue, Class<T> targetType) {
         this.defaultValue = defaultValue;
+        AssertUtils.notNull(targetType, "target Type must not be null");
         this.targetType = targetType;
     }
 
@@ -55,7 +58,7 @@ public abstract class StringGenericConverter<T> implements GenericConverter {
 
     @Override
     public T convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
-        if (source == null) {
+        if (ObjectUtils.isEmpty(source)) {
             return defaultValue;
         }
         try {

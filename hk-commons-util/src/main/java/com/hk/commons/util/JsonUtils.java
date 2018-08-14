@@ -46,7 +46,7 @@ public final class JsonUtils {
 //        om.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 //        om.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 
-        mapper.setDateFormat(new SimpleDateFormat(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern()));
+        om.setDateFormat(new SimpleDateFormat(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern()));
         // 空值处理为空串
         om.getSerializerProvider()
                 .setNullValueSerializer(new JsonSerializer<Object>() {

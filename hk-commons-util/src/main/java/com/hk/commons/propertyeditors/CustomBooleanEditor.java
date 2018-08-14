@@ -24,9 +24,9 @@ public class CustomBooleanEditor extends org.springframework.beans.propertyedito
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
         text = StringUtils.trimWhitespace(text);
-        if (StringUtils.equals(BooleanUtils.TRUE_CHINEASE, text)) {
+        if (StringUtils.equals(BooleanUtils.TRUE_CHINESE, text)) {
             setValue(Boolean.TRUE);
-        } else if (StringUtils.equals(BooleanUtils.FALSE_CHINEASE, text)) {
+        } else if (StringUtils.equals(BooleanUtils.FALSE_CHINESE, text)) {
             setValue(Boolean.FALSE);
         } else {
             super.setAsText(text);
@@ -35,8 +35,8 @@ public class CustomBooleanEditor extends org.springframework.beans.propertyedito
 
     @Override
     public String getAsText() {
-        String value = (String) getValue();
-        if (StringUtils.equalsAny(value, BooleanUtils.TRUE_CHINEASE, BooleanUtils.FALSE_CHINEASE)) {
+        String value = String.class.cast(getValue());
+        if (StringUtils.equalsAny(value, BooleanUtils.TRUE_CHINESE, BooleanUtils.FALSE_CHINESE)) {
             return value;
         }
         return super.getAsText();

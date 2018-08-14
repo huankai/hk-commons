@@ -25,6 +25,6 @@ public class CustomLocalDateEditor extends PropertyEditorSupport {
     @Override
     public String getAsText() {
         Object value = getValue();
-        return null == value ? null : ((LocalDate) value).format(DateTimeFormatter.ISO_LOCAL_DATE);
+        return null == value ? null : LocalDate.class.cast(value).format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
 }
