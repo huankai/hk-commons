@@ -1,13 +1,14 @@
 package com.hk.commons.poi.excel.model;
 
+import java.util.List;
+import java.util.Map;
+
 import com.hk.commons.poi.excel.read.interceptor.DefaultValidationInterceptor;
 import com.hk.commons.poi.excel.read.interceptor.ValidationInterceptor;
 import com.hk.commons.poi.excel.read.validation.Validationable;
+
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * 读取 Excel参数
@@ -79,7 +80,8 @@ public class ReadParam<T> {
     /**
      * 验证拦截器
      */
-    @Builder.Default
+	@Builder.Default
+	@SuppressWarnings("rawtypes")
     private ValidationInterceptor interceptor = new DefaultValidationInterceptor<>();
 
     /**
