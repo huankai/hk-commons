@@ -1,5 +1,6 @@
 package com.hk.commons.util;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
@@ -94,6 +95,31 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
                         : Map.Entry.comparingByValue())
                 .forEachOrdered(e -> finalMap.put(e.getKey(), e.getValue()));
         return finalMap;
+    }
+
+    /**
+     * 获取Map key 的 value值,如果不存在，返回 null
+     *
+     * @param map map
+     * @param key key
+     * @param <T>
+     * @return
+     */
+    public static <T> T getValue(Map<String, Object> map, Object key, Class<T> clazz) {
+        return getValueOrDefault(map, key, null, clazz);
+    }
+
+    /**
+     * 获取Map key 的 value值，如果不存在，返回 defaultValue
+     *
+     * @param map map
+     * @param key key
+     * @param <T>
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T getValueOrDefault(Map<String, Object> map, Object key, T defaultValue, Class<T> clazz) {
+        return isEmpty(map) ? defaultValue : clazz.cast(map.getOrDefault(key, defaultValue));
     }
 
     /**

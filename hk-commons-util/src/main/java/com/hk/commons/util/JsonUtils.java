@@ -1,8 +1,9 @@
 package com.hk.commons.util;
 
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import com.hk.commons.jackson.NullEmptyJsonSerializer;
 import com.hk.commons.util.date.DatePattern;
 
 import java.io.IOException;
@@ -30,6 +32,21 @@ public final class JsonUtils {
 
     private static ObjectMapper mapper;
 
+    private static final JavaTimeModule javaTimeModule;
+
+    static {
+        javaTimeModule = new JavaTimeModule();
+        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern())));
+        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern())));
+
+        javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD.getPattern())));
+        javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD.getPattern())));
+
+        javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.HH_MM_SS.getPattern())));
+        javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.HH_MM_SS.getPattern())));
+
+    }
+
     private static ObjectMapper getMapper() {
         if (mapper == null) {
             synchronized (JsonUtils.class) {
@@ -42,33 +59,27 @@ public final class JsonUtils {
         return mapper;
     }
 
-    private static void configure(ObjectMapper om) {
+    public static void configure(ObjectMapper om) {
 //        om.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 //        om.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 
         om.setDateFormat(new SimpleDateFormat(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern()));
+        om.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         // 空值处理为空串
-        om.getSerializerProvider()
-                .setNullValueSerializer(new JsonSerializer<Object>() {
-                    @Override
-                    public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-                        gen.writeString(StringUtils.EMPTY);
-                    }
-                });
+        om.getSerializerProvider().setNullValueSerializer(NullEmptyJsonSerializer.INSTANCE);
         // 设置输入时忽略在JSON字符串中存在但Java对象实际没有的属性
         om.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
         om.configure(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS, false);
-        JavaTimeModule module = new JavaTimeModule();
-        module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern())));
-        module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern())));
+        om.registerModule(javaTimeModule);
 
-        module.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD.getPattern())));
-        module.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD.getPattern())));
-
-        module.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.HH_MM_SS.getPattern())));
-        module.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.HH_MM_SS.getPattern())));
-        om.registerModule(module);
+        SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+        /**
+         * 忽略实体中的Hibernate getOne查询返回的  "handler", "hibernateLazyInitializer" 字段
+         *
+         */
+        filterProvider.addFilter("fieldFilter", SimpleBeanPropertyFilter.serializeAllExcept("handler", "hibernateLazyInitializer"));
+        om.setFilterProvider(filterProvider);
     }
 
     private static ObjectMapper indentMapper;
