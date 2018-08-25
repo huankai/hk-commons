@@ -74,7 +74,7 @@ public final class JsonUtils {
         om.registerModule(javaTimeModule);
 
         SimpleFilterProvider filterProvider = new SimpleFilterProvider();
-        /**
+        /*
          * 忽略实体中的Hibernate getOne查询返回的  "handler", "hibernateLazyInitializer" 字段
          *
          */

@@ -1,6 +1,5 @@
 package com.hk.commons.util;
 
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
@@ -56,13 +55,9 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     public static boolean containsAny(Collection<?> coll, Object... elements) {
-        if (isEmpty(coll)) {
-            return false;
-        }
-        if (ArrayUtils.isEmpty(elements)) {
-            return false;
-        }
-        return containsAny(coll, Arrays.asList(elements));
+        return isNotEmpty(coll)
+                && ArrayUtils.isNotEmpty(elements)
+                && containsAny(coll, Arrays.asList(elements));
     }
 
     /**
