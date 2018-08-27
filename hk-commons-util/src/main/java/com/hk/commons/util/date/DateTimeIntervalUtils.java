@@ -35,15 +35,15 @@ public abstract class DateTimeIntervalUtils {
     public static List<IntervalDate> getAllWeekList(LocalDateTime start, LocalDateTime end) {
         List<IntervalDate> result = new ArrayList<>();
         int index = 1;
-        LocalDateTime dayOfweekstart = start;
-        while (dayOfweekstart.isBefore(end)) {
-            LocalDateTime dayOfweekEnd = dayOfweekstart.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY))
+        LocalDateTime dayOfWeekStart = start;
+        while (dayOfWeekStart.isBefore(end)) {
+            LocalDateTime dayOfWeekEnd = dayOfWeekStart.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY))
                     .with(LocalTime.MAX);
-            if (dayOfweekEnd.isAfter(end)) {
-                dayOfweekEnd = end;
+            if (dayOfWeekEnd.isAfter(end)) {
+                dayOfWeekEnd = end;
             }
-            result.add(new IntervalDate(index++, dayOfweekstart, dayOfweekEnd));
-            dayOfweekstart = dayOfweekstart.with(TemporalAdjusters.next(DayOfWeek.MONDAY)).with(LocalTime.MIN);
+            result.add(new IntervalDate(index++, dayOfWeekStart, dayOfWeekEnd));
+            dayOfWeekStart = dayOfWeekStart.with(TemporalAdjusters.next(DayOfWeek.MONDAY)).with(LocalTime.MIN);
         }
         return result;
     }
@@ -89,7 +89,7 @@ public abstract class DateTimeIntervalUtils {
      *
      * @param start 开始时间
      * @param end   结束时间
-     * @return
+     * @return 两个时间段的所有年
      */
     public static List<IntervalDate> getAllYearList(LocalDateTime start, LocalDateTime end) {
         return getIntervalDateList(start, TemporalAdjusters.lastDayOfYear(), end, TemporalAdjusters.firstDayOfNextYear());
@@ -100,19 +100,19 @@ public abstract class DateTimeIntervalUtils {
      * @param lastDayOf  lastDayOf
      * @param end        end
      * @param firstDayOf firstDayOf
-     * @return
+     * @return IntervalDate
      */
     private static List<IntervalDate> getIntervalDateList(LocalDateTime start, TemporalAdjuster lastDayOf, LocalDateTime end, TemporalAdjuster firstDayOf) {
         List<IntervalDate> result = new ArrayList<>();
         int index = 1;
-        LocalDateTime dayOfweekstart = start;
-        while (dayOfweekstart.isBefore(end)) {
-            LocalDateTime dayOfweekEnd = dayOfweekstart.with(lastDayOf).with(LocalTime.MAX);
-            if (dayOfweekEnd.isAfter(end)) {
-                dayOfweekEnd = end;
+        LocalDateTime dayOfWeekStart = start;
+        while (dayOfWeekStart.isBefore(end)) {
+            LocalDateTime dayOfWeekEnd = dayOfWeekStart.with(lastDayOf).with(LocalTime.MAX);
+            if (dayOfWeekEnd.isAfter(end)) {
+                dayOfWeekEnd = end;
             }
-            result.add(new IntervalDate(index++, dayOfweekstart, dayOfweekEnd));
-            dayOfweekstart = dayOfweekstart.with(firstDayOf).with(LocalTime.MIN);
+            result.add(new IntervalDate(index++, dayOfWeekStart, dayOfWeekEnd));
+            dayOfWeekStart = dayOfWeekStart.with(firstDayOf).with(LocalTime.MIN);
         }
         return result;
     }

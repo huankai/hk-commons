@@ -160,6 +160,10 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
 
     }
 
+    public static int indexOf(final CharSequence seq, final CharSequence searchSeq) {
+        return org.apache.commons.lang3.StringUtils.indexOf(seq, searchSeq);
+    }
+
     /**
      * 不相等
      *
@@ -252,6 +256,17 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      */
     public static String substringBefore(String str, String separator) {
         return org.apache.commons.lang3.StringUtils.substringBefore(str, separator);
+    }
+
+    /**
+     * 根据查询的最后字符串截取之前部分
+     *
+     * @param str
+     * @param separator
+     * @return
+     */
+    public static String substringBeforeLast(String str, String separator) {
+        return org.apache.commons.lang3.StringUtils.substringBeforeLast(str, separator);
     }
 
     /**

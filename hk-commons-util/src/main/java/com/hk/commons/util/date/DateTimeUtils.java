@@ -24,8 +24,8 @@ public abstract class DateTimeUtils {
     /**
      * 返回 calendar所在天的开始时间
      *
-     * @param calendar
-     * @return
+     * @param calendar calendar
+     * @return calendar
      */
     public static Calendar getDateWithOutTime(Calendar calendar) {
         Calendar newDate = Calendar.getInstance();
@@ -60,8 +60,8 @@ public abstract class DateTimeUtils {
     /**
      * 日期转字符串, pattern is 'yyyy-MM-dd'
      *
-     * @param date
-     * @return
+     * @param date date
+     * @return sting
      */
     public static String dateToString(Date date) {
         return dateToString(date, DatePattern.YYYY_MM_DD);
@@ -70,9 +70,9 @@ public abstract class DateTimeUtils {
     /**
      * 日期转字符串 ,自定义pattern
      *
-     * @param date
-     * @param pattern
-     * @return
+     * @param date    date
+     * @param pattern pattern
+     * @return string pattern
      */
     public static String dateToString(Date date, DatePattern pattern) {
         return DateFormatUtils.format(date, pattern.getPattern());
@@ -81,8 +81,8 @@ public abstract class DateTimeUtils {
     /**
      * 字符串转日期
      *
-     * @param date
-     * @return
+     * @param date date
+     * @return date
      */
     public static Date stringToDate(String date) {
         return stringToDate(date, DatePattern.YYYY_MM_DD);
@@ -107,8 +107,8 @@ public abstract class DateTimeUtils {
     /**
      * 字符串转日期
      *
-     * @param date
-     * @return
+     * @param date date
+     * @return date
      */
     public static Date stringToDate(String date, DatePattern... patterns) {
         return stringToDate(date, null, patterns);
@@ -117,10 +117,10 @@ public abstract class DateTimeUtils {
     /**
      * 字符串转日期
      *
-     * @param date
-     * @param locale
-     * @param patterns
-     * @return
+     * @param date     date
+     * @param locale   local
+     * @param patterns patterns
+     * @return date
      */
     public static Date stringToDate(String date, Locale locale, DatePattern... patterns) {
         if (ArrayUtils.isEmpty(patterns)) {
@@ -136,9 +136,9 @@ public abstract class DateTimeUtils {
     /**
      * string To LocalDateTime
      *
-     * @param date
-     * @param pattern
-     * @return
+     * @param date    date
+     * @param pattern pattern
+     * @return localDateTime
      */
     public static LocalDateTime stringToLocalDateTime(String date, DatePattern pattern) {
         return LocalDateTime.parse(date, DateTimeFormatter.ofPattern(pattern.getPattern()));
@@ -147,9 +147,9 @@ public abstract class DateTimeUtils {
     /**
      * LocalDateTime To string
      *
-     * @param localDateTime
-     * @param pattern
-     * @return
+     * @param localDateTime localDateTime
+     * @param pattern       pattern
+     * @return string
      */
     public static String localDateTimeToString(LocalDateTime localDateTime, DatePattern pattern) {
         return localDateTime.format(DateTimeFormatter.ofPattern(pattern.getPattern()));
@@ -158,8 +158,8 @@ public abstract class DateTimeUtils {
     /**
      * Date To Calendar
      *
-     * @param date
-     * @return
+     * @param date date
+     * @return Calendar
      */
     public static Calendar dateToCalendar(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -170,8 +170,8 @@ public abstract class DateTimeUtils {
     /**
      * 获取指定年第一天
      *
-     * @param year
-     * @return
+     * @param year year
+     * @return Date
      */
     public static Date getYearMinDayToDate(int year) {
         return getYearMinDayToDate(LocalDate.ofYearDay(year, 1));
@@ -180,8 +180,8 @@ public abstract class DateTimeUtils {
     /**
      * 获取指定年第一天
      *
-     * @param localDateTime
-     * @return
+     * @param localDateTime localDateTime
+     * @return localDateTime
      */
     public static LocalDateTime getYearMinDay(LocalDateTime localDateTime) {
         return getYearMinDay(localDateTime.toLocalDate());
@@ -190,8 +190,8 @@ public abstract class DateTimeUtils {
     /**
      * 获取指定年第一天
      *
-     * @param localDate
-     * @return
+     * @param localDate localDate
+     * @return Date
      */
     public static Date getYearMinDayToDate(LocalDate localDate) {
         return Date.from(getYearMinDay(localDate).atZone(ZoneOffset.systemDefault()).toInstant());
@@ -200,8 +200,8 @@ public abstract class DateTimeUtils {
     /**
      * 获取指定年第一天
      *
-     * @param localDate
-     * @return
+     * @param localDate localDate
+     * @return LocalDateTime
      */
     public static LocalDateTime getYearMinDay(LocalDate localDate) {
         return localDate.with(TemporalAdjusters.firstDayOfYear()).atTime(LocalTime.MIN);
@@ -210,8 +210,8 @@ public abstract class DateTimeUtils {
     /**
      * 获取指定年第一天
      *
-     * @param year
-     * @return
+     * @param year year
+     * @return LocalDateTime
      */
     public static LocalDateTime getYearMinDay(int year) {
         return getYearMinDay(LocalDate.ofYearDay(year, 1));
@@ -220,8 +220,8 @@ public abstract class DateTimeUtils {
     /**
      * 获取指定年第一天
      *
-     * @param localDateTime
-     * @return
+     * @param localDateTime localDateTime
+     * @return Date
      */
     public static Date getYearMinDayToDate(LocalDateTime localDateTime) {
         return getYearMinDayToDate(localDateTime.toLocalDate());
@@ -230,8 +230,8 @@ public abstract class DateTimeUtils {
     /**
      * 获取指定年最后第一天
      *
-     * @param year
-     * @return
+     * @param year year
+     * @return Date
      */
     public static Date getYearMaxDayToDate(int year) {
         return getYearMaxDayToDate(LocalDate.ofYearDay(year, 1));
@@ -240,8 +240,8 @@ public abstract class DateTimeUtils {
     /**
      * 获取指定年最后一天
      *
-     * @param localDate
-     * @return
+     * @param localDate localDate
+     * @return Date
      */
     public static Date getYearMaxDayToDate(LocalDate localDate) {
         return localDateTimeToDate(getYearMaxDay(localDate));
@@ -250,8 +250,8 @@ public abstract class DateTimeUtils {
     /**
      * 获取指定年最后一天
      *
-     * @param year
-     * @return
+     * @param year year
+     * @return LocalDateTime
      */
     public static LocalDateTime getYearMaxDay(int year) {
         return getYearMaxDay(LocalDate.ofYearDay(year, 1));
@@ -260,8 +260,8 @@ public abstract class DateTimeUtils {
     /**
      * 获取指定年最后一天
      *
-     * @param localDate
-     * @return
+     * @param localDate localDate
+     * @return LocalDateTime
      */
     public static LocalDateTime getYearMaxDay(LocalDate localDate) {
         return localDate.with(TemporalAdjusters.lastDayOfYear()).atTime(LocalTime.MAX);
@@ -270,8 +270,8 @@ public abstract class DateTimeUtils {
     /**
      * 获取指定年最后一天
      *
-     * @param localDate
-     * @return
+     * @param localDate localDate
+     * @return Date
      */
     public static Date getYearMaxDayToDate(LocalDateTime localDate) {
         return getYearMaxDayToDate(localDate.toLocalDate());
@@ -280,8 +280,8 @@ public abstract class DateTimeUtils {
     /**
      * 返回日期所在年的最后一天
      *
-     * @param date
-     * @return
+     * @param date date
+     * @return date
      */
     public static Date getYearMaxDayToDate(Date date) {
         LocalDateTime dateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
@@ -292,8 +292,8 @@ public abstract class DateTimeUtils {
     /**
      * LocalDateTime To Date
      *
-     * @param localDateTime
-     * @return
+     * @param localDateTime localDateTime
+     * @return Date
      */
     public static Date localDateTimeToDate(LocalDateTime localDateTime) {
         return Date.from(localDateTime.atZone(ZoneOffset.systemDefault()).toInstant());
@@ -302,8 +302,8 @@ public abstract class DateTimeUtils {
     /**
      * 返回日期所在年的第一天
      *
-     * @param date
-     * @return
+     * @param date date
+     * @return date
      */
     public static Date getYearMinDay(Date date) {
         LocalDateTime dateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
@@ -314,8 +314,8 @@ public abstract class DateTimeUtils {
     /**
      * 返回日期所在月的最后天
      *
-     * @param date
-     * @return
+     * @param date date
+     * @return date
      */
     public static Date getMonthMaxDate(Date date) {
         LocalDateTime dateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
@@ -339,7 +339,7 @@ public abstract class DateTimeUtils {
      * 返回当前日期之前或之后的几天
      *
      * @param day (day > 0) 为之后， (day < 0) 为之前， (day == 0) 为当天日期
-     * @return
+     * @return Date
      */
     public static Date getDate(int day) {
         return DateUtils.addDays(Calendar.getInstance().getTime(), day);
@@ -349,7 +349,7 @@ public abstract class DateTimeUtils {
      * 返回当前日期之前或之后的几月
      *
      * @param month (day > 0) 为之后， (day < 0) 为之前， (day == 0) 为当天日期
-     * @return
+     * @return Date
      */
     public static Date getMonthDate(int month) {
         return DateUtils.addMonths(Calendar.getInstance().getTime(), month);
@@ -359,7 +359,7 @@ public abstract class DateTimeUtils {
      * 返回当前日期之前或之后的几年
      *
      * @param year (day > 0) 为之后， (day < 0) 为之前， (day == 0) 为当天日期
-     * @return
+     * @return Date
      */
     public static Date getYearDate(int year) {
         return DateUtils.addYears(Calendar.getInstance().getTime(), year);
