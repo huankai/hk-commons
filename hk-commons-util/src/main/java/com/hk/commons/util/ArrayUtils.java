@@ -2,6 +2,10 @@ package com.hk.commons.util;
 
 import org.springframework.util.ObjectUtils;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+
 /**
  * 数组工具类
  *
@@ -19,6 +23,11 @@ public abstract class ArrayUtils {
      */
     public static boolean noContains(final Object[] array, final Object objectToFind) {
         return !contains(array, objectToFind);
+    }
+
+    @SafeVarargs
+    public static <T> Collection<T> asList(T... args) {
+        return null == args ? Collections.emptyList() : Arrays.asList(args);
     }
 
     /**

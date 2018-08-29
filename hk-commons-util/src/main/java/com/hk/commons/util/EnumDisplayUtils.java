@@ -38,6 +38,23 @@ public abstract class EnumDisplayUtils {
     }
 
     /**
+     * @param enumClass enumClass
+     * @param order     order
+     * @param useI18n   useI18n
+     * @return enumText
+     */
+    public static String getDisplayText(Class<? extends Enum> enumClass, int order, boolean useI18n) {
+        Enum[] enumConstants = enumClass.getEnumConstants();
+        for (Enum enumConstant : enumConstants) {
+            EnumDisplay enumDisplay = getEnumDisplay(enumConstant);
+            if (enumDisplay.order() == order) {
+                return useI18n ? SpringContextHolder.getMessage(enumDisplay.value(), enumDisplay.value()) : enumDisplay.value();
+            }
+        }
+        return null;
+    }
+
+    /**
      * 获取EnumDisplay注解
      *
      * @param enumValue
@@ -81,9 +98,9 @@ public abstract class EnumDisplayUtils {
     /**
      *
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public static String getDisplayText(String enumValue, Class<? extends Enum> enumClass, boolean useI18n) {
-		Object value = Enum.valueOf(enumClass, enumValue);
+        Object value = Enum.valueOf(enumClass, enumValue);
         return getDisplayText(value, useI18n);
     }
 
