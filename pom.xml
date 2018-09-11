@@ -18,6 +18,7 @@
     <modules>
         <module>hk-commons-util</module>
         <module>hk-commons-poi</module>
+        <module>hk-commons-validator</module>
         <module>hk-commons-httpclient</module>
     </modules>
 

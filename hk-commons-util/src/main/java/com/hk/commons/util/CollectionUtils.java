@@ -15,8 +15,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     /**
      * 是否为一个空集合
      *
-     * @param coll
-     * @return
+     * @param coll coll
+     * @return boolean
      */
     public static boolean isNotEmpty(Collection<?> coll) {
         return !isEmpty(coll);
@@ -25,8 +25,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     /**
      * 是否为一个空Map
      *
-     * @param map
-     * @return
+     * @param map map
+     * @return boolean
      */
     public static boolean isNotEmpty(Map<?, ?> map) {
         return !isEmpty(map);
@@ -35,9 +35,9 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     /**
      * 如果 list2中的元素不能空，添加list2的元素添加到 list1中
      *
-     * @param list1
-     * @param list2
-     * @return
+     * @param list1 list1
+     * @param list2 list2
+     * @return boolean
      */
     public static <T> boolean addAll(Collection<T> list1, Collection<T> list2) {
         return isNotEmpty(list2) && list1.addAll(list2);
@@ -63,8 +63,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     /**
      * Map根据Value 从小到大排序
      *
-     * @param result
-     * @return
+     * @param result result
+     * @return Map
      */
     public static <V extends Comparable<? super V>> Map<String, V> sortMapByValue(Map<String, V> result) {
         return sortMapByValue(result, false);
@@ -75,9 +75,9 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
      * Map根据Value 排序
      * </pre>
      *
-     * @param result
+     * @param result   result
      * @param reversed 是否反转
-     * @return
+     * @return Map
      */
     public static <V extends Comparable<? super V>> Map<String, V> sortMapByValue(Map<String, V> result,
                                                                                   boolean reversed) {
@@ -93,12 +93,134 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     /**
+     * @param map map
+     * @param key key
+     * @return value
+     */
+    public static String getStringValue(Map<String, Object> map, Object key) {
+        return getValue(map, key, String.class);
+    }
+
+    /**
+     * @param map map
+     * @param key key
+     * @return value
+     */
+    public static String getStringValue(Map<String, Object> map, Object key, String defaultValue) {
+        return getValueOrDefault(map, key, defaultValue, String.class);
+    }
+
+    /**
+     * @param map map
+     * @param key key
+     * @return value
+     */
+    public static Boolean getBooleanValue(Map<String, Object> map, Object key) {
+        return getValue(map, key, Boolean.class);
+    }
+
+    /**
+     * @param map          map
+     * @param key          key
+     * @param defaultValue defaultValue
+     * @return defaultValue
+     */
+    public static Boolean getBooleanValue(Map<String, Object> map, Object key, Boolean defaultValue) {
+        return getValueOrDefault(map, key, defaultValue, Boolean.class);
+    }
+
+    /**
+     * @param map map
+     * @param key key
+     * @return value
+     */
+    public static Long getLongValue(Map<String, Object> map, Object key) {
+        return getValue(map, key, Long.class);
+    }
+
+    /**
+     * @param map map
+     * @param key key
+     * @return defaultValue defaultValue
+     */
+    public static Long getLongValue(Map<String, Object> map, Object key, Long defaultValue) {
+        return getValueOrDefault(map, key, defaultValue, Long.class);
+    }
+
+    /**
+     * @param map map
+     * @param key key
+     * @return value
+     */
+    public static Integer getIntegerValue(Map<String, Object> map, Object key) {
+        return getValue(map, key, Integer.class);
+    }
+
+    /**
+     * @param map          map
+     * @param key          key
+     * @param defaultValue defaultValue
+     * @return value
+     */
+    public static Integer getIntegerValue(Map<String, Object> map, Object key, Integer defaultValue) {
+        return getValueOrDefault(map, key, defaultValue, Integer.class);
+    }
+
+    /**
+     * @param map map
+     * @param key key
+     * @return value
+     */
+    public static Byte getByteValue(Map<String, Object> map, Object key) {
+        return getValue(map, key, Byte.class);
+    }
+
+    /**
+     * @param map map
+     * @param key key
+     * @return value
+     */
+    public static Byte getByteValue(Map<String, Object> map, Object key, Byte defaultValue) {
+        return getValueOrDefault(map, key, defaultValue, Byte.class);
+    }
+
+    /**
+     * @param map map
+     * @param key key
+     * @return value
+     */
+    public static Short getShortValue(Map<String, Object> map, Object key) {
+        return getValue(map, key, Short.class);
+    }
+
+    /**
+     * @param map map
+     * @param key key
+     * @return value
+     */
+    public static Short getByteValue(Map<String, Object> map, Object key, Short defaultValue) {
+        return getValueOrDefault(map, key, defaultValue, Short.class);
+    }
+
+
+    /**
      * 获取Map key 的 value值,如果不存在，返回 null
      *
      * @param map map
      * @param key key
-     * @param <T>
-     * @return
+     * @return Map
+     */
+    @SuppressWarnings("unchecked")
+    public static Map<String, Object> getMapValue(Map<String, Object> map, Object key) {
+        return getValue(map, key, Map.class);
+    }
+
+    /**
+     * 获取Map key 的 value值,如果不存在，返回 null
+     *
+     * @param map map
+     * @param key key
+     * @return T
      */
     public static <T> T getValue(Map<String, Object> map, Object key, Class<T> clazz) {
         return getValueOrDefault(map, key, null, clazz);
@@ -109,19 +231,29 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
      *
      * @param map map
      * @param key key
-     * @param <T>
-     * @return
+     * @return value
      */
     @SuppressWarnings("unchecked")
     public static <T> T getValueOrDefault(Map<String, Object> map, Object key, T defaultValue, Class<T> clazz) {
-        return isEmpty(map) ? defaultValue : clazz.cast(map.getOrDefault(key, defaultValue));
+        if (isEmpty(map)) {
+            return defaultValue;
+        }
+        Object value = map.get(key);
+        if (value == null) {
+            return defaultValue;
+        }
+        return ConverterUtils.getInstance().convert(value, clazz);
+//        if (value instanceof Number && Number.class.isAssignableFrom(clazz)) {
+//            return (T) NumberUtils.convertNumberToTargetClass((Number) value, (Class<? extends Number>) clazz);
+//        }
+//        return clazz.cast(value);
     }
 
     /**
      * Map根据Key 排序
      *
-     * @param result
-     * @return
+     * @param result result
+     * @return Map
      */
     public static <K extends Comparable<? super K>> Map<K, Object> sortMapByKey(Map<K, Object> result) {
         return sortMapByKey(result, false);
@@ -132,9 +264,9 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
      * Map根据Key 排序
      * </pre>
      *
-     * @param result
+     * @param result   result
      * @param reversed 是否反转
-     * @return
+     * @return Map
      */
     public static <K extends Comparable<? super K>> Map<K, Object> sortMapByKey(Map<K, Object> result,
                                                                                 boolean reversed) {
@@ -152,16 +284,16 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     /**
      * 过滤为空的可变数组元素，添加到指定集合
      *
-     * @param list1
-     * @param args
-     * @return
+     * @param coll coll
+     * @param args args
+     * @return Map
      */
     @SafeVarargs
-    public static <T> void addAllNotNull(Collection<T> list1, final T... args) {
+    public static <T> void addAllNotNull(Collection<T> coll, final T... args) {
         if (ArrayUtils.isNotEmpty(args)) {
             for (T t : args) {
                 if (Objects.nonNull(t)) {
-                    list1.add(t);
+                    coll.add(t);
                 }
             }
         }
@@ -170,18 +302,18 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     /**
      * 获取集合第一个元素
      *
-     * @param coll
-     * @return
+     * @param coll coll
+     * @return Map
      */
-    public static <T> T getFristOrDefault(Collection<T> coll) {
+    public static <T> T getFirstOrDefault(Collection<T> coll) {
         return isEmpty(coll) ? null : coll.iterator().next();
     }
 
     /**
      * 多个Map的值合并成一个map
      *
-     * @param values
-     * @return
+     * @param values values
+     * @return Map
      */
     @SafeVarargs
     public static Map<String, Integer> addOrMergeIntegerValues(Map<String, Integer>... values) {
@@ -206,8 +338,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     /**
      * 多个Map的值合并成一个map
      *
-     * @param values
-     * @return
+     * @param values values
+     * @return Map
      */
     @SafeVarargs
     public static Map<String, Double> addOrMergeDoubleValues(Map<String, Double>... values) {
@@ -232,8 +364,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     /**
      * 多个Map的值合并成一个map
      *
-     * @param values
-     * @return
+     * @param values values
+     * @return Map
      */
     @SafeVarargs
     public static Map<String, Long> addOrMergeLongValues(Map<String, Long>... values) {
@@ -258,8 +390,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     /**
      * 多个Map的值合并成一个map
      *
-     * @param values
-     * @return
+     * @param values values
+     * @return Map
      */
     @SafeVarargs
     public static Map<String, BigDecimal> addOrMergeBigDecimalValues(Map<String, BigDecimal>... values) {
@@ -284,8 +416,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     /**
      * 多个Map的值合并成一个map
      *
-     * @param values
-     * @return
+     * @param values values
+     * @return Map
      */
     @SafeVarargs
     public static Map<String, BigInteger> addOrMergeBigIntegerValues(Map<String, BigInteger>... values) {

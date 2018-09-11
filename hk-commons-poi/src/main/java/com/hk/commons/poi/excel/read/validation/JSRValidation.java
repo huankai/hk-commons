@@ -32,7 +32,7 @@ public class JSRValidation<T> implements Validationable<T> {
     private final Class<?>[] groups;
 
     /**
-     * @param groups
+     * @param groups groups
      */
     public JSRValidation(Class<?>... groups) {
         this.groups = (null == groups) ? new Class<?>[]{} : groups;

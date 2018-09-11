@@ -24,14 +24,14 @@ import java.util.Map;
  */
 abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
 
-    protected Logger logger = LoggerFactory.getLogger(getClass());
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * 转换的Bean 类
      */
     protected final Class<T> beanClazz;
 
-    protected AbstractReadExcel(ReadParam<T> readParam) {
+    AbstractReadExcel(ReadParam<T> readParam) {
         AssertUtils.notNull(readParam, "ReadParam must not be null");
         AssertUtils.isTrue(readParam.getTitleRow() < readParam.getDataStartRow(), "标题行必须小于数据开始行");
         this.beanClazz = readParam.getBeanClazz();
@@ -82,7 +82,7 @@ abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
     /**
      * 从流中创建解析文件处理器
      *
-     * @param in
+     * @param in in
      * @return {@link ReadHandler}
      */
     protected abstract ReadHandler<T> createReadableHandler(InputStream in) throws IOException;
@@ -90,7 +90,7 @@ abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
     /**
      * 从File中创建解析文件处理器
      *
-     * @param file
+     * @param file file
      * @return {@link ReadHandler}
      */
     protected abstract ReadHandler<T> createReadableHandler(File file) throws IOException;
@@ -98,7 +98,7 @@ abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
     /**
      * 字段列与属性的映射
      *
-     * @return
+     * @return {@link ColumnProperty}
      */
     protected abstract ColumnProperty getColumnProperty();
 

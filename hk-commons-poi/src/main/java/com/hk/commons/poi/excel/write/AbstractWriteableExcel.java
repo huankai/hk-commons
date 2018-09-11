@@ -21,13 +21,6 @@ public abstract class AbstractWriteableExcel<T> implements WriteableExcel<T> {
 		this.writeableHandler = writeableHandler;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.hk.commons.poi.excel.write.WriteableExcel#write(com.hk.commons.poi.excel.
-	 * model.WriteParam, java.io.OutputStream)
-	 */
 	@Override
 	public void write(WriteParam<T> param, OutputStream out) {
 		writeableHandler.write(createWorkbook(), param, out);

@@ -20,11 +20,6 @@ public final class XSSFWriteableExcel<T> extends AbstractWriteableExcel<T> {
 		super(writeableHandler);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.hk.commons.poi.excel.write.AbstractWriteableExcel#createWorkbook()
-	 */
 	@Override
 	protected Workbook createWorkbook() {
 		return new XSSFWorkbook();

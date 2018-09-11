@@ -21,6 +21,8 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
 
     private static final Pattern LINE_PATTERN = Pattern.compile("_(\\w)");
 
+    public static final String LF = org.apache.commons.lang3.StringUtils.LF;
+
     /**
      * 下划线转小驼峰
      *

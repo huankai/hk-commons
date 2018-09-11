@@ -152,9 +152,8 @@ public abstract class AbstractReadHandler<T> {
         if (readParam.isTrim()) {
             result = StringUtils.trimToNull(result);
         }
-        if (readParam.isIngoreLineBreak()) {
-            StringUtils.replace(result, "\t", StringUtils.EMPTY);
-//            result = StringUtils.replaceAll(result, StringUtils.LF, StringUtils.EMPTY);
+        if (StringUtils.isNotEmpty(result) && readParam.isIgnoreLineBreak()) {
+            StringUtils.replace(result, StringUtils.LF, StringUtils.EMPTY);
         }
         return result;
     }

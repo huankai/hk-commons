@@ -42,6 +42,40 @@ public abstract class ArrayUtils {
     }
 
     /**
+     * 包含
+     *
+     * @param array
+     * @param objectToFind
+     * @return
+     */
+    public static boolean contains(final int[] array, final int objectToFind) {
+        return org.apache.commons.lang3.ArrayUtils.contains(array, objectToFind);
+    }
+
+    /**
+     * 包含
+     *
+     * @param array
+     * @param objectToFind
+     * @return
+     */
+    public static boolean contains(final byte[] array, final byte objectToFind) {
+        return org.apache.commons.lang3.ArrayUtils.contains(array, objectToFind);
+    }
+
+    /**
+     * 包含
+     *
+     * @param array
+     * @param objectToFind
+     * @return
+     */
+    public static boolean contains(final long[] array, final long objectToFind) {
+        return org.apache.commons.lang3.ArrayUtils.contains(array, objectToFind);
+    }
+
+
+    /**
      * 数组是否为空
      *
      * @param array

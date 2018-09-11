@@ -1,5 +1,6 @@
 package com.hk.commons.poi.excel.model;
 
+import com.hk.commons.util.CollectionUtils;
 import com.hk.commons.util.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -120,7 +121,7 @@ public class ReadResult<T> implements Serializable {
      * @return
      */
     public boolean hasErrors() {
-        return !errorLogList.isEmpty();
+        return CollectionUtils.isNotEmpty(errorLogList);
     }
 
 

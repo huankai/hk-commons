@@ -198,7 +198,7 @@ public class CustomCellStyle implements StyleSheet {
     /**
      * 设置上、下、左、右边框
      *
-     * @param border
+     * @param border border
      */
     public void setBorder(BorderStyle border) {
         this.borderTop = border;
@@ -210,7 +210,7 @@ public class CustomCellStyle implements StyleSheet {
     /**
      * 设置上、下、左、右边框颜色
      *
-     * @param borderColor
+     * @param borderColor borderColor
      */
     public void setBorderColor(short borderColor) {
         this.borderTopColor = borderColor;
@@ -222,8 +222,8 @@ public class CustomCellStyle implements StyleSheet {
     /**
      * 构建Excel单元格样式
      *
-     * @param workbook
-     * @param dataFormat
+     * @param workbook workbook
+     * @param dataFormat dataFormat
      * @return
      */
     public CellStyle toCellStyle(Workbook workbook, DataFormat dataFormat) {

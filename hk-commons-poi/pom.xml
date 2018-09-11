@@ -17,13 +17,13 @@
     <properties>
         <poi.version>3.17</poi.version>
         <lombok.version>1.18.0</lombok.version>
-        <hibrenate.validator.version>6.0.10.Final</hibrenate.validator.version>
+
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.hk</groupId>
-            <artifactId>hk-commons-util</artifactId>
+            <artifactId>hk-commons-validator</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -34,11 +34,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>${hibrenate.validator.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.apache.poi</groupId>

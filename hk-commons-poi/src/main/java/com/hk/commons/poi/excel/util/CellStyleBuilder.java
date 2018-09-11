@@ -19,10 +19,10 @@ public abstract class CellStyleBuilder {
 	/**
 	 * 创建单元格样式
 	 * 
-	 * @param workbook
-	 * @param style
-	 * @param dataFormat
-	 * @return
+	 * @param workbook workbook
+	 * @param style style
+	 * @param dataFormat dataFormat
+	 * @return CellStyle
 	 */
 	public static CellStyle buildCellStyle(Workbook workbook, CustomCellStyle style,
 			com.hk.commons.poi.excel.model.DataFormat dataFormat) {
@@ -78,9 +78,9 @@ public abstract class CellStyleBuilder {
 	/**
 	 * 创建单元格字体，并设置样式
 	 * 
-	 * @param workbook
-	 * @param style
-	 * @return
+	 * @param workbook workbook
+	 * @param style style
+	 * @return Font
 	 */
 	private static Font createFont(Workbook workbook, CustomCellStyle style) {
 		Font font = workbook.createFont();
