@@ -13,3 +13,5 @@
 	更多例子请点击 [这里](https://github.com/huankai/hk-examples/tree/master/hk-poi-example)
 
 - hk-commons-httpclient : apache http-client 封装
+
+- hk-commons-validator : JSR-303验证
