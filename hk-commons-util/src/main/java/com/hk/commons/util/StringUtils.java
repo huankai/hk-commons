@@ -1,5 +1,6 @@
 package com.hk.commons.util;
 
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,8 +27,8 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * 下划线转小驼峰
      *
-     * @param str
-     * @return
+     * @param str str
+     * @return String
      */
     public static String lineToSmallHump(String str) {
         return lineToHump(uncapitalize(str));
@@ -53,20 +54,36 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * 与任意字符串比较，如果只要有一个相同的，返回 true,否则返回false
      *
-     * @param cs1
-     * @param charSequences
-     * @return
+     * @param cs1           cs1
+     * @param charSequences charSequences
+     * @return boolean
      */
     public static boolean equalsAny(CharSequence cs1, CharSequence... charSequences) {
         return org.apache.commons.lang3.StringUtils.equalsAny(cs1, charSequences);
     }
 
     /**
+     * @param s s
+     * @return byte[]
+     */
+    public static byte[] getByteUtf8(String s) {
+        return isEmpty(s) ? null : s.getBytes(StandardCharsets.UTF_8);
+    }
+
+    /**
+     * @param bytes bytes
+     * @return String
+     */
+    public static String newStringIso8859_1(byte[] bytes) {
+        return new String(bytes, StandardCharsets.ISO_8859_1);
+    }
+
+    /**
      * 与任意字符串忽略大小写比较，如果只要有一个相同的，返回 true,否则返回false
      *
-     * @param cs1
-     * @param charSequences
-     * @return
+     * @param cs1           cs1
+     * @param charSequences charSequences
+     * @return boolean
      */
     public static boolean equalsAnyIgnoreCase(CharSequence cs1, CharSequence... charSequences) {
         return org.apache.commons.lang3.StringUtils.equalsAnyIgnoreCase(cs1, charSequences);
@@ -79,7 +96,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * @return
      */
     public static <T extends CharSequence> T defaultIfBlank(final T str, final T defaultStr) {
-        return org.apache.commons.lang3.StringUtils.defaultIfBlank(str, defaultStr);
+        return isBlank(str) ? defaultStr : str;
     }
 
     /**
@@ -89,7 +106,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * @return
      */
     public static <T extends CharSequence> T defaultIfEmpty(final T str, final T defaultStr) {
-        return org.apache.commons.lang3.StringUtils.defaultIfEmpty(str, defaultStr);
+        return isEmpty(str) ? defaultStr : str;
     }
 
     /**
@@ -229,9 +246,9 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * 截取字符串
      *
-     * @param str
-     * @param start
-     * @return
+     * @param str   str
+     * @param start start
+     * @return String
      */
     public static String substring(String str, int start) {
         return org.apache.commons.lang3.StringUtils.substring(str, start);
@@ -240,10 +257,10 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * 截取字符串
      *
-     * @param str
-     * @param start
-     * @param end
-     * @return
+     * @param str   str
+     * @param start start
+     * @param end   end
+     * @return String
      */
     public static String substring(String str, int start, int end) {
         return org.apache.commons.lang3.StringUtils.substring(str, start, end);
@@ -252,9 +269,9 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * 截取之前部分
      *
-     * @param str
-     * @param separator
-     * @return
+     * @param str       str
+     * @param separator separator
+     * @return String
      */
     public static String substringBefore(String str, String separator) {
         return org.apache.commons.lang3.StringUtils.substringBefore(str, separator);
@@ -263,9 +280,9 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * 根据查询的最后字符串截取之前部分
      *
-     * @param str
-     * @param separator
-     * @return
+     * @param str       str
+     * @param separator separator
+     * @return String
      */
     public static String substringBeforeLast(String str, String separator) {
         return org.apache.commons.lang3.StringUtils.substringBeforeLast(str, separator);
@@ -274,9 +291,9 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * 截取之后部分
      *
-     * @param str
-     * @param separator
-     * @return
+     * @param str       str
+     * @param separator separator
+     * @return String
      */
     public static String substringAfter(String str, String separator) {
         return org.apache.commons.lang3.StringUtils.substringAfter(str, separator);
@@ -289,8 +306,8 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * trim To Null
      *
-     * @param str
-     * @return
+     * @param str str
+     * @return String
      */
     public static String trimToNull(String str) {
         return org.apache.commons.lang3.StringUtils.trimToNull(str);
@@ -299,8 +316,8 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * trim To Empty
      *
-     * @param str
-     * @return
+     * @param str str
+     * @return String
      */
     public static String trimToEmpty(String str) {
         return org.apache.commons.lang3.StringUtils.trimToEmpty(str);
