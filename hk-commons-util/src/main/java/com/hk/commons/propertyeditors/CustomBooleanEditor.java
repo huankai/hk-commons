@@ -8,7 +8,7 @@ import org.springframework.beans.BeanWrapper;
  * BeanWraper Editor
  *
  * @author: kevin
- * @date 2018-05-08 09:55
+ * @date: 2018-05-08 09:55
  * @see com.hk.commons.util.BeanWrapperUtils#registryDefaultEditor(BeanWrapper)
  */
 public class CustomBooleanEditor extends org.springframework.beans.propertyeditors.CustomBooleanEditor {

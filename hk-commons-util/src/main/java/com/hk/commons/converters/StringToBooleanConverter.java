@@ -6,7 +6,7 @@ import com.hk.commons.util.BooleanUtils;
  * String 转换为Boolean 类型
  *
  * @author: kevin
- * @date 2017年9月1日上午11:29:54
+ * @date: 2017年9月1日上午11:29:54
  */
 public class StringToBooleanConverter extends StringGenericConverter<Boolean> {
 

@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 /**
  * @author: kevin
- * @date 2018年1月10日下午3:41:13
+ * @date: 2018年1月10日下午3:41:13
  */
 public interface ReadableExcel<T> {
 

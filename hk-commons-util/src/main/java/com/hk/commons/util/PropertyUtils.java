@@ -7,7 +7,7 @@ import org.springframework.beans.PropertyAccessorFactory;
  * 属性工具类
  *
  * @author: kevin
- * @date 2017年9月1日下午1:31:52
+ * @date: 2017年9月1日下午1:31:52
  */
 public abstract class PropertyUtils {
 

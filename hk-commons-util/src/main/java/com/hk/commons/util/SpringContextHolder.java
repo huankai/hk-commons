@@ -10,7 +10,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
  * @author: kevin
- * @date 2018-04-16 09:41
+ * @date: 2018-04-16 09:41
  */
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
 

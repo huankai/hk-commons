@@ -4,7 +4,7 @@ package com.hk.commons.util;
  * Boolean工具类
  *
  * @author: kevin
- * @date 2017年9月12日上午10:05:40
+ * @date: 2017年9月12日上午10:05:40
  */
 public abstract class BooleanUtils extends org.apache.commons.lang3.BooleanUtils {
 

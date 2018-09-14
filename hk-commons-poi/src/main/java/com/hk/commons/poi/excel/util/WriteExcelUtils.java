@@ -23,7 +23,7 @@ import java.util.Map.Entry;
  * 导出Excel工具类
  *
  * @author: kevin
- * @date 2017年9月15日下午1:28:06
+ * @date: 2017年9月15日下午1:28:06
  */
 public abstract class WriteExcelUtils {
 

@@ -8,7 +8,7 @@ import java.util.List;
  * 解析数据时出现的异常，记录每个单元格的错误信息
  *
  * @author: kevin
- * @date 2017年9月11日下午5:42:52
+ * @date: 2017年9月11日下午5:42:52
  */
 @SuppressWarnings("serial")
 public class InvalidCellReadableExcelException extends ExcelReadException {

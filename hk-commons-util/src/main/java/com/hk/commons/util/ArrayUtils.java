@@ -10,7 +10,7 @@ import java.util.Collections;
  * 数组工具类
  *
  * @author: kevin
- * @date 2017年9月1日下午1:36:28
+ * @date: 2017年9月1日下午1:36:28
  */
 public abstract class ArrayUtils {
 

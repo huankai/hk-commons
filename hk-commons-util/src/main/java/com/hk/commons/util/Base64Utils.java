@@ -9,7 +9,7 @@ import org.apache.commons.io.IOUtils;
 
 /**
  * @author: kevin
- * @date 2017年11月18日下午5:38:23
+ * @date: 2017年11月18日下午5:38:23
  */
 public abstract class Base64Utils extends org.springframework.util.Base64Utils {
 

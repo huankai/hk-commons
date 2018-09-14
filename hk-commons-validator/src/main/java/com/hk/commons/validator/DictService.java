@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @author: kevin
- * @date 2018-08-31 14:10
+ * @date: 2018-08-31 14:10
  */
 public interface DictService {
 

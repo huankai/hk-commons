@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 /**
  * @author: kevin
- * @date 2018-05-30 11:17
+ * @date: 2018-05-30 11:17
  */
 public class FileUtils extends org.apache.commons.io.FileUtils {
 

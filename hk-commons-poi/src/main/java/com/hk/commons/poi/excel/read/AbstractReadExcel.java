@@ -104,7 +104,7 @@ abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
 
     /**
      * @author: kevin
-     * @date 2018年1月11日上午11:39:42
+     * @date: 2018年1月11日上午11:39:42
      */
     @FunctionalInterface
     interface ColumnProperty {
@@ -117,7 +117,7 @@ abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
      * 使用注解解析
      *
      * @author: kevin
-     * @date 2018年1月11日上午11:44:24
+     * @date: 2018年1月11日上午11:44:24
      */
     protected class AnnotationColumnProperty implements ColumnProperty {
 

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * String 相关工具类
  *
  * @author: kevin
- * @date 2017年8月30日下午1:15:35
+ * @date: 2017年8月30日下午1:15:35
  */
 public abstract class StringUtils extends org.springframework.util.StringUtils {
 

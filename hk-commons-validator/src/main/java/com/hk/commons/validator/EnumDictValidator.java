@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author: kevin
- * @date 2018-08-31 10:57
+ * @date: 2018-08-31 10:57
  */
 public class EnumDictValidator implements ConstraintValidator<EnumDict, Byte> {
 

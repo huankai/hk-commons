@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * 读取Excel 注解
  * 
  * @author: kevin
- * @date 2018年1月10日下午3:38:32
+ * @date: 2018年1月10日下午3:38:32
  */
 @Retention(RUNTIME)
 @Target({ FIELD })

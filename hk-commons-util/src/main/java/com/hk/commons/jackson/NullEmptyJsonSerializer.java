@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  * @author: kevin
- * @date 2018-08-20 13:09
+ * @date: 2018-08-20 13:09
  */
 public class NullEmptyJsonSerializer extends JsonSerializer<Object> {
 

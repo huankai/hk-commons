@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 /**
  * 
  * @author: kevin
- * @date 2017年09月18日上午9:16:49
+ * @date: 2017年09月18日上午9:16:49
  */
 public class ThreadLocalUtils {
 

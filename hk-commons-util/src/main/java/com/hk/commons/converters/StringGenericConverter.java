@@ -15,7 +15,7 @@ import java.util.Set;
  *
  * @param <T>
  * @author: kevin
- * @date 2017年9月1日上午11:35:56
+ * @date: 2017年9月1日上午11:35:56
  */
 public abstract class StringGenericConverter<T> implements GenericConverter {
 

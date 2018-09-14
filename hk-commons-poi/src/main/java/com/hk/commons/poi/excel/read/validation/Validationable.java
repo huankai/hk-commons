@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @param <T>
  * @author: kevin
- * @date 2018年1月10日下午5:21:46
+ * @date: 2018年1月10日下午5:21:46
  */
 public interface Validationable<T> {
 

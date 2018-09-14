@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * 解析Excel 结果
  *
  * @author: kevin
- * @date 2018年1月10日下午3:41:43
+ * @date: 2018年1月10日下午3:41:43
  */
 @SuppressWarnings("serial")
 public class ReadResult<T> implements Serializable {

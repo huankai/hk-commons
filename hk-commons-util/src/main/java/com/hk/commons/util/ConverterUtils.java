@@ -12,7 +12,7 @@ import org.springframework.core.convert.support.DefaultConversionService;
  * 转换工具类
  *
  * @author: kevin
- * @date 2017年8月30日上午10:39:23
+ * @date: 2017年8月30日上午10:39:23
  */
 public class ConverterUtils {
 

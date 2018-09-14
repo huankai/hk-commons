@@ -8,7 +8,7 @@ import java.util.*;
  * 集合工具类
  *
  * @author kevin
- * @date 2017年9月1日下午1:31:18
+ * @date: 2017年9月1日下午1:31:18
  */
 public abstract class CollectionUtils extends org.springframework.util.CollectionUtils {
 

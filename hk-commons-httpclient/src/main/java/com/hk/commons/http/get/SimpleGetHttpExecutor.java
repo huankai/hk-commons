@@ -6,7 +6,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 /**
  * Get请求
  * @author: kevin
- * @date 2017年9月28日上午9:31:04
+ * @date: 2017年9月28日上午9:31:04
  */
 public class SimpleGetHttpExecutor extends AbstractGetHttpExecutor<String> {
 	

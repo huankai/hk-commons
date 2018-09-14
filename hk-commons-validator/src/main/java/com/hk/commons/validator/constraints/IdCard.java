@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * @author: kevin
- * @date 2018-08-31 10:51
+ * @date: 2018-08-31 10:51
  */
 @Documented
 @Target({METHOD, FIELD})

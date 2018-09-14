@@ -10,7 +10,7 @@ import static com.hk.commons.util.date.DateTimeUtils.stringToDate;
  * String 转换为日期
  *
  * @author: kevin
- * @date 2017年9月1日上午11:34:17
+ * @date: 2017年9月1日上午11:34:17
  */
 public class StringToDateConverter extends StringGenericConverter<Date> {
 
