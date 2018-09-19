@@ -17,32 +17,32 @@ import java.util.Map;
 
 /**
  * POST请求
- * 
+ *
  * @author: kevin
  * @date: 2017年9月28日上午9:31:16
  */
 public class SimplePostHttpExecutor extends AbstractPostHttpExecutor<String, Map<String, Object>> {
 
-	public SimplePostHttpExecutor() {
-		super(BASIC_HANDLER);
-	}
+    public SimplePostHttpExecutor() {
+        super(BASIC_HANDLER);
+    }
 
-	public SimplePostHttpExecutor(CloseableHttpClient httpClient, ResponseHandler<String> responseHandler) {
-		super(httpClient, responseHandler);
-	}
+    public SimplePostHttpExecutor(CloseableHttpClient httpClient, ResponseHandler<String> responseHandler) {
+        super(httpClient, responseHandler);
+    }
 
-	@Override
-	public HttpEntity generateEntity(Map<String, Object> params) {
-		List<NameValuePair> nvps = new ArrayList<>();
-		if (CollectionUtils.isNotEmpty(params)) {
-			for (Map.Entry<String, Object> entry : params.entrySet()) {
-				String value = ConverterUtils.getInstance().convert(entry.getValue(), String.class);
-				if (StringUtils.isNotBlank(value)) {
-					nvps.add(new BasicNameValuePair(entry.getKey(), value));
-				}
-			}
-		}
-		return new UrlEncodedFormEntity(nvps, Consts.UTF_8);
-	}
+    @Override
+    public HttpEntity generateEntity(Map<String, Object> params) {
+        List<NameValuePair> nvps = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(params)) {
+            for (Map.Entry<String, Object> entry : params.entrySet()) {
+                String value = ConverterUtils.getInstance().convert(entry.getValue(), String.class);
+                if (StringUtils.isNotEmpty(value)) {
+                    nvps.add(new BasicNameValuePair(entry.getKey(), value));
+                }
+            }
+        }
+        return new UrlEncodedFormEntity(nvps, Consts.UTF_8);
+    }
 
 }

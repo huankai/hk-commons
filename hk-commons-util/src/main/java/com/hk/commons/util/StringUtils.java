@@ -1,5 +1,10 @@
 package com.hk.commons.util;
 
+import org.springframework.core.io.UrlResource;
+
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -321,6 +326,30 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      */
     public static String trimToEmpty(String str) {
         return org.apache.commons.lang3.StringUtils.trimToEmpty(str);
+    }
+
+    /**
+     * @param url url
+     * @return URL
+     */
+    public static URL toURL(String url) {
+        try {
+            return new URL(url);
+        } catch (MalformedURLException e) {
+            throw new IllegalArgumentException("Failed to create uri for : " + url);
+        }
+    }
+
+    /**
+     * @param url url
+     * @return UrlResource
+     */
+    public static UrlResource createResource(String url) {
+        try {
+            return new UrlResource(url);
+        } catch (MalformedURLException e) {
+            throw new IllegalArgumentException("Failed to create uri for : " + url);
+        }
     }
 
 }
