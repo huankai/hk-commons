@@ -3,8 +3,8 @@ package com.hk.commons.util;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * 数组工具类
@@ -26,7 +26,7 @@ public abstract class ArrayUtils {
     }
 
     @SafeVarargs
-    public static <T> Collection<T> asList(T... args) {
+    public static <T> List<T> asList(T... args) {
         return null == args ? Collections.emptyList() : Arrays.asList(args);
     }
 
