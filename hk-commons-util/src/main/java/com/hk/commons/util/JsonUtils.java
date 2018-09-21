@@ -30,6 +30,8 @@ import java.util.List;
  */
 public final class JsonUtils {
 
+    public static final String IGNORE_ENTITY_SERIALIZE_FIELD_FILTER_ID = "fieldFilter";
+
     private static ObjectMapper mapper;
 
     private static final JavaTimeModule JAVA_TIME_MODULE;
@@ -78,7 +80,7 @@ public final class JsonUtils {
          * 忽略实体中的Hibernate getOne查询返回的  "handler", "hibernateLazyInitializer" 字段
          *
          */
-        filterProvider.addFilter("fieldFilter", SimpleBeanPropertyFilter.serializeAllExcept("handler", "hibernateLazyInitializer"));
+        filterProvider.addFilter(IGNORE_ENTITY_SERIALIZE_FIELD_FILTER_ID, SimpleBeanPropertyFilter.serializeAllExcept("handler", "hibernateLazyInitializer"));
         om.setFilterProvider(filterProvider);
     }
 
