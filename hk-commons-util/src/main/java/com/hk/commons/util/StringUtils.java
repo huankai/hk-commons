@@ -3,7 +3,6 @@ package com.hk.commons.util;
 import org.springframework.core.io.UrlResource;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
@@ -118,7 +117,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * <p>
      * 判断是否不为 null or  ""
      * </p>
-     *
+     * <p>
      * <pre>
      * StringUtils.isNotEmpty(null)      = false
      * StringUtils.isNotEmpty("")        = false
@@ -231,6 +230,18 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      */
     public static boolean contains(CharSequence seq, CharSequence searchSeq) {
         return org.apache.commons.lang3.StringUtils.contains(seq, searchSeq);
+    }
+
+    /**
+     * 是否包含指定字符串
+     * contains
+     *
+     * @param seq
+     * @param searchSeq
+     * @return
+     */
+    public static boolean containsIgnoreCase(CharSequence seq, CharSequence searchSeq) {
+        return org.apache.commons.lang3.StringUtils.containsIgnoreCase(seq, searchSeq);
     }
 
     /**
