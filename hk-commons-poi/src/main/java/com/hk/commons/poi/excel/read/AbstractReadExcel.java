@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.util.Map;
 
 /**
- * @author kevin
+ * @author: kevin
  */
 abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
 

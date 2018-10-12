@@ -41,6 +41,10 @@ public abstract class ArrayUtils {
         return org.apache.commons.lang3.ArrayUtils.contains(array, objectToFind);
     }
 
+    public static <T> T getFirstOrDefault(T[] arr) {
+        return isEmpty(arr) ? null : arr[0];
+    }
+
     /**
      * 包含
      *

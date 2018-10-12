@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * 与Bean相关的工具类
  *
- * @author kevin
+ * @author: kevin
  * @date: 2017年9月12日上午10:01:39
  */
 public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
@@ -37,10 +37,11 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
      * Bean to Map
      *
      * @param obj
+     * @param ignoreProperties
      * @return
      */
-    public static Map<String, Object> beanToMap(Object obj) {
-        return beanToMap(obj, false);
+    public static Map<String, Object> beanToMap(Object obj, String... ignoreProperties) {
+        return beanToMap(obj, false, ignoreProperties);
     }
 
     /**
@@ -48,13 +49,17 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
      * @param containsNullValue
      * @return
      */
-    public static Map<String, Object> beanToMap(Object obj, boolean containsNullValue) {
-        BeanWrapper beanWrapper = BeanWrapperUtils.createBeanWrapper(obj);
+    public static Map<String, Object> beanToMap(Object obj, boolean containsNullValue, String... ignoreProperties) {
         Map<String, Object> result = new HashMap<>();
+        if (null == obj) {
+            return result;
+        }
+        BeanWrapper beanWrapper = BeanWrapperUtils.createBeanWrapper(obj);
         for (PropertyDescriptor descriptor : beanWrapper.getPropertyDescriptors()) {
-            Object value = beanWrapper.getPropertyValue(descriptor.getName());
-            if (value != null || containsNullValue) {
-                result.put(descriptor.getName(), value);
+            String name = descriptor.getName();
+            Object value = beanWrapper.getPropertyValue(name);
+            if ((value != null || containsNullValue) && ArrayUtils.noContains(ignoreProperties, name)) {
+                result.put(name, value);
             }
         }
         return result;

@@ -15,7 +15,7 @@
     </parent>
 
     <properties>
-        <spring.version>5.0.7.RELEASE</spring.version>
+        <spring.version>5.0.9.RELEASE</spring.version>
         <jackson.version>2.9.6</jackson.version>
         <comons.lang.version>3.7</comons.lang.version>
         <comons.io.version>2.6</comons.io.version>
