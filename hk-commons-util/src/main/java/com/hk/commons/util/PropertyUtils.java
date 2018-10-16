@@ -14,8 +14,8 @@ public abstract class PropertyUtils {
 	/**
 	 * 获取属性类型，包括父类属性
 	 *
-	 * @param beanClazz
-	 * @param propertyName
+	 * @param beanClazz beanClazz
+	 * @param propertyName propertyName
 	 *            属性名称
 	 * @return
 	 * @throws IllegalArgumentException
@@ -27,8 +27,8 @@ public abstract class PropertyUtils {
 	/**
 	 * 获取属性名称值
 	 *
-	 * @param bean
-	 * @param propertyName
+	 * @param bean bean
+	 * @param propertyName propertyName
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -40,9 +40,9 @@ public abstract class PropertyUtils {
 	/**
 	 * 设置属性值
 	 *
-	 * @param bean
-	 * @param propertyName
-	 * @param value
+	 * @param bean bean
+	 * @param propertyName propertyName
+	 * @param value value
 	 */
 	public static void setPropertyValue(final Object bean, String propertyName, Object value) {
 		BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(bean);

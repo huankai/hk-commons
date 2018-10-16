@@ -1,6 +1,5 @@
 package com.hk.commons.poi.excel.model;
 
-import com.hk.commons.poi.excel.read.interceptor.DefaultValidationInterceptor;
 import com.hk.commons.poi.excel.read.interceptor.ValidationInterceptor;
 import com.hk.commons.poi.excel.read.validation.Validationable;
 import lombok.Builder;
@@ -81,7 +80,7 @@ public class ReadParam<T> {
      */
 	@Builder.Default
 	@SuppressWarnings("rawtypes")
-    private ValidationInterceptor interceptor = new DefaultValidationInterceptor<>();
+    private ValidationInterceptor interceptor = new ValidationInterceptor(){} ;
 
     /**
      * 验证器

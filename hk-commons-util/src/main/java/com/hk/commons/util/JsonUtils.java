@@ -1,7 +1,10 @@
 package com.hk.commons.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -137,7 +140,7 @@ public final class JsonUtils {
      * @return T
      */
     public static <T> T deserialize(String json, Class<T> clazz) {
-        if (StringUtils.isBlank(json)) {
+        if (StringUtils.isEmpty(json)) {
             return null;
         }
         ObjectMapper mapper = getMapper();
@@ -151,21 +154,40 @@ public final class JsonUtils {
     /**
      * 将json 字符串反序列化为对象集合
      *
+     * @param <T>   T
      * @param json  json str
      * @param clazz class
-     * @param <T>   T
      * @return List
      */
+    @SuppressWarnings("unchecked")
     public static <T> List<T> deserializeList(String json, Class<T> clazz) {
-        if (StringUtils.isBlank(json)) {
+        if (StringUtils.isEmpty(json)) {
             return null;
         }
         ObjectMapper mapper = getMapper();
         try {
-            JavaType javaType = mapper.getTypeFactory().constructParametricType(List.class, clazz);
-            return mapper.readValue(json, javaType);
+            return mapper.readValue(json, mapper.getTypeFactory().constructParametricType(List.class, clazz));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * 二级泛型: 如：JsonResult<List<SysUser>>
+     *
+     * @return
+     */
+    public static <T> T deserialize(String json, Class<?> rawType, Class<?> parametrized, Class<?> parameterClasses) {
+        if (StringUtils.isEmpty(json)) {
+            return null;
+        }
+        ObjectMapper mapper = getMapper();
+        try {
+            JavaType type = mapper.getTypeFactory().constructParametricType(parametrized, parameterClasses);
+            return mapper.readValue(json, mapper.getTypeFactory().constructParametricType(rawType, type));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

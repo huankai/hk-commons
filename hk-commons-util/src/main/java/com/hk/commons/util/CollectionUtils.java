@@ -243,10 +243,6 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
             return defaultValue;
         }
         return ConverterUtils.getInstance().convert(value, clazz);
-//        if (value instanceof Number && Number.class.isAssignableFrom(clazz)) {
-//            return (T) NumberUtils.convertNumberToTargetClass((Number) value, (Class<? extends Number>) clazz);
-//        }
-//        return clazz.cast(value);
     }
 
     /**

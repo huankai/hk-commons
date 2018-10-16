@@ -13,9 +13,9 @@ public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
     /**
      * 对象默认值
      *
-     * @param object
-     * @param defaultValue
-     * @return
+     * @param object       object
+     * @param defaultValue defaultValue
+     * @return object
      */
     public static <T> T defaultIfNull(final T object, final T defaultValue) {
         return Objects.nonNull(object) ? object : defaultValue;
@@ -28,16 +28,16 @@ public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
      * ObjectUtils.isBlank("  ") ; true
      * </pre>
      *
-     * @param object
-     * @return
+     * @param object object
+     * @return true if blank
      */
     public static boolean isBlank(Object object) {
         return StringUtils.isBlank(toString(object));
     }
 
     /**
-     * @param obj
-     * @return
+     * @param obj obj
+     * @return true if notEmpty
      */
     public static boolean isNotEmpty(Object obj) {
         return !isEmpty(obj);
@@ -50,8 +50,8 @@ public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
      * ObjectUtils.isBlank("  ") ; false
      * </pre>
      *
-     * @param object
-     * @return
+     * @param object object
+     * @return true if not blank
      */
     public static boolean isNotBlank(Object object) {
         return !isBlank(object);
@@ -60,8 +60,8 @@ public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
     /**
      * 对象的 toString 表现形式
      *
-     * @param obj
-     * @return
+     * @param obj obj
+     * @return toString
      */
     public static String toString(Object obj) {
         return Objects.isNull(obj) ? null : obj.toString();

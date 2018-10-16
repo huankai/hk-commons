@@ -27,7 +27,7 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public static <T> T mapToBean(Map<String, Object> map, Class<T> clazz) {
+    public static <T> T mapToBean(Map<String, ?> map, Class<T> clazz) {
         BeanWrapper beanWrapper = BeanWrapperUtils.createBeanWrapper(clazz);
         map.forEach(beanWrapper::setPropertyValue);
         return (T) beanWrapper.getWrappedInstance();
