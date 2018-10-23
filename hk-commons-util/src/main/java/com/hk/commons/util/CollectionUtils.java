@@ -301,8 +301,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
      * @param coll coll
      * @return Map
      */
-    public static <T> T getFirstOrDefault(Collection<T> coll) {
-        return isEmpty(coll) ? null : coll.iterator().next();
+    public static <T> Optional<T> getFirstOrDefault(Collection<T> coll) {
+        return isEmpty(coll) ? Optional.empty() : Optional.of(coll.iterator().next());
     }
 
     /**

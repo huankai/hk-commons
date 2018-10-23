@@ -29,7 +29,11 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
     @SuppressWarnings("unchecked")
     public static <T> T mapToBean(Map<String, ?> map, Class<T> clazz) {
         BeanWrapper beanWrapper = BeanWrapperUtils.createBeanWrapper(clazz);
-        map.forEach(beanWrapper::setPropertyValue);
+        for (Map.Entry<String, ?> entry : map.entrySet()) {
+            if (beanWrapper.isWritableProperty(entry.getKey())) {
+                beanWrapper.setPropertyValue(entry.getKey(), entry.getValue());
+            }
+        }
         return (T) beanWrapper.getWrappedInstance();
     }
 
