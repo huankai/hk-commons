@@ -27,7 +27,7 @@ public abstract class ArrayUtils {
 
     @SafeVarargs
     public static <T> List<T> asList(T... args) {
-        return null == args ? Collections.emptyList() : Arrays.asList(args);
+        return isEmpty(args) ? Collections.emptyList() : Arrays.asList(args);
     }
 
     /**
