@@ -131,31 +131,26 @@ public class LinkedHumpMap<V> implements Map<String, V>, Serializable, Cloneable
     @Override
     @Nullable
     public V getOrDefault(Object key, V defaultValue) {
-        if (key instanceof String) {
-            String caseInsensitiveKey = this.caseInsensitiveKeys.get(convertKey((String) key));
-            if (caseInsensitiveKey != null) {
-                return this.targetMap.get(caseInsensitiveKey);
-            }
-        }
-        return defaultValue;
+        V value = get(key);
+        return value == null ? defaultValue : value;
     }
 
     @Override
     @Nullable
     public V put(String key, @Nullable V value) {
-        String oldKey = this.caseInsensitiveKeys.put(convertKey(key), key);
+        String convertKey = convertKey(key);
+        String oldKey = this.caseInsensitiveKeys.put(convertKey, key);
         if (oldKey != null && !oldKey.equals(key)) {
             this.targetMap.remove(oldKey);
         }
-        return this.targetMap.put(key, value);
+        return this.targetMap.put(convertKey, value);
     }
 
     @Override
     public void putAll(Map<? extends String, ? extends V> map) {
-        if (map.isEmpty()) {
-            return;
+        if (CollectionUtils.isNotEmpty(map)) {
+            map.forEach(this::put);
         }
-        map.forEach(this::put);
     }
 
     @Override
