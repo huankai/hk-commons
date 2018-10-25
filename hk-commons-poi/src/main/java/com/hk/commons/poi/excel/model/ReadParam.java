@@ -78,9 +78,8 @@ public class ReadParam<T> {
     /**
      * 验证拦截器
      */
-	@Builder.Default
-	@SuppressWarnings("rawtypes")
-    private ValidationInterceptor interceptor = new ValidationInterceptor(){} ;
+    @Builder.Default
+    private ValidationInterceptor interceptor = ValidationInterceptor.INSTANCE;
 
     /**
      * 验证器

@@ -9,10 +9,13 @@ import com.hk.commons.poi.excel.model.ReadResult;
  */
 public interface ValidationInterceptor<T> {
 
+    ValidationInterceptor INSTANCE = new ValidationInterceptor() {
+    };
+
     /**
      * 所有对象验证之前
      *
-     * @param result
+     * @param result result
      */
     default void preValidate(ReadResult<T> result) {
 
@@ -21,8 +24,8 @@ public interface ValidationInterceptor<T> {
     /**
      * 每行数据验证之前,返回 true才会执行验证
      *
-     * @param t
-     * @return
+     * @param t t
+     * @return true or false
      */
     default boolean beforeValidate(T t) {
         return true;
@@ -31,7 +34,7 @@ public interface ValidationInterceptor<T> {
     /**
      * 每行数据验证之后，不管验证是否通过，只要 beforeValidate()方法返回true
      *
-     * @param t
+     * @param t t
      */
     default void afterValidate(T t) {
 
@@ -40,7 +43,7 @@ public interface ValidationInterceptor<T> {
     /**
      * 所有对象验证之后执行
      *
-     * @param result
+     * @param result result
      */
     default void afterComplate(ReadResult<T> result) {
 
