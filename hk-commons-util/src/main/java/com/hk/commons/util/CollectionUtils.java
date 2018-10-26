@@ -3,6 +3,7 @@ package com.hk.commons.util;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
+import java.util.stream.StreamSupport;
 
 /**
  * 集合工具类
@@ -20,6 +21,42 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
      */
     public static boolean isNotEmpty(Collection<?> coll) {
         return !isEmpty(coll);
+    }
+
+    /**
+     * 长度是否不为0
+     *
+     * @param iterable iterable
+     * @return true or false
+     */
+    public static boolean isNotEmpty(Iterable<?> iterable) {
+        return !isEmpty(iterable);
+    }
+
+    /**
+     * 长度是否为0
+     *
+     * @param iterable iterable
+     * @return true or false
+     */
+    public static boolean isEmpty(Iterable<?> iterable) {
+        return size(iterable) == 0;
+    }
+
+    /**
+     * 判断iterable元素长度
+     *
+     * @param iterable iterable
+     * @return size
+     */
+    public static long size(Iterable<?> iterable) {
+        if (iterable == null) {
+            return 0;
+        }
+        if (iterable instanceof Collection) {
+            return ((Collection<?>) iterable).size();
+        }
+        return StreamSupport.stream(iterable.spliterator(), false).count();
     }
 
     /**
@@ -43,6 +80,13 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         return isNotEmpty(list2) && list1.addAll(list2);
     }
 
+    /**
+     * 是否包含指定元素
+     *
+     * @param iterable iterable
+     * @param element  element
+     * @return boolean
+     */
     public static boolean contains(Iterable<?> iterable, Object element) {
         if (null != iterable) {
             for (Object e : iterable) {
