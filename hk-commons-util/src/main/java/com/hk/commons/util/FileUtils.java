@@ -1,11 +1,9 @@
 package com.hk.commons.util;
 
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.util.DigestUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * @author: kevin

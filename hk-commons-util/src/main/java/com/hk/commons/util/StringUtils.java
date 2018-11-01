@@ -94,20 +94,20 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
-     * @param str
-     * @param defaultStr
-     * @param <T>
-     * @return
+     * @param str        str
+     * @param defaultStr defaultStr
+     * @param <T>        T
+     * @return T
      */
     public static <T extends CharSequence> T defaultIfBlank(final T str, final T defaultStr) {
         return isBlank(str) ? defaultStr : str;
     }
 
     /**
-     * @param str
-     * @param defaultStr
-     * @param <T>
-     * @return
+     * @param str        str
+     * @param defaultStr defaultStr
+     * @param <T>        T
+     * @return T
      */
     public static <T extends CharSequence> T defaultIfEmpty(final T str, final T defaultStr) {
         return isEmpty(str) ? defaultStr : str;
@@ -125,8 +125,8 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * StringUtils.isNotEmpty(" ad ")    = true
      * </pre>
      *
-     * @param args
-     * @return
+     * @param args args
+     * @return boolean
      */
     public static boolean isNotEmpty(CharSequence args) {
         return !isEmpty(args);
@@ -139,8 +139,8 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * StringUtils.isBlank("bob")     = false
      * StringUtils.isBlank("  bob  ") = false
      *
-     * @param args
-     * @return
+     * @param args args
+     * @return boolean
      */
     public static boolean isBlank(CharSequence args) {
         return org.apache.commons.lang3.StringUtils.isBlank(args);
@@ -154,8 +154,8 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * StringUtils.isNotBlank("bob")     = true
      * StringUtils.isNotBlank("  bob  ") = ftrue
      *
-     * @param args
-     * @return
+     * @param args args
+     * @return boolean
      */
     public static boolean isNotBlank(CharSequence args) {
         return !isBlank(args);
@@ -165,7 +165,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * 根据英文逗号切割字符串
      *
      * @param args 要切割的字符串
-     * @return
+     * @return boolean
      */
     public static String[] splitByComma(String args) {
         return tokenizeToStringArray(args, "\\,");
@@ -174,9 +174,9 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * 忽略大小写比较是否相等
      *
-     * @param cs1
-     * @param cs2
-     * @return
+     * @param cs1 cs1
+     * @param cs2 cs2
+     * @return boolean
      */
     public static boolean equalsIgnoreCase(CharSequence cs1, CharSequence cs2) {
         return org.apache.commons.lang3.StringUtils.equalsIgnoreCase(cs1, cs2);
@@ -190,9 +190,9 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * 不相等
      *
-     * @param cs1
-     * @param cs2
-     * @return
+     * @param cs1 cs1
+     * @param cs2 cs2
+     * @return boolean
      */
     public static boolean notEquals(CharSequence cs1, CharSequence cs2) {
         return !equals(cs1, cs2);
@@ -201,9 +201,9 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * 相等
      *
-     * @param cs1
-     * @param cs2
-     * @return
+     * @param cs1 cs1
+     * @param cs2 cs2
+     * @return boolean
      */
     public static boolean equals(CharSequence cs1, CharSequence cs2) {
         return org.apache.commons.lang3.StringUtils.equals(cs1, cs2);
@@ -212,9 +212,9 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * 是否以 suffix 结尾
      *
-     * @param str
-     * @param suffix
-     * @return
+     * @param str    str
+     * @param suffix suffix
+     * @return boolean
      */
     public static boolean endsWith(CharSequence str, CharSequence suffix) {
         return org.apache.commons.lang3.StringUtils.endsWith(str, suffix);
@@ -224,9 +224,9 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * 是否包含指定字符串
      * contains
      *
-     * @param seq
-     * @param searchSeq
-     * @return
+     * @param seq       seq
+     * @param searchSeq searchSeq
+     * @return boolean
      */
     public static boolean contains(CharSequence seq, CharSequence searchSeq) {
         return org.apache.commons.lang3.StringUtils.contains(seq, searchSeq);
@@ -236,9 +236,9 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * 是否包含指定字符串
      * contains
      *
-     * @param seq
-     * @param searchSeq
-     * @return
+     * @param seq       seq
+     * @param searchSeq searchSeq
+     * @return boolean
      */
     public static boolean containsIgnoreCase(CharSequence seq, CharSequence searchSeq) {
         return org.apache.commons.lang3.StringUtils.containsIgnoreCase(seq, searchSeq);
@@ -247,14 +247,19 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     /**
      * 是否以 searchSequence 中任意一个开始
      *
-     * @param sequence
-     * @param searchSequence
-     * @return
+     * @param sequence       sequence
+     * @param searchSequence searchSequence
+     * @return boolean
      */
     public static boolean startsWithAny(CharSequence sequence, CharSequence... searchSequence) {
         return org.apache.commons.lang3.StringUtils.startsWithAny(sequence, searchSequence);
     }
 
+    /**
+     * @param str    str
+     * @param prefix prefix
+     * @return boolean
+     */
     public static boolean startsWith(CharSequence str, CharSequence prefix) {
         return org.apache.commons.lang3.StringUtils.startsWith(str, prefix);
     }

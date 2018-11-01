@@ -330,9 +330,15 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
      */
     @SafeVarargs
     public static <T> void addAllNotNull(Collection<T> coll, final T... args) {
+        addAllNull(coll, false, args);
+    }
+
+
+    @SafeVarargs
+    public static <T> void addAllNull(Collection<T> coll, boolean containNullValue, final T... args) {
         if (ArrayUtils.isNotEmpty(args)) {
             for (T t : args) {
-                if (Objects.nonNull(t)) {
+                if (containNullValue || Objects.nonNull(t)) {
                     coll.add(t);
                 }
             }

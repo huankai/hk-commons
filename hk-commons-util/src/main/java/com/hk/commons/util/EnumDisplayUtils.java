@@ -57,8 +57,8 @@ public abstract class EnumDisplayUtils {
     /**
      * 获取EnumDisplay注解
      *
-     * @param enumValue
-     * @return
+     * @param enumValue enumValue
+     * @return EnumDisplay
      */
     private static EnumDisplay getEnumDisplay(Object enumValue) {
         if (null == enumValue) {
@@ -66,9 +66,8 @@ public abstract class EnumDisplayUtils {
         }
         Class<?> type = enumValue.getClass();
         Enum<?> en = (Enum<?>) enumValue;
-        Field field;
         try {
-            field = type.getField(en.name());
+            Field field = type.getField(en.name());
             return field.getAnnotation(EnumDisplay.class);
         } catch (NoSuchFieldException | SecurityException e) {
             throw new RuntimeException(e);
@@ -78,8 +77,8 @@ public abstract class EnumDisplayUtils {
     /**
      * 获取 EnumDisplay注解修饰的order
      *
-     * @param enumValue
-     * @return
+     * @param enumValue enumValue
+     * @return order value
      */
     public static int getDisplayOrder(Object enumValue) {
         EnumDisplay enumDisplay = getEnumDisplay(enumValue);
@@ -87,9 +86,9 @@ public abstract class EnumDisplayUtils {
     }
 
     /**
-     * @param enumValue
-     * @param enumClass
-     * @return
+     * @param enumValue enumValue
+     * @param enumClass enumClass
+     * @return text
      */
     public static String getDisplayText(String enumValue, Class<? extends Enum<?>> enumClass) {
         return getDisplayText(enumValue, enumClass, true);
@@ -106,8 +105,8 @@ public abstract class EnumDisplayUtils {
 
     /**
      * @param enumClass 枚举类
-     * @param <TEnum>
-     * @return
+     * @param <TEnum>   TEnum
+     * @return enumItem
      */
     public static <TEnum extends Enum<?>> List<EnumItem> getEnumItems(Class<TEnum> enumClass) {
         return getEnumItems(enumClass, true);

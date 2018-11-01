@@ -16,6 +16,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class CustomLocalTimeEditor extends PropertyEditorSupport {
 
+    public static final CustomLocalTimeEditor INSTANCE = new CustomLocalTimeEditor();
+
+    private CustomLocalTimeEditor() {
+
+    }
+
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
         if (StringUtils.isNotEmpty(text)) {

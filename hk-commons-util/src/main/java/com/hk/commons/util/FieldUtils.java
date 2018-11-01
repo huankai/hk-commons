@@ -18,28 +18,28 @@ public abstract class FieldUtils {
     /**
      * 获取有指定注解标识的字段，包括父类
      *
-     * @param cls
-     * @param annotationCls
-     * @return
+     * @param cls           cls
+     * @param annotationCls annotationCls
+     * @return List<Field>
      */
     public static List<Field> getFieldsListWithAnnotation(final Class<?> cls,
                                                           final Class<? extends Annotation> annotationCls) {
         final List<Field> allFields = getAllFieldsList(cls);
         final List<Field> annotatedFields = new ArrayList<>();
-        for (final Field field : allFields) {
+        allFields.forEach(field -> {
             if (null != field.getAnnotation(annotationCls)) {
                 annotatedFields.add(field);
             }
-        }
+        });
         return annotatedFields;
     }
 
     /**
      * 获取有指定注解标识的字段，包括父类
      *
-     * @param cls
-     * @param annotationCls
-     * @return
+     * @param cls           cls
+     * @param annotationCls annotationCls
+     * @return Field[]
      */
     public static Field[] getFieldsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
         List<Field> annotatedFieldsList = getFieldsListWithAnnotation(cls, annotationCls);
@@ -49,8 +49,8 @@ public abstract class FieldUtils {
     /**
      * 获取包括父类的所有字段
      *
-     * @param cls
-     * @return
+     * @param cls cls
+     * @return Field[]
      */
     public static Field[] getAllFields(final Class<?> cls) {
         List<Field> allFieldsList = getAllFieldsList(cls);
@@ -60,9 +60,9 @@ public abstract class FieldUtils {
     /**
      * 获取属性的字段,包括父类
      *
-     * @param cls
-     * @param propertyName
-     * @return
+     * @param cls          cls
+     * @param propertyName propertyName
+     * @return Field
      */
     public static Field findField(final Class<?> cls, String propertyName) {
         List<Field> fieldsList = getAllFieldsList(cls);
@@ -75,8 +75,8 @@ public abstract class FieldUtils {
     /**
      * 获取包括父类的所有字段
      *
-     * @param cls
-     * @return
+     * @param cls cls
+     * @return List<Field>
      * @see ReflectionUtils#findField
      */
     public static List<Field> getAllFieldsList(final Class<?> cls) {

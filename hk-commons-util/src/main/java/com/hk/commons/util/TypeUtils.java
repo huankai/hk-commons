@@ -3,10 +3,10 @@
  */
 package com.hk.commons.util;
 
+import org.springframework.core.ResolvableType;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
-
-import org.springframework.core.ResolvableType;
 
 /**
  * @author: kevin
@@ -20,7 +20,7 @@ public abstract class TypeUtils {
 	 *            beanClass
 	 * @param propertyName
 	 *            propertyName
-	 * @return
+	 * @return Class
 	 */
 	public static <T> Class<T> getCollectionParameterizedTypeClass(Class<?> beanClass, String propertyName) {
 		return getParameterizedTypeClass(beanClass, 0, propertyName);
@@ -40,7 +40,7 @@ public abstract class TypeUtils {
 	 *            index
 	 * @param propertyName
 	 *            propertyName
-	 * @return
+	 * @return Class
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> Class<T> getParameterizedTypeClass(Class<?> beanClass, int index, String propertyName) {

@@ -3,7 +3,7 @@ package com.hk.commons.util;
 /**
  * 雪花id算法
  *
- * @author: sjq-278
+ * @author: kevin
  * @date: 2018-10-26 15:48
  */
 public class SnowflakeIdGenerator implements IDGenerator<Long> {

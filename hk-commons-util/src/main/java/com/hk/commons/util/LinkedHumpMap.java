@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Key 小驼峰Key转换
  *
- * @author: sjq-278
+ * @author: kevin
  * @date: 2018-10-08 12:22
  * @see org.springframework.util.LinkedCaseInsensitiveMap
  */

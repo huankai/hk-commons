@@ -45,9 +45,10 @@ public abstract class BeanWrapperUtils {
 
     private static void registryDefaultEditor(BeanWrapper beanWrapper) {
         beanWrapper.setAutoGrowNestedPaths(true);
-        beanWrapper.registerCustomEditor(Boolean.class, new CustomBooleanEditor(true));
-        beanWrapper.registerCustomEditor(LocalDate.class, new CustomLocalDateEditor());
-        beanWrapper.registerCustomEditor(LocalTime.class, new CustomLocalTimeEditor());
-        beanWrapper.registerCustomEditor(LocalDateTime.class, new CustomLocalDateTimeEditor());
+        beanWrapper.setConversionService(ConverterUtils.DEFAULT_CONVERSION_SERVICE);
+        beanWrapper.registerCustomEditor(Boolean.class, CustomBooleanEditor.ALLOW_EMPTY_INSTANCE);
+        beanWrapper.registerCustomEditor(LocalDate.class, CustomLocalDateEditor.INSTANCE);
+        beanWrapper.registerCustomEditor(LocalTime.class, CustomLocalTimeEditor.INSTANCE);
+        beanWrapper.registerCustomEditor(LocalDateTime.class, CustomLocalDateTimeEditor.INSTANCE);
     }
 }

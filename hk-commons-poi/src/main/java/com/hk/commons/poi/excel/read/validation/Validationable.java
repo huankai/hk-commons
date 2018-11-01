@@ -25,7 +25,7 @@ public interface Validationable<T> {
     /**
      * 当此验证有错误信息时，下一个验证是否继续
      *
-     * @return
+     * @return true or false
      */
     default boolean errorNext() {
         return false;

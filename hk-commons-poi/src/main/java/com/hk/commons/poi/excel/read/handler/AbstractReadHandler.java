@@ -164,8 +164,8 @@ public abstract class AbstractReadHandler<T> {
      * @param result result
      */
     protected void validate(ReadResult<T> result) {
-        List<Validationable<T>> validationables = readParam.getValidationList();
-        if (CollectionUtils.isNotEmpty(validationables)) {
+        List<Validationable<T>> validations = readParam.getValidationList();
+        if (CollectionUtils.isNotEmpty(validations)) {
             final ValidationInterceptor<T> interceptor = readParam.getInterceptor();
             interceptor.preValidate(result);
             for (SheetData<T> dataSheet : result.getSheetDataList()) {
@@ -175,11 +175,11 @@ public abstract class AbstractReadHandler<T> {
                     T t = listIterator.next();
                     List<InvalidCell> invalidCells = new ArrayList<>();
                     if (interceptor.beforeValidate(t)) {
-                        for (Validationable<T> validationable : validationables) {
-                            List<InvalidCell> errors = validationable.validate(t, rowIndex, titles);
+                        for (Validationable<T> validation : validations) {
+                            List<InvalidCell> errors = validation.validate(t, rowIndex, titles);
                             if (CollectionUtils.isNotEmpty(errors)) {
                                 invalidCells.addAll(errors);
-                                if (!validationable.errorNext()) {
+                                if (!validation.errorNext()) {
                                     break;
                                 }
                             }

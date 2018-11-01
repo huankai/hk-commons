@@ -38,13 +38,6 @@ abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
         readParam.setColumnProperties(getColumnProperty().getColumnProperties());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.hk.commons.poi.excel.read.ReadableExcel#read(com.hk.commons.poi.excel.
-     * model.ReadableParam, java.io.File)
-     */
     @Override
     public final ReadResult<T> read(File file) {
         try {
@@ -56,13 +49,6 @@ abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.hk.commons.poi.excel.read.ReadableExcel#read(com.hk.commons.poi.excel.
-     * model.ReadableParam, java.io.InputStream)
-     */
     @Override
     public ReadResult<T> read(InputStream in) {
         try {

@@ -66,9 +66,9 @@ public class SimpleSaxXlsxReadHandler<T> extends AbstractSaxReadHandler<T> imple
      *
      * @param opcPackage opcPackage
      * @return {@link ReadResult}
-     * @throws IOException
-     * @throws SAXException
-     * @throws OpenXML4JException
+     * @throws IOException IOException
+     * @throws SAXException SAXException
+     * @throws OpenXML4JException OpenXML4JException
      */
     protected ReadResult<T> processOPCPackage(OPCPackage opcPackage)
             throws IOException, SAXException, OpenXML4JException {
@@ -82,9 +82,9 @@ public class SimpleSaxXlsxReadHandler<T> extends AbstractSaxReadHandler<T> imple
      *
      * @param opcPackage opcPackage
      * @return {@link ReadResult}
-     * @throws IOException
-     * @throws SAXException
-     * @throws OpenXML4JException
+     * @throws IOException IOException
+     * @throws SAXException SAXException
+     * @throws OpenXML4JException OpenXML4JException
      */
     private ReadResult<T> doProcessOPCPackage(OPCPackage opcPackage)
             throws IOException, SAXException, OpenXML4JException {
@@ -123,9 +123,9 @@ public class SimpleSaxXlsxReadHandler<T> extends AbstractSaxReadHandler<T> imple
      * @param stringsTable stringsTable
      * @param saxHandler saxHandler
      * @param inputStream inputStream
-     * @throws SAXException
-     * @throws ParserConfigurationException
-     * @throws IOException
+     * @throws SAXException SAXException
+     * @throws ParserConfigurationException ParserConfigurationException
+     * @throws IOException IOException
      */
     private void processSheet(StylesTable stylesTable, ReadOnlySharedStringsTable stringsTable,
                               SheetContentsHandler saxHandler, InputStream inputStream)
