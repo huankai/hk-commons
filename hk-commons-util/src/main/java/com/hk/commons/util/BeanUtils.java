@@ -21,10 +21,10 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
     /**
      * Map To Bean
      *
-     * @param map
-     * @param clazz
-     * @param <T>
-     * @return
+     * @param map   map
+     * @param clazz clazz
+     * @param <T>   T
+     * @return T
      */
     @SuppressWarnings("unchecked")
     public static <T> T mapToBean(Map<String, ?> map, Class<T> clazz) {
@@ -40,18 +40,20 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
     /**
      * Bean to Map
      *
-     * @param obj
-     * @param ignoreProperties
-     * @return
+     * @param obj              obj
+     * @param ignoreProperties ignoreProperties
+     * @return Map
      */
     public static Map<String, Object> beanToMap(Object obj, String... ignoreProperties) {
         return beanToMap(obj, false, ignoreProperties);
     }
 
     /**
-     * @param obj
-     * @param containsNullValue
-     * @return
+     * Bean to Map
+     *
+     * @param obj               obj
+     * @param containsNullValue containsNullValue
+     * @return Map
      */
     public static Map<String, Object> beanToMap(Object obj, boolean containsNullValue, String... ignoreProperties) {
         Map<String, Object> result = new HashMap<>();
@@ -72,8 +74,8 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
     /**
      * 复制不为空的属性
      *
-     * @param source
-     * @param target
+     * @param source source
+     * @param target target
      */
     public static void copyNotNullProperties(Object source, Object target) {
         PropertyDescriptor[] targetDescriptors = getPropertyDescriptors(target.getClass());

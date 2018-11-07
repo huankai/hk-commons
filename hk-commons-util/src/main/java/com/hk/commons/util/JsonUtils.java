@@ -159,7 +159,6 @@ public final class JsonUtils {
      * @param clazz class
      * @return List
      */
-    @SuppressWarnings("unchecked")
     public static <T> List<T> deserializeList(String json, Class<T> clazz) {
         if (StringUtils.isEmpty(json)) {
             return null;

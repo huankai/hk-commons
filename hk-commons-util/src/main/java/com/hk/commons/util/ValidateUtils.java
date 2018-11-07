@@ -26,7 +26,6 @@ public abstract class ValidateUtils {
      * 严格的身份证校验
      *
      * @param idCard idCard
-     * @return
      */
     public static boolean isIDCard(CharSequence idCard) {
         Matcher matcher = IDCARD_PATTERN.matcher(idCard);
@@ -45,7 +44,6 @@ public abstract class ValidateUtils {
      * 是否为邮箱号
      *
      * @param args args
-     * @return
      */
     public static boolean isEmail(String args) {
         return StringUtils.isNotBlank(args) && EMAIL_PATTERN.matcher(args).find();
@@ -55,7 +53,6 @@ public abstract class ValidateUtils {
      * 是否为手机号
      *
      * @param args args
-     * @return
      */
     public static boolean isMobilephone(String args) {
         return StringUtils.isNotBlank(args) && MOBILEPHONE_PARTTERN.matcher(args).find();

@@ -56,11 +56,10 @@ public abstract class ArrayUtils {
      *
      * @param args args
      * @param <T>  T
-     * @param <C>  C
      * @return HashSet
      */
     @SafeVarargs
-    public static <T, C extends Set<T>> Set<T> asHashSet(T... args) {
+    public static <T> Set<T> asHashSet(T... args) {
         return asSet(HashSet::new, args);
     }
 
@@ -69,11 +68,10 @@ public abstract class ArrayUtils {
      *
      * @param args args
      * @param <T>  T
-     * @param <C>  C
      * @return HashSet
      */
     @SafeVarargs
-    public static <T, C extends Set<T>> Set<T> asLinkedHashSet(T... args) {
+    public static <T> Set<T> asLinkedHashSet(T... args) {
         return asSet(LinkedHashSet::new, args);
     }
 

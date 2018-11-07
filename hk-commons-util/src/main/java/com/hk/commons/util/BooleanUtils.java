@@ -41,7 +41,7 @@ public abstract class BooleanUtils extends org.apache.commons.lang3.BooleanUtils
      * </pre>
      *
      * @param args 一个字符串参数
-     * @return
+     * @return true or false
      */
     public static boolean toBoolean(String args) {
         if (StringUtils.isBlank(args)) {
@@ -59,8 +59,8 @@ public abstract class BooleanUtils extends org.apache.commons.lang3.BooleanUtils
     /**
      * Boolean转中文
      *
-     * @param bool
-     * @return
+     * @param bool boolean value
+     * @return 是 | 否
      */
     public static String toBooleanChinese(boolean bool) {
         return bool ? TRUE_CHINESE : FALSE_CHINESE;

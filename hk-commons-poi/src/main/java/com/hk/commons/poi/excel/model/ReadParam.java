@@ -1,12 +1,13 @@
 package com.hk.commons.poi.excel.model;
 
-import com.hk.commons.poi.excel.read.interceptor.ValidationInterceptor;
-import com.hk.commons.poi.excel.read.validation.Validationable;
-import lombok.Builder;
-import lombok.Data;
-
 import java.util.List;
 import java.util.Map;
+
+import com.hk.commons.poi.excel.read.interceptor.ValidationInterceptor;
+import com.hk.commons.poi.excel.read.validation.Validationable;
+
+import lombok.Builder;
+import lombok.Data;
 
 /**
  * 读取 Excel参数

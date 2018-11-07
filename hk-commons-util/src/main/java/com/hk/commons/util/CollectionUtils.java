@@ -2,7 +2,14 @@ package com.hk.commons.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 /**
@@ -277,7 +284,6 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
      * @param key key
      * @return value
      */
-    @SuppressWarnings("unchecked")
     public static <T> T getValueOrDefault(Map<String, Object> map, Object key, T defaultValue, Class<T> clazz) {
         if (isEmpty(map)) {
             return defaultValue;

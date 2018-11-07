@@ -12,6 +12,7 @@ import java.util.*;
  * @date: 2018-10-08 12:22
  * @see org.springframework.util.LinkedCaseInsensitiveMap
  */
+@SuppressWarnings("serial")
 public class LinkedHumpMap<V> implements Map<String, V>, Serializable, Cloneable {
 
     private final LinkedHashMap<String, V> targetMap;

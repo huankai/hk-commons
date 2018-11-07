@@ -1,12 +1,13 @@
 package com.hk.commons.util;
 
-import com.hk.commons.annotations.EnumDisplay;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.hk.commons.annotations.EnumDisplay;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * EnumDisplay Util
@@ -43,9 +44,9 @@ public abstract class EnumDisplayUtils {
      * @param useI18n   useI18n
      * @return enumText
      */
-    public static String getDisplayText(Class<? extends Enum> enumClass, int order, boolean useI18n) {
-        Enum[] enumConstants = enumClass.getEnumConstants();
-        for (Enum enumConstant : enumConstants) {
+    public static String getDisplayText(Class<? extends Enum<?>> enumClass, int order, boolean useI18n) {
+        Enum<?>[] enumConstants = enumClass.getEnumConstants();
+        for (Enum<?> enumConstant : enumConstants) {
             EnumDisplay enumDisplay = getEnumDisplay(enumConstant);
             if (enumDisplay.order() == order) {
                 return useI18n ? SpringContextHolder.getMessage(enumDisplay.value(), enumDisplay.value()) : enumDisplay.value();
