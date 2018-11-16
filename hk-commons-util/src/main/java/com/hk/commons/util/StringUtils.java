@@ -352,7 +352,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
         try {
             return new URL(url);
         } catch (MalformedURLException e) {
-            throw new IllegalArgumentException("Failed to create uri for : " + url);
+            throw new IllegalArgumentException("Failed to create url for : " + url);
         }
     }
 
@@ -364,7 +364,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
         try {
             return new UrlResource(url);
         } catch (MalformedURLException e) {
-            throw new IllegalArgumentException("Failed to create uri for : " + url);
+            throw new IllegalArgumentException("Failed to create url for : " + url);
         }
     }
 

@@ -108,9 +108,9 @@ public abstract class AbstractHttpExecutor<T, P> implements HttpExecutor<T, P> {
             List<NameValuePair> nvps = new ArrayList<>();
             ConverterUtils converterUtils = ConverterUtils.getInstance();
             params.forEach((key, value) -> {
-                String _value = converterUtils.convert(value, String.class);
-                if (StringUtils.isNotBlank(_value)) {
-                    nvps.add(new BasicNameValuePair(key, _value));
+                String convertValue = converterUtils.convert(value, String.class);
+                if (StringUtils.isNotBlank(convertValue)) {
+                    nvps.add(new BasicNameValuePair(key, convertValue));
                 }
             });
             if (!nvps.isEmpty()) {

@@ -20,18 +20,18 @@ public abstract class EnumDisplayUtils {
 
     /**
      * @param enumValue enumValue
-     * @return
+     * @return enumText
      */
-    public static String getDisplayTest(Object enumValue) {
+    public static String getDisplayText(Object enumValue) {
         return getDisplayText(enumValue, true);
     }
 
     /**
      * 获取 EnumDisplay注解修饰的value
      *
-     * @param enumValue
-     * @param useI18n
-     * @return
+     * @param enumValue enumValue
+     * @param useI18n   useI18n
+     * @return enumText
      */
     public static String getDisplayText(Object enumValue, boolean useI18n) {
         EnumDisplay enumDisplay = getEnumDisplay(enumValue);
@@ -109,8 +109,8 @@ public abstract class EnumDisplayUtils {
      * @param <TEnum>   TEnum
      * @return enumItem
      */
-    public static <TEnum extends Enum<?>> List<EnumItem> getEnumItems(Class<TEnum> enumClass) {
-        return getEnumItems(enumClass, true);
+    public static <TEnum extends Enum<?>> List<EnumItem> getEnumItemList(Class<TEnum> enumClass) {
+        return getEnumItemList(enumClass, true);
     }
 
     /**
@@ -122,7 +122,7 @@ public abstract class EnumDisplayUtils {
      * 2.如果枚举项有@EnumDisplay标注，text则取标注的value属性，order取标注的order属性
      * 3.如果没有@EnumDisplay标注，text值为枚举值value，order为0
      */
-    public static <TEnum extends Enum<?>> List<EnumItem> getEnumItems(Class<TEnum> enumClass, boolean useI18n) {
+    public static <TEnum extends Enum<?>> List<EnumItem> getEnumItemList(Class<TEnum> enumClass, boolean useI18n) {
         List<EnumItem> items = new ArrayList<>();
         Field[] fields = enumClass.getFields();
         EnumItem item;
