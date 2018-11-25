@@ -51,7 +51,7 @@ public class ConverterUtils {
      * 添加一个转换器
      *
      * @param converter ConverterUtils
-     * @return
+     * @return ConverterUtils
      */
     public ConverterUtils addConverter(GenericConverter converter) {
         return addConverters(converter);

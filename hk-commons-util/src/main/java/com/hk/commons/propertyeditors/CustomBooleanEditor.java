@@ -1,6 +1,7 @@
 package com.hk.commons.propertyeditors;
 
 import com.hk.commons.util.BooleanUtils;
+import com.hk.commons.util.ObjectUtils;
 import com.hk.commons.util.StringUtils;
 import org.springframework.beans.BeanWrapper;
 
@@ -33,7 +34,7 @@ public class CustomBooleanEditor extends org.springframework.beans.propertyedito
 
     @Override
     public String getAsText() {
-        String value = String.class.cast(getValue());
+        String value = ObjectUtils.toString(getValue());
         if (StringUtils.equalsAny(value, BooleanUtils.TRUE_CHINESE, BooleanUtils.FALSE_CHINESE)) {
             return value;
         }

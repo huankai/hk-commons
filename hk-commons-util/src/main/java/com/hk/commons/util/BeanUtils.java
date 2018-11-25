@@ -57,15 +57,14 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
      */
     public static Map<String, Object> beanToMap(Object obj, boolean containsNullValue, String... ignoreProperties) {
         Map<String, Object> result = new HashMap<>();
-        if (null == obj) {
-            return result;
-        }
-        BeanWrapper beanWrapper = BeanWrapperUtils.createBeanWrapper(obj);
-        for (PropertyDescriptor descriptor : beanWrapper.getPropertyDescriptors()) {
-            String name = descriptor.getName();
-            Object value = beanWrapper.getPropertyValue(name);
-            if ((value != null || containsNullValue) && ArrayUtils.noContains(ignoreProperties, name)) {
-                result.put(name, value);
+        if (null != obj) {
+            BeanWrapper beanWrapper = BeanWrapperUtils.createBeanWrapper(obj);
+            for (PropertyDescriptor descriptor : beanWrapper.getPropertyDescriptors()) {
+                String name = descriptor.getName();
+                Object value = beanWrapper.getPropertyValue(name);
+                if ((value != null || containsNullValue) && ArrayUtils.noContains(ignoreProperties, name)) {
+                    result.put(name, value);
+                }
             }
         }
         return result;
