@@ -22,6 +22,6 @@ public class NullEmptyJsonSerializer extends JsonSerializer<Object> {
 
     @Override
     public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-        gen.writeString(StringUtils.EMPTY);
+        gen.writeString(StringUtils.EMPTY);//如果是字符串，可以设置为 "" ，但如果是对象就不行，设置为 "" 再反序列化就会有问题
     }
 }

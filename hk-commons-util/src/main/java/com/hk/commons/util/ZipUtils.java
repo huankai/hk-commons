@@ -15,7 +15,7 @@ public class ZipUtils {
             File file = new File(dir);
             compress(file, zipOutputStream, file.getName(), keepDirStructure);
         } catch (IOException e) {
-
+            // ignore.
         }
     }
 
@@ -35,7 +35,7 @@ public class ZipUtils {
             in.close();
         } else {
             File[] listFiles = sourceFile.listFiles();
-            if (listFiles == null || listFiles.length == 0) {
+            if (ArrayUtils.isEmpty(listFiles)) {
                 // 需要保留原来的文件结构时,需要对空文件夹进行处理
                 if (keepDirStructure) {
                     // 空文件夹的处理

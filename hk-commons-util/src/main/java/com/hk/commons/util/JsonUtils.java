@@ -14,7 +14,6 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import com.hk.commons.jackson.NullEmptyJsonSerializer;
 import com.hk.commons.util.date.DatePattern;
 
 import java.io.IOException;
@@ -52,6 +51,10 @@ public final class JsonUtils {
 
     }
 
+    public static JavaTimeModule getJavaTimeModule(){
+        return JAVA_TIME_MODULE;
+    }
+
     private static ObjectMapper getMapper() {
         if (mapper == null) {
             synchronized (JsonUtils.class) {
@@ -71,7 +74,7 @@ public final class JsonUtils {
         om.setDateFormat(new SimpleDateFormat(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern()));
         om.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         // 空值处理为空串
-        om.getSerializerProvider().setNullValueSerializer(NullEmptyJsonSerializer.INSTANCE);
+//        om.getSerializerProvider().setNullValueSerializer(NullEmptyJsonSerializer.INSTANCE);
         // 设置输入时忽略在JSON字符串中存在但Java对象实际没有的属性
         om.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
