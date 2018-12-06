@@ -14,7 +14,7 @@
 
     <properties>
         <hibrenate.validator.version>6.0.13.Final</hibrenate.validator.version>
-    </properties>
+	</properties>
 
     <dependencies>
         <dependency>
