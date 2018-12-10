@@ -105,7 +105,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         return false;
     }
 
-    public static boolean containsAny(Collection<?> coll, Object... elements) {
+    @SafeVarargs
+	public static <T> boolean containsAny(Collection<T> coll, T... elements) {
         return isNotEmpty(coll)
                 && ArrayUtils.isNotEmpty(elements)
                 && containsAny(coll, Arrays.asList(elements));

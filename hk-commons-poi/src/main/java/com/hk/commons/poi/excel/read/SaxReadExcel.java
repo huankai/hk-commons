@@ -16,7 +16,7 @@ import java.util.Locale;
  *
  * @author: kevin
  */
-public class SimpleSaxReadExcel<T> extends AbstractReadExcel<T> {
+public class SaxReadExcel<T> extends AbstractReadExcel<T> {
 
     /**
      * Sax xls 格式解析
@@ -31,7 +31,7 @@ public class SimpleSaxReadExcel<T> extends AbstractReadExcel<T> {
     /**
      * @param param param
      */
-    public SimpleSaxReadExcel(ReadParam<T> param) {
+    public SaxReadExcel(ReadParam<T> param) {
         this(param, new SimpleSaxXlsReadHandler<>(param), new SimpleSaxXlsxReadHandler<>(param));
     }
 
@@ -40,7 +40,7 @@ public class SimpleSaxReadExcel<T> extends AbstractReadExcel<T> {
      * @param xlsReadHandler xlsReadHandler
      * @param xlsxReadHandler xlsxReadHandler
      */
-    public SimpleSaxReadExcel(ReadParam<T> param, SaxXlsReadHandler<T> xlsReadHandler,
+    public SaxReadExcel(ReadParam<T> param, SaxXlsReadHandler<T> xlsReadHandler,
                               SaxXlsxReadHandler<T> xlsxReadHandler) {
         super(param);
         this.xlsReadHandler = xlsReadHandler;

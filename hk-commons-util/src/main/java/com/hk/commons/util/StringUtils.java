@@ -26,6 +26,8 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
 
     private static final Pattern LINE_PATTERN = Pattern.compile("_(\\w)");
 
+    private static final String HUMP_TO_LINE = "[A-Z]";
+
     public static final String LF = org.apache.commons.lang3.StringUtils.LF;
 
     /**
@@ -56,6 +58,26 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
+     * 驼峰转下划线小写
+     *
+     * @param str str
+     * @return {@link String}
+     */
+    public static String humpToLineLower(String str) {
+        return StringUtils.isEmpty(str) ? null : str.replaceAll(HUMP_TO_LINE, "_$0").toLowerCase();
+    }
+
+    /**
+     * 驼峰转下划线大写
+     *
+     * @param str str
+     * @return {@link String}
+     */
+    public static String humpToLineUpper(String str) {
+        return StringUtils.isEmpty(str) ? null : str.replaceAll(HUMP_TO_LINE, "_$0").toUpperCase();
+    }
+
+    /**
      * 与任意字符串比较，如果只要有一个相同的，返回 true,否则返回false
      *
      * @param cs1           cs1
@@ -67,6 +89,8 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
+     * string to byte[] ，如果参数 s 为 null or "" ，返回 null
+     *
      * @param s s
      * @return byte[]
      */
@@ -94,6 +118,13 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
+     * <pre>
+     *
+     * 如果参数  str 为 null ，返回 defaultStr
+     * 如果参数  str 为 "" ，返回 defaultStr
+     * 如果参数  str 为 "   " ，返回 defaultStr
+     * </pre>
+     *
      * @param str        str
      * @param defaultStr defaultStr
      * @param <T>        T
@@ -104,6 +135,12 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
+     * <pre>
+     *
+     * 如果参数  str 为 null ，返回 defaultStr
+     * 如果参数  str 为 "" ，返回 defaultStr
+     * </pre>
+     *
      * @param str        str
      * @param defaultStr defaultStr
      * @param <T>        T
@@ -115,9 +152,10 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
 
     /**
      * <p>
-     * 判断是否不为 null or  ""
+     * 判断是否不为 null or ""
      * </p>
      * <p>
+     *
      * <pre>
      * StringUtils.isNotEmpty(null)      = false
      * StringUtils.isNotEmpty("")        = false
@@ -133,11 +171,9 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
-     * StringUtils.isBlank(null)      = true
-     * StringUtils.isBlank("")        = true
-     * StringUtils.isBlank(" ")       = true
-     * StringUtils.isBlank("bob")     = false
-     * StringUtils.isBlank("  bob  ") = false
+     * StringUtils.isBlank(null) = true StringUtils.isBlank("") = true
+     * StringUtils.isBlank(" ") = true StringUtils.isBlank("bob") = false
+     * StringUtils.isBlank(" bob ") = false
      *
      * @param args args
      * @return boolean
@@ -146,13 +182,10 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
         return org.apache.commons.lang3.StringUtils.isBlank(args);
     }
 
-
     /**
-     * StringUtils.isNotBlank(null)      = false
-     * StringUtils.isNotBlank("")        = false
-     * StringUtils.isNotBlank(" ")       = false
-     * StringUtils.isNotBlank("bob")     = true
-     * StringUtils.isNotBlank("  bob  ") = ftrue
+     * StringUtils.isNotBlank(null) = false StringUtils.isNotBlank("") = false
+     * StringUtils.isNotBlank(" ") = false StringUtils.isNotBlank("bob") = true
+     * StringUtils.isNotBlank(" bob ") = ftrue
      *
      * @param args args
      * @return boolean
@@ -221,8 +254,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
-     * 是否包含指定字符串
-     * contains
+     * 是否包含指定字符串 contains
      *
      * @param seq       seq
      * @param searchSeq searchSeq
@@ -233,8 +265,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
-     * 是否包含指定字符串
-     * contains
+     * 是否包含指定字符串 contains
      *
      * @param seq       seq
      * @param searchSeq searchSeq

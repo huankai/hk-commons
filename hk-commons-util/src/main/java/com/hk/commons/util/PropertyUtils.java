@@ -1,7 +1,6 @@
 package com.hk.commons.util;
 
 import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.PropertyAccessorFactory;
 
 /**
  * 属性工具类
@@ -11,42 +10,42 @@ import org.springframework.beans.PropertyAccessorFactory;
  */
 public abstract class PropertyUtils {
 
-	/**
-	 * 获取属性类型，包括父类属性
-	 *
-	 * @param beanClazz beanClazz
-	 * @param propertyName propertyName
-	 *            属性名称
-	 * @return
-	 * @throws IllegalArgumentException
-	 */
-	public static Class<?> getPropertyType(final Class<?> beanClazz, final String propertyName) {
-		return FieldUtils.findField(beanClazz, propertyName).getType();
-	}
+    /**
+     * 获取属性类型，包括父类属性
+     *
+     * @param beanClazz    beanClazz
+     * @param propertyName propertyName
+     *                     属性名称
+     * @return
+     * @throws IllegalArgumentException
+     */
+    public static Class<?> getPropertyType(final Class<?> beanClazz, final String propertyName) {
+        return FieldUtils.findField(beanClazz, propertyName).getType();
+    }
 
-	/**
-	 * 获取属性名称值
-	 *
-	 * @param bean bean
-	 * @param propertyName propertyName
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T> T getPropertyValue(Object bean, String propertyName) {
-		BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(bean);
-		return (T) wrapper.getPropertyValue(propertyName);
-	}
+    /**
+     * 获取属性名称值
+     *
+     * @param bean         bean
+     * @param propertyName propertyName
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T getPropertyValue(Object bean, String propertyName) {
+        BeanWrapper beanWrapper = BeanWrapperUtils.createBeanWrapper(bean);
+        return (T) beanWrapper.getPropertyValue(propertyName);
+    }
 
-	/**
-	 * 设置属性值
-	 *
-	 * @param bean bean
-	 * @param propertyName propertyName
-	 * @param value value
-	 */
-	public static void setPropertyValue(final Object bean, String propertyName, Object value) {
-		BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(bean);
-		wrapper.setPropertyValue(propertyName, value);
-	}
+    /**
+     * 设置属性值
+     *
+     * @param bean         bean
+     * @param propertyName propertyName
+     * @param value        value
+     */
+    public static void setPropertyValue(final Object bean, String propertyName, Object value) {
+        BeanWrapper beanWrapper = BeanWrapperUtils.createBeanWrapper(bean);
+        beanWrapper.setPropertyValue(propertyName, value);
+    }
 
 }
