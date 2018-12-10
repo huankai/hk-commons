@@ -11,7 +11,7 @@ import java.io.InputStream;
 /**
  * @author: kevin
  */
-public class SimpleDomReadExcel<T> extends AbstractReadExcel<T> {
+public class DomReadExcel<T> extends AbstractReadExcel<T> {
 
     /**
      * 使用Dom解析的处理器
@@ -21,7 +21,7 @@ public class SimpleDomReadExcel<T> extends AbstractReadExcel<T> {
     /**
      * @param readParam
      */
-    public SimpleDomReadExcel(ReadParam<T> readParam) {
+    public DomReadExcel(ReadParam<T> readParam) {
         this(readParam, new SimpleDomReadHandler<>(readParam));
     }
 
@@ -29,7 +29,7 @@ public class SimpleDomReadExcel<T> extends AbstractReadExcel<T> {
      * @param readParam
      * @param handler
      */
-    public SimpleDomReadExcel(ReadParam<T> readParam, DomReadHandler<T> handler) {
+    public DomReadExcel(ReadParam<T> readParam, DomReadHandler<T> handler) {
         super(readParam);
         this.handler = handler;
     }

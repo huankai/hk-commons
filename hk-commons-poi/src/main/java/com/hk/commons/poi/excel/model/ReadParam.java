@@ -80,7 +80,7 @@ public class ReadParam<T> {
      * 验证拦截器
      */
     @Builder.Default
-    private ValidationInterceptor interceptor = ValidationInterceptor.INSTANCE;
+    private ValidationInterceptor<T> interceptor = ValidationInterceptor.INSTANCE;
 
     /**
      * 验证器

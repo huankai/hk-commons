@@ -5,7 +5,7 @@ import com.hk.commons.propertyeditors.CustomLocalDateEditor;
 import com.hk.commons.propertyeditors.CustomLocalDateTimeEditor;
 import com.hk.commons.propertyeditors.CustomLocalTimeEditor;
 import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.PropertyAccessorFactory;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,7 +26,7 @@ public abstract class BeanWrapperUtils {
      * @return BeanWrapper
      */
     public static BeanWrapper createBeanWrapper(Object obj) {
-        BeanWrapper beanWrapper = new BeanWrapperImpl(obj);
+        BeanWrapper beanWrapper = PropertyAccessorFactory.forBeanPropertyAccess(obj);
         registryDefaultEditor(beanWrapper);
         return beanWrapper;
     }
@@ -38,7 +38,7 @@ public abstract class BeanWrapperUtils {
      * @return BeanWrapper
      */
     public static BeanWrapper createBeanWrapper(Class<?> clazz) {
-        BeanWrapper beanWrapper = new BeanWrapperImpl(clazz);
+        BeanWrapper beanWrapper = PropertyAccessorFactory.forBeanPropertyAccess(clazz);
         registryDefaultEditor(beanWrapper);
         return beanWrapper;
     }

@@ -20,7 +20,6 @@ import java.util.Objects;
 /**
  * @author: kevin
  */
-@SuppressWarnings("unchecked")
 public abstract class AbstractReadHandler<T> {
 
     protected Logger LOGGER = LoggerFactory.getLogger(getClass());
