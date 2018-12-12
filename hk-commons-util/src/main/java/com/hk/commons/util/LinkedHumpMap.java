@@ -121,10 +121,11 @@ public class LinkedHumpMap<V> implements Map<String, V>, Serializable, Cloneable
     @Nullable
     public V get(Object key) {
         if (key instanceof String) {
-            String caseInsensitiveKey = this.caseInsensitiveKeys.get(convertKey((String) key));
-            if (caseInsensitiveKey != null) {
-                return this.targetMap.get(caseInsensitiveKey);
-            }
+//            String caseInsensitiveKey = this.caseInsensitiveKeys.get(key);
+//            if (caseInsensitiveKey != null) {
+//                return this.targetMap.get(caseInsensitiveKey);
+//            }
+            return this.targetMap.get(key);
         }
         return null;
     }
