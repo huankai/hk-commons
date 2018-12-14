@@ -16,7 +16,7 @@ public class SimpleWriteableHandler<T> extends AbstractWriteableHandler<T> {
 	@Override
 	protected void writeWrokbook() {
 		Sheet sheet = workbook.createSheet(WorkbookUtil.createSafeSheetName(params.getSheetName()));
-		if (StringUtils.isNotBlank(params.getPassword())) {
+		if (StringUtils.isNotEmpty(params.getPassword())) {
 			sheet.protectSheet(params.getPassword());
 		}
 		sheet.setDisplayGridlines(params.isDisplayGridLines());

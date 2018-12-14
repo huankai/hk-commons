@@ -47,7 +47,7 @@ public interface ValidationInterceptor<T> {
      *
      * @param result result
      */
-    default void afterComplate(ReadResult<T> result) {
+    default void afterComplete(ReadResult<T> result) {
 
     }
 

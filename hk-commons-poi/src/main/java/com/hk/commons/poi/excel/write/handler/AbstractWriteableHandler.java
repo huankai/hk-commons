@@ -9,6 +9,9 @@ import com.hk.commons.poi.excel.style.CustomCellStyle;
 import com.hk.commons.poi.excel.util.CellStyleBuilder;
 import com.hk.commons.poi.excel.util.WriteExcelUtils;
 import com.hk.commons.util.*;
+import com.hk.commons.util.date.DateTimeUtils;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.ClientAnchor.AnchorType;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -16,14 +19,9 @@ import org.apache.poi.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.util.ClassUtils;
 
 import java.io.OutputStream;
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
 import java.util.*;
 import java.util.Map.Entry;
@@ -34,6 +32,56 @@ import java.util.Map.Entry;
 public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T> {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
+
+    /**
+     * 单元格数据转换
+     */
+    @FunctionalInterface
+    interface CellFormatter {
+
+        /**
+         * 将 value 转换为单元格 string 表现形式
+         *
+         * @param value value
+         * @return String format
+         */
+        String format(Object value);
+    }
+
+    private static final Map<DataFormat, CellFormatter> CELL_FORMATTER = new HashMap<>();
+
+    static {
+        /* 文本类型 */
+        CELL_FORMATTER.put(DataFormat.TEXT_FORMAT, ObjectUtils::toString);
+
+        /* 日期类型 */
+        CELL_FORMATTER.put(DataFormat.DATE_FORMAT, (value) -> DateTimeUtils.objectToString(value, DataFormat.DATE_FORMAT.getPattern()));
+        CELL_FORMATTER.put(DataFormat.DATE_FORMAT_CN, (value) -> DateTimeUtils.objectToString(value, DataFormat.DATE_FORMAT_CN.getPattern()));
+        CELL_FORMATTER.put(DataFormat.DATE_FORMAT_EN, (value) -> DateTimeUtils.objectToString(value, DataFormat.DATE_FORMAT_EN.getPattern()));
+        CELL_FORMATTER.put(DataFormat.DATETIME_FORMAT_EN, (value) -> DateTimeUtils.objectToString(value, DataFormat.DATETIME_FORMAT_EN.getPattern()));
+        CELL_FORMATTER.put(DataFormat.DATETIME_FORMAT, (value) -> DateTimeUtils.objectToString(value, DataFormat.DATETIME_FORMAT.getPattern()));
+        CELL_FORMATTER.put(DataFormat.TIME_FORMAT, (value) -> DateTimeUtils.objectToString(value, DataFormat.TIME_FORMAT.getPattern()));
+
+        /*  整型  */
+        CELL_FORMATTER.put(DataFormat.INTEGER_FORMAT, (value) -> NumberUtils.formatDecimal(value, DataFormat.INTEGER_FORMAT.getPattern()));
+
+        /*  小数类型  */
+        CELL_FORMATTER.put(DataFormat.DECIMAL_FORMAT_1, (value) -> NumberUtils.formatDecimal(value, DataFormat.DECIMAL_FORMAT_1.getPattern()));
+        CELL_FORMATTER.put(DataFormat.DECIMAL_FORMAT_2, (value) -> NumberUtils.formatDecimal(value, DataFormat.DECIMAL_FORMAT_2.getPattern()));
+        CELL_FORMATTER.put(DataFormat.DECIMAL_FORMAT_3, (value) -> NumberUtils.formatDecimal(value, DataFormat.DECIMAL_FORMAT_3.getPattern()));
+
+        /*  百分比类型  */
+        CELL_FORMATTER.put(DataFormat.PERCENT_FORMAT, (value) -> NumberUtils.formatPercent(value, 0));
+        CELL_FORMATTER.put(DataFormat.PERCENT_FORMAT_1, (value) -> NumberUtils.formatPercent(value, 1));
+        CELL_FORMATTER.put(DataFormat.PERCENT_FORMAT_2, NumberUtils::formatPercent);
+        CELL_FORMATTER.put(DataFormat.PERCENT_FORMAT_3, (value) -> NumberUtils.formatPercent(value, 3));
+
+        /*  货币类型  */
+        CELL_FORMATTER.put(DataFormat.CURRENCY_FORMAT, (value) -> NumberUtils.formatDecimal(value, DataFormat.CURRENCY_FORMAT.getPattern()));
+        CELL_FORMATTER.put(DataFormat.CURRENCY_FORMAT_1, (value) -> NumberUtils.formatDecimal(value, DataFormat.CURRENCY_FORMAT_1.getPattern()));
+        CELL_FORMATTER.put(DataFormat.CURRENCY_FORMAT_2, (value) -> NumberUtils.formatDecimal(value, DataFormat.CURRENCY_FORMAT_2.getPattern()));
+        CELL_FORMATTER.put(DataFormat.CURRENCY_FORMAT_3, (value) -> NumberUtils.formatDecimal(value, DataFormat.CURRENCY_FORMAT_3.getPattern()));
+    }
 
     /**
      * 导出参数
@@ -61,7 +109,9 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
     /**
      * 统计样式
      */
-    private CustomCellStyle statiStyle;
+    @Getter
+    @Setter
+    private CustomCellStyle statisticsStyle;
 
     @Override
     public final void write(Workbook workbook, WriteParam<T> param, OutputStream out) {
@@ -147,7 +197,7 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
                 || ClassUtils.isAssignable(Date.class, propertyType)
                 || ClassUtils.isAssignable(Temporal.class, propertyType)) {
             cellType = CellType.NUMERIC;
-        } else if (propertyType == Boolean.class || propertyType == Boolean.TYPE) {
+        } else if (ClassUtils.isAssignable(propertyType, Boolean.class)) {
             cellType = CellType.BOOLEAN;
         }
         return cellType;
@@ -182,7 +232,7 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
                 }
             }
             for (T item : dataList) {
-                BeanWrapper beanWrapper = PropertyAccessorFactory.forBeanPropertyAccess(item);
+                BeanWrapper beanWrapper = BeanWrapperUtils.createBeanWrapper(item);
                 if (StringUtils.isEmpty(nestedPropertyPrefix)) {
                     Row row = createDataRow(sheet, item, rowIndex++);
                     for (ExcelColumnInfo excelColumnInfo : columnInfoList) {
@@ -233,13 +283,13 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
                 }
             }
             if (!statisFormula.isEmpty()) {
-                buildStatisRow(statisFormula, sheet.createRow(rowIndex), statiStyle);
+                buildStatisRow(statisFormula, sheet.createRow(rowIndex), getStatisticsStyle());
             }
         }
     }
 
     private void statisFormula(ExcelColumnInfo excelColumnInfo, Cell cell, Map<Integer, String> statisFormula, String separate) {
-        if (excelColumnInfo.isStatistics() && cell.getCellTypeEnum() == CellType.NUMERIC && !DateUtil.isCellDateFormatted(cell)) {
+        if (excelColumnInfo.isStatistics() && cell.getCellType() == CellType.NUMERIC && !DateUtil.isCellDateFormatted(cell)) {
             int columnIndex = cell.getColumnIndex();
             String formula = statisFormula.get(columnIndex);
             String cellAddress = cell.getAddress().formatAsString();
@@ -291,17 +341,17 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
     }
 
     /**
-     * @param statisFormula
+     * @param statisticsFormula
      * @param row
-     * @param statiStyle
+     * @param statisticsStyle
      */
-    protected void buildStatisRow(Map<Integer, String> statisFormula, Row row, CustomCellStyle statiStyle) {
-        CellStyle style = CellStyleBuilder.buildCellStyle(workbook, statiStyle, DataFormat.TEXT_FORMAT);
+    protected void buildStatisRow(Map<Integer, String> statisticsFormula, Row row, CustomCellStyle statisticsStyle) {
+        CellStyle style = CellStyleBuilder.buildCellStyle(workbook, statisticsStyle, DataFormat.TEXT_FORMAT);
         for (ExcelColumnInfo info : getColumnInfoList()) {
             StyleTitle title = info.getTitle();
-            if (statisFormula.containsKey(title.getColumn())) {
+            if (statisticsFormula.containsKey(title.getColumn())) {
                 Cell cell = row.createCell(title.getColumn(), CellType.NUMERIC);
-                cell.setCellFormula(String.format("SUM(%s)", statisFormula.get(title.getColumn())));
+                cell.setCellFormula(String.format("SUM(%s)", statisticsFormula.get(title.getColumn())));
                 cell.setCellStyle(style);
             }
         }
@@ -374,7 +424,7 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
      */
     private void setCellComment(Drawing<?> drawing, CreationHelper helper, Cell cell, String commentText, String author,
                                 boolean visible) {
-        if (StringUtils.isNotBlank(commentText)) {
+        if (StringUtils.isNotEmpty(commentText)) {
             ClientAnchor clientAnchor = helper.createClientAnchor();
             clientAnchor.setAnchorType(AnchorType.MOVE_AND_RESIZE);
             clientAnchor.setCol1(cell.getColumnIndex());
@@ -389,6 +439,13 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
         }
     }
 
+
+    private String toStringValue(String propertyName, Object value) {
+        Class<?> clazz = value.getClass();
+        DataFormat format = params.getValueFormat().getFormat(propertyName, clazz);
+        return CELL_FORMATTER.get(format).format(value);
+    }
+
     /**
      * 设置单元格值
      *
@@ -397,63 +454,15 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
      * @param value        属性值
      */
     protected final void setCellValue(Cell cell, String propertyName, Object value) {
-        if (ObjectUtils.isNotEmpty(value)) {
-            if (ClassUtils.isAssignableValue(CharSequence.class, value)) {
-                cell.setCellValue(value.toString());
-            } else if (ClassUtils.isAssignableValue(Number.class, value)) {
-                BigDecimal decimal = (value instanceof BigDecimal) ? (BigDecimal) value
-                        : new BigDecimal(value.toString(), MathContext.UNLIMITED);
-                cell.setCellValue(decimal.doubleValue());
-
-            } else if (ClassUtils.isAssignableValue(Boolean.class, value)) {
-                cell.setCellValue(BooleanUtils.toBooleanChinese(BooleanUtils.toBoolean(value.toString())));
-
-            } else if (ClassUtils.isAssignableValue(Date.class, value)) {
-                cell.setCellValue((Date) value);
-
-            } else if (ClassUtils.isAssignableValue(LocalDateTime.class, value)) {
-                DataFormat format = params.getValueFormat().getFormat(propertyName, LocalDateTime.class);
-                cell.setCellValue(((LocalDateTime) value).format(DateTimeFormatter.ofPattern(format.getPattern())));
-
-            } else if (ClassUtils.isAssignableValue(LocalDate.class, value)) {
-                DataFormat format = params.getValueFormat().getFormat(propertyName, LocalDate.class);
-                cell.setCellValue(((LocalDate) value).format(DateTimeFormatter.ofPattern(format.getPattern())));
-
-            } else if (ClassUtils.isAssignableValue(LocalTime.class, value)) {
-                DataFormat format = params.getValueFormat().getFormat(propertyName, LocalTime.class);
-                cell.setCellValue(((LocalTime) value).format(DateTimeFormatter.ofPattern(format.getPattern())));
-
-            } else if (ClassUtils.isAssignableValue(Year.class, value)) {
-                cell.setCellValue(((Year) value).getValue());
-
-            } else if (ClassUtils.isAssignableValue(YearMonth.class, value)) {
-                cell.setCellValue(value.toString());
-
-            } else {
-                cell.setCellValue(JsonUtils.serialize(value));
-            }
-        }
+        cell.setCellValue(Objects.isNull(value) ? StringUtils.EMPTY : toStringValue(propertyName, value));
     }
+
 
     public List<ExcelColumnInfo> getColumnInfoList() {
         if (null == columnInfoList) {
             columnInfoList = WriteExcelUtils.parse(params.getBeanClazz(), params.getTitleRow());
         }
         return columnInfoList;
-    }
-
-    /**
-     * @return the statiStyle
-     */
-    public CustomCellStyle getStatiStyle() {
-        return statiStyle;
-    }
-
-    /**
-     * @param statiStyle the statiStyle to set
-     */
-    public void setStatiStyle(CustomCellStyle statiStyle) {
-        this.statiStyle = statiStyle;
     }
 
 }

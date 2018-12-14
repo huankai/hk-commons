@@ -44,7 +44,7 @@ public abstract class BooleanUtils extends org.apache.commons.lang3.BooleanUtils
      * @return true or false
      */
     public static boolean toBoolean(String args) {
-        if (StringUtils.isBlank(args)) {
+        if (StringUtils.isEmpty(args)) {
             return false;
         }
         final String trimValue = args.trim();

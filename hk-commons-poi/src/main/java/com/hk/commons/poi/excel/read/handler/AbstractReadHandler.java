@@ -111,21 +111,6 @@ public abstract class AbstractReadHandler<T> {
             String propertyName = getPropertyName(columnIndex);
             if (StringUtils.isNotEmpty(propertyName)) {
                 value = trimToValue(value);
-//                boolean isNestedProperty = StringUtils.indexOf(propertyName, WriteExcelUtils.NESTED_PROPERTY) != -1;
-//                if (isNestedProperty) {
-//                    propertyName = String.format(propertyName, 0);
-//                }
-//                Object propertyValue = wrapper.getPropertyValue(propertyName);
-//                if (null != propertyName && isNestedProperty) {//此入未完成...
-////                    propertyName = StringUtils.replacePattern(propertyName,"d")
-//                }
-//                Class<?> propertyType = wrapper.getPropertyType(propertyName);
-//                if (ClassUtils.isAssignable(Boolean.class, propertyType)) {
-//                    value = BooleanUtils.toBoolean(value.toString());
-//
-//                } else if (ClassUtils.isAssignable(Date.class, propertyType)) {
-//                    value = DateTimeUtils.stringToDate(value.toString(), DatePattern.values());
-//                }
                 wrapper.setPropertyValue(propertyName, value);
             }
         }
@@ -192,7 +177,7 @@ public abstract class AbstractReadHandler<T> {
                     rowIndex++;
                 }
             }
-            interceptor.afterComplate(result);
+            interceptor.afterComplete(result);
         }
     }
 

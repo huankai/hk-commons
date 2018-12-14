@@ -98,7 +98,8 @@ public class ReadResult<T> implements Serializable {
      * @return
      */
     public List<T> getSheetDataBySheetIndex(int sheetIndex) {
-        Optional<SheetData<T>> optional = sheetDataList.stream().filter(item -> item.getSheetIndex() == sheetIndex)
+        Optional<SheetData<T>> optional = sheetDataList.stream()
+                .filter(item -> item.getSheetIndex() == sheetIndex)
                 .findFirst();
         return optional.isPresent() ? optional.get().getData() : Collections.emptyList();
     }

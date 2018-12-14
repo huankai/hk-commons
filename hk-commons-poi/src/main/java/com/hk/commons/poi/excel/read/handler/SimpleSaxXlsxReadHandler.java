@@ -9,12 +9,12 @@ import com.hk.commons.util.CollectionUtils;
 import com.hk.commons.util.StringUtils;
 import org.apache.commons.collections4.keyvalue.DefaultKeyValue;
 import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.hssf.util.CellReference;
+import org.apache.poi.ooxml.util.SAXHelper;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.util.SAXHelper;
+import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.eventusermodel.ReadOnlySharedStringsTable;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.apache.poi.xssf.eventusermodel.XSSFReader.SheetIterator;
@@ -66,8 +66,8 @@ public class SimpleSaxXlsxReadHandler<T> extends AbstractSaxReadHandler<T> imple
      *
      * @param opcPackage opcPackage
      * @return {@link ReadResult}
-     * @throws IOException IOException
-     * @throws SAXException SAXException
+     * @throws IOException        IOException
+     * @throws SAXException       SAXException
      * @throws OpenXML4JException OpenXML4JException
      */
     protected ReadResult<T> processOPCPackage(OPCPackage opcPackage)
@@ -82,8 +82,8 @@ public class SimpleSaxXlsxReadHandler<T> extends AbstractSaxReadHandler<T> imple
      *
      * @param opcPackage opcPackage
      * @return {@link ReadResult}
-     * @throws IOException IOException
-     * @throws SAXException SAXException
+     * @throws IOException        IOException
+     * @throws SAXException       SAXException
      * @throws OpenXML4JException OpenXML4JException
      */
     private ReadResult<T> doProcessOPCPackage(OPCPackage opcPackage)
@@ -119,13 +119,13 @@ public class SimpleSaxXlsxReadHandler<T> extends AbstractSaxReadHandler<T> imple
     /**
      * 解析每一个工作表
      *
-     * @param stylesTable stylesTable
+     * @param stylesTable  stylesTable
      * @param stringsTable stringsTable
-     * @param saxHandler saxHandler
-     * @param inputStream inputStream
-     * @throws SAXException SAXException
+     * @param saxHandler   saxHandler
+     * @param inputStream  inputStream
+     * @throws SAXException                 SAXException
      * @throws ParserConfigurationException ParserConfigurationException
-     * @throws IOException IOException
+     * @throws IOException                  IOException
      */
     private void processSheet(StylesTable stylesTable, ReadOnlySharedStringsTable stringsTable,
                               SheetContentsHandler saxHandler, InputStream inputStream)

@@ -224,7 +224,7 @@ public class CustomCellStyle implements StyleSheet {
      *
      * @param workbook workbook
      * @param dataFormat dataFormat
-     * @return
+     * @return {@link CellStyle}
      */
     public CellStyle toCellStyle(Workbook workbook, DataFormat dataFormat) {
         return CellStyleBuilder.buildCellStyle(workbook, this, dataFormat);

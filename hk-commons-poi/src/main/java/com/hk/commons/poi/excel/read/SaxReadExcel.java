@@ -2,8 +2,8 @@ package com.hk.commons.poi.excel.read;
 
 import com.hk.commons.poi.excel.model.ReadParam;
 import com.hk.commons.poi.excel.read.handler.*;
+import com.hk.commons.util.FileUtils;
 import com.hk.commons.util.StringUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.poifs.filesystem.FileMagic;
 
 import java.io.File;
@@ -59,7 +59,7 @@ public class SaxReadExcel<T> extends AbstractReadExcel<T> {
 
     @Override
     protected ReadHandler<T> createReadableHandler(File file) {
-        String extension = FilenameUtils.getExtension(file.getName()).toLowerCase(Locale.ENGLISH);
+        String extension = FileUtils.getExtension(file.getName()).toUpperCase(Locale.ENGLISH);
         if (StringUtils.equals(XLS_EXTENSION, extension)) {
             return xlsReadHandler;
         } else if (StringUtils.equals(XLSX_EXTENSION, extension)) {

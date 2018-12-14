@@ -24,7 +24,7 @@ public abstract class StringToNumberConverter<T extends Number> extends StringGe
 
     @Override
     protected T doConvert(String source) {
-        return NumberUtils.parseNumber(source, targetType);
+        return NumberUtils.parseNumber(source, getTargetType());
     }
 
     /**

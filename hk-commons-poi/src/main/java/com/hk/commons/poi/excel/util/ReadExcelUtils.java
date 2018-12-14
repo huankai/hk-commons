@@ -32,7 +32,7 @@ public abstract class ReadExcelUtils {
      * @return 标示有 ReadExcel.class 注解的属性列与属性名的map
      */
     public static Map<Integer, String> getReadExcelAnnotationMapping(Class<?> beanClass) {
-        Map<Integer, String> map =  new HashMap<>();
+        Map<Integer, String> map = new HashMap<>();
         putReadExcel(beanClass, null, null, map);
         return map;
     }
@@ -46,8 +46,8 @@ public abstract class ReadExcelUtils {
             }
             /*
              * else if(wrapClass.isArray()) { nestedPath = StringUtils.isBlank(nestedPath) ?
-			 * StringUtils.EMPTY : nestedPath + "."; }
-			 */
+             * StringUtils.EMPTY : nestedPath + "."; }
+             */
             else {
                 nestedPrefix = StringUtils.isEmpty(nestedPrefix) ?
                         StringUtils.EMPTY : nestedPrefix + PropertyAccessor.NESTED_PROPERTY_SEPARATOR;
@@ -97,7 +97,7 @@ public abstract class ReadExcelUtils {
     /**
      * @param beanClazz
      * @param columnIndex
-     * @return
+     * @return {@link ReadExcel}
      */
     public static ReadExcel getAnnotation(Class<?> beanClazz, final int columnIndex) {
         return getAnnotationField(beanClazz, columnIndex).getAnnotation(ReadExcel.class);
@@ -106,7 +106,7 @@ public abstract class ReadExcelUtils {
     /**
      * @param beanClass
      * @param columnIndex
-     * @return
+     * @return {@link Field}
      */
     private static Field getAnnotationField(Class<?> beanClass, final int columnIndex) {
         List<Field> fields = FieldUtils.getFieldsListWithAnnotation(beanClass, ReadExcel.class);
@@ -118,9 +118,11 @@ public abstract class ReadExcelUtils {
     }
 
     /**
-     * @param beanClass
-     * @param propertyName
-     * @return
+     * 返回标记有 {@link ReadExcel} 注解的属性对应的列
+     *
+     * @param beanClass    bean class
+     * @param propertyName 属性名
+     * @return 属性对应的列
      */
     public static int[] getPropertyAnnotationColumns(Class<?> beanClass, String propertyName) {
         List<Field> fields = FieldUtils.getFieldsListWithAnnotation(beanClass, ReadExcel.class);

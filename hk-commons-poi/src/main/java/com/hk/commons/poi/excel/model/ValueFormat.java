@@ -19,31 +19,31 @@ public class ValueFormat {
     /**
      * 默认格式化方式
      */
-    private static Map<Object, DataFormat> DEFAULT_FROMAT = new HashMap<>();
+    private static Map<Object, DataFormat> DEFAULT_FORMAT = new HashMap<>();
 
     private Map<Object, DataFormat> mapper = new HashMap<>();
 
     static {
-        DEFAULT_FROMAT.put(String.class, DataFormat.TEXT_FORMAT);
-        DEFAULT_FROMAT.put(Date.class, DataFormat.DATE_FORMAT);
-        DEFAULT_FROMAT.put(Short.TYPE, DataFormat.INTEGER_FORMAT);
-        DEFAULT_FROMAT.put(Short.class, DataFormat.INTEGER_FORMAT);
-        DEFAULT_FROMAT.put(Integer.TYPE, DataFormat.INTEGER_FORMAT);
-        DEFAULT_FROMAT.put(Integer.class, DataFormat.INTEGER_FORMAT);
-        DEFAULT_FROMAT.put(Long.TYPE, DataFormat.INTEGER_FORMAT);
-        DEFAULT_FROMAT.put(Long.class, DataFormat.INTEGER_FORMAT);
-        DEFAULT_FROMAT.put(Float.TYPE, DataFormat.DECIMAL_FORMAT_2);
-        DEFAULT_FROMAT.put(Float.class, DataFormat.DECIMAL_FORMAT_2);
-        DEFAULT_FROMAT.put(Double.TYPE, DataFormat.DECIMAL_FORMAT_2);
-        DEFAULT_FROMAT.put(Double.class, DataFormat.DECIMAL_FORMAT_2);
-        DEFAULT_FROMAT.put(BigDecimal.class, DataFormat.DECIMAL_FORMAT_2);
-        DEFAULT_FROMAT.put(LocalDateTime.class, DataFormat.DATETIME_FORMAT);
-        DEFAULT_FROMAT.put(LocalDate.class, DataFormat.DATE_FORMAT);
-        DEFAULT_FROMAT.put(LocalTime.class, DataFormat.TIME_FORMAT);
+        DEFAULT_FORMAT.put(String.class, DataFormat.TEXT_FORMAT);
+        DEFAULT_FORMAT.put(Date.class, DataFormat.DATE_FORMAT);
+        DEFAULT_FORMAT.put(Short.TYPE, DataFormat.INTEGER_FORMAT);
+        DEFAULT_FORMAT.put(Short.class, DataFormat.INTEGER_FORMAT);
+        DEFAULT_FORMAT.put(Integer.TYPE, DataFormat.INTEGER_FORMAT);
+        DEFAULT_FORMAT.put(Integer.class, DataFormat.INTEGER_FORMAT);
+        DEFAULT_FORMAT.put(Long.TYPE, DataFormat.INTEGER_FORMAT);
+        DEFAULT_FORMAT.put(Long.class, DataFormat.INTEGER_FORMAT);
+        DEFAULT_FORMAT.put(Float.TYPE, DataFormat.DECIMAL_FORMAT_2);
+        DEFAULT_FORMAT.put(Float.class, DataFormat.DECIMAL_FORMAT_2);
+        DEFAULT_FORMAT.put(Double.TYPE, DataFormat.DECIMAL_FORMAT_2);
+        DEFAULT_FORMAT.put(Double.class, DataFormat.DECIMAL_FORMAT_2);
+        DEFAULT_FORMAT.put(BigDecimal.class, DataFormat.DECIMAL_FORMAT_2);
+        DEFAULT_FORMAT.put(LocalDateTime.class, DataFormat.DATETIME_FORMAT);
+        DEFAULT_FORMAT.put(LocalDate.class, DataFormat.DATE_FORMAT);
+        DEFAULT_FORMAT.put(LocalTime.class, DataFormat.TIME_FORMAT);
     }
 
     public ValueFormat() {
-        mapper.putAll(DEFAULT_FROMAT);
+        mapper.putAll(DEFAULT_FORMAT);
     }
 
     /**
@@ -84,6 +84,5 @@ public class ValueFormat {
      */
     public DataFormat getFormat(String propertyName, Class<?> propertyType) {
         return mapper.getOrDefault(propertyName, mapper.getOrDefault(propertyType, DataFormat.TEXT_FORMAT));
-
     }
 }

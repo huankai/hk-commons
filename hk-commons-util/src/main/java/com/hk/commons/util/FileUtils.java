@@ -71,8 +71,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         if (!file.exists() || file.isDirectory()) {
             return false;
         }
-        String extension = FilenameUtils.getExtension(file.getName());
-        return ArrayUtils.contains(IMAGE_EXT, extension.toLowerCase());
+        return isImage(file.getName());
     }
 
     /**
@@ -82,7 +81,8 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
      * @return boolean
      */
     public static boolean isImage(String fileName) {
-        String extension = FilenameUtils.getExtension(fileName);
+        String extension = getExtension(fileName);
+        AssertUtils.hasText(extension, "文件扩展名不能为空");
         return ArrayUtils.contains(IMAGE_EXT, extension.toLowerCase());
     }
 

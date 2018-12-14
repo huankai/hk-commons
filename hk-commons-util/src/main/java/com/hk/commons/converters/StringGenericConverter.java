@@ -3,6 +3,8 @@ package com.hk.commons.converters;
 import com.hk.commons.util.AssertUtils;
 import com.hk.commons.util.ObjectUtils;
 import com.hk.commons.util.StringUtils;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
@@ -22,33 +24,24 @@ public abstract class StringGenericConverter<T> implements GenericConverter {
     /**
      * 为空时的默认值
      */
+    @Getter
+    @Setter
     private T defaultValue;
 
     /**
      * 目标类型
      */
-    public final Class<T> targetType;
+    @Getter
+    private final Class<T> targetType;
 
     protected StringGenericConverter(Class<T> targetType) {
         this(null, targetType);
     }
 
     protected StringGenericConverter(T defaultValue, Class<T> targetType) {
-        this.defaultValue = defaultValue;
         AssertUtils.notNull(targetType, "target Type must not be null");
-        this.targetType = targetType;
-    }
-
-    public T getDefaultValue() {
-        return defaultValue;
-    }
-
-    public void setDefaultValue(T defaultValue) {
         this.defaultValue = defaultValue;
-    }
-
-    public Class<T> getTargetType() {
-        return targetType;
+        this.targetType = targetType;
     }
 
     @Override

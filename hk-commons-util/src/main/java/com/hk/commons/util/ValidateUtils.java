@@ -46,7 +46,7 @@ public abstract class ValidateUtils {
      * @param args args
      */
     public static boolean isEmail(String args) {
-        return StringUtils.isNotBlank(args) && EMAIL_PATTERN.matcher(args).find();
+        return StringUtils.isNotEmpty(args) && EMAIL_PATTERN.matcher(args).find();
     }
 
     /**
@@ -55,6 +55,6 @@ public abstract class ValidateUtils {
      * @param args args
      */
     public static boolean isMobilephone(String args) {
-        return StringUtils.isNotBlank(args) && MOBILEPHONE_PARTTERN.matcher(args).find();
+        return StringUtils.isNotEmpty(args) && MOBILEPHONE_PARTTERN.matcher(args).find();
     }
 }

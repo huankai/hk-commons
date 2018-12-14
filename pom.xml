@@ -28,78 +28,78 @@
         <repository>
             <id>nexus</id>
             <name>Releases</name>
-            <url>http://47.107.245.220:8081/repository/maven-releases</url>
+            <url>http://182.61.40.18:8081/repository/maven-releases</url>
         </repository>
         <snapshotRepository>
             <id>nexus</id>
             <name>Snapshot</name>
-            <url>http://47.107.245.220:8081/repository/maven-snapshots</url>
+            <url>http://182.61.40.18:8081/repository/maven-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
     <build>
-            <!-- 注意体会插件配置的顺序，这正体现了一个maven的运行流程 -->
-            <plugins>
-                <!-- Maven Clean Plugin -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <configuration>
-                        <skip>false</skip> <!-- 忽略clean [mvn clean -Dmaven.clean.skip=true] -->
-                        <failOnError>false</failOnError> <!-- clean时忽略错误 [mvn clean -Dmaven.clean.failOnError=false] -->
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>auto-clean</id>
-                            <phase>clean</phase> <!-- clean生命周期clean阶段 -->
-                            <goals>
-                                <goal>clean</goal> <!-- 执行clean插件的clean目标 -->
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
+        <!-- 注意体会插件配置的顺序，这正体现了一个maven的运行流程 -->
+        <plugins>
+            <!-- Maven Clean Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <skip>false</skip> <!-- 忽略clean [mvn clean -Dmaven.clean.skip=true] -->
+                    <failOnError>false</failOnError> <!-- clean时忽略错误 [mvn clean -Dmaven.clean.failOnError=false] -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>auto-clean</id>
+                        <phase>clean</phase> <!-- clean生命周期clean阶段 -->
+                        <goals>
+                            <goal>clean</goal> <!-- 执行clean插件的clean目标 -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
-                <!-- compiler插件, 设定JDK版本 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.5.1</version>
-                    <configuration>
-                        <source>${java.version}</source> <!-- 源代码使用的jdk版本 -->
-                        <target>${java.version}</target> <!-- 构建后生成class文件jdk版本 -->
-                        <encoding>${project.build.sourceEncoding}</encoding> <!-- 构建使用的编码 -->
-                    </configuration>
-                </plugin>
+            <!-- compiler插件, 设定JDK版本 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>${java.version}</source> <!-- 源代码使用的jdk版本 -->
+                    <target>${java.version}</target> <!-- 构建后生成class文件jdk版本 -->
+                    <encoding>${project.build.sourceEncoding}</encoding> <!-- 构建使用的编码 -->
+                </configuration>
+            </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>3.0.1</version>
-                    <executions>
-                        <execution>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>jar-no-fork</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.19.1</version>
-                    <configuration>
-                        <skip>true</skip>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
-                </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+            </plugin>
 
-            </plugins>
+    	</plugins>
     </build>
 </project>

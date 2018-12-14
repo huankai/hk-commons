@@ -114,7 +114,7 @@ public abstract class WriteExcelUtils {
      * 获取有ExportExcel注解修饰的属性，包括父类
      *
      * @param cls
-     * @return
+     * @return {@link List}
      */
     private static List<Field> getFieldWithWriteExcelAnnotationList(Class<?> cls) {
         return FieldUtils.getFieldsListWithAnnotation(cls, WriteExcel.class);
@@ -123,8 +123,8 @@ public abstract class WriteExcelUtils {
     /**
      * 获取有ExportExcel注解修饰的方法，包括父类
      *
-     * @param cls
-     * @return
+     * @param cls cls
+     * @return {@link List}
      */
     private static List<Method> getMethodWithWriteExcelAnnotationList(Class<?> cls) {
         return MethodUtils.getMethodsListWithAnnotation(cls, WriteExcel.class);
@@ -133,8 +133,8 @@ public abstract class WriteExcelUtils {
     /**
      * 获取属性和Get方法有ExportExcel注解修饰Map集合，包括父类
      *
-     * @param cls
-     * @return
+     * @param cls cls
+     * @return {@link Map}
      */
     private static Map<String, WriteExcel> getWriteExcelAnnotationList(Class<?> cls) {
         List<Field> fields = getFieldWithWriteExcelAnnotationList(cls);

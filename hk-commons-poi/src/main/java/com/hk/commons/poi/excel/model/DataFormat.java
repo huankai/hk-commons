@@ -54,24 +54,24 @@ public enum DataFormat {
 	 * 
 	 * 整数格式
 	 */
-	INTEGER_FORMAT("0"),
+	INTEGER_FORMAT("#"),
 	
 	/**
 	 * 
 	 * 小数格式, 精确到小数点后一位
 	 */
-	DECIMAL_FORMAT_1("0.0"),
+	DECIMAL_FORMAT_1("#.#"),
 	
 	/**
 	 * 
 	 * 小数格式, 精确到小数点后两位
 	 */
-	DECIMAL_FORMAT_2("0.00"),
+	DECIMAL_FORMAT_2("#.##"),
 	/**
 	 * 
 	 * 小数格式, 精确到小数点三位
 	 */
-	DECIMAL_FORMAT_3("0.000"),
+	DECIMAL_FORMAT_3("#.###"),
 	
 	/**
 	 * 
