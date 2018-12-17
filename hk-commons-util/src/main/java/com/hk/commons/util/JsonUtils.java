@@ -51,7 +51,7 @@ public final class JsonUtils {
 
     }
 
-    public static JavaTimeModule getJavaTimeModule(){
+    public static JavaTimeModule getJavaTimeModule() {
         return JAVA_TIME_MODULE;
     }
 
@@ -179,7 +179,7 @@ public final class JsonUtils {
      *
      * @return
      */
-    public static <T> T deserialize(String json, Class<?> rawType, Class<?> parametrized, Class<?> parameterClasses) {
+    public static <T> T deserialize(String json, Class<T> rawType, Class<?> parametrized, Class<?> parameterClasses) {
         if (StringUtils.isEmpty(json)) {
             return null;
         }

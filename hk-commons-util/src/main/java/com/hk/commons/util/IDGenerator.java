@@ -22,11 +22,11 @@ public interface IDGenerator<T> {
     /**
      * UUID生成
      */
-    IDGenerator<String> STRING_UUID = () -> UUID.randomUUID().toString().replaceAll(StringUtils.RUNG,
-            StringUtils.EMPTY);
+    IDGenerator<String> STRING_UUID = () -> UUID.randomUUID().toString()
+            .replaceAll(StringUtils.RUNG, StringUtils.EMPTY);
 
     /**
-     * MostSignifcant
+     * MostSignificantBit
      */
     IDGenerator<Long> MOSTSIGN_UUID = () -> UUID.randomUUID().getMostSignificantBits();
 

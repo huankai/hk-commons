@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -31,7 +28,7 @@ public class ListResult<T> implements Iterable<T> {
     private List<T> result;
 
     public List<T> getResult() {
-        return result == null ? new ArrayList<>() : result;
+        return result == null ? Collections.emptyList() : result;
     }
 
     @Override
