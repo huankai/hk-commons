@@ -13,7 +13,7 @@ import com.hk.commons.http.AbstractHttpExecutor;
 
 /**
  * Delete请求
- * @author: kevin
+ * @author kevin
  *
  * @param <T>
  */

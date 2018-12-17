@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * 日期工具类
  *
- * @author: kevin
+ * @author kevin
  */
 public abstract class DateTimeUtils {
 

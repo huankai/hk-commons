@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * Get请求
- * @author: kevin
+ * @author kevin
  *
  * @param <T>
  */

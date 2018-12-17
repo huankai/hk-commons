@@ -5,7 +5,7 @@ import com.hk.commons.poi.excel.model.ReadResult;
 /**
  * 验证拦截器
  *
- * @author: huangk
+ * @author huangk
  */
 public interface ValidationInterceptor<T> {
 

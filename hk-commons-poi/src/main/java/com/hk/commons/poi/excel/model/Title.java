@@ -4,14 +4,16 @@ import lombok.Data;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.util.CellAddress;
 
+import java.io.Serializable;
+
 /**
  * Excel标题行
  *
- * @author: kevin
- * @date: 2018年1月10日下午3:45:32
+ * @author kevin
+ * @date 2018年1月10日下午3:45:32
  */
 @Data
-public class Title {
+public class Title implements Serializable {
 
     /**
      * 单元格所在行

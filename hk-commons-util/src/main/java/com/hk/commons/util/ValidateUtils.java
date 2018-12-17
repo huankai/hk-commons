@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 /**
  * 校验工具类
  *
- * @author: kevin
- * @date: 2018年3月5日上午8:56:03
+ * @author kevin
+ * @date 2018年3月5日上午8:56:03
  */
 public abstract class ValidateUtils {
 

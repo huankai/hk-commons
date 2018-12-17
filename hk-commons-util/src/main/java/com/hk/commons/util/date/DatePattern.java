@@ -7,8 +7,8 @@ import java.util.Arrays;
 /**
  * 时间格式
  *
- * @author: kevin
- * @date: 2017年9月15日下午5:46:30
+ * @author kevin
+ * @date 2017年9月15日下午5:46:30
  */
 public enum DatePattern {
 

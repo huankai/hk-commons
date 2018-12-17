@@ -5,7 +5,7 @@ import com.hk.commons.poi.excel.model.WriteParam;
 import java.io.OutputStream;
 
 /**
- * @author: kevin
+ * @author kevin
  *
  */
 public interface WriteableExcel<T> {

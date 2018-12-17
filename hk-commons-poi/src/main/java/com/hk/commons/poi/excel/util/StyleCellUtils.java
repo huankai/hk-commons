@@ -9,7 +9,7 @@ import com.hk.commons.poi.excel.style.StyleSheet;
 /**
  * 样式工具类
  *
- * @author: kevin
+ * @author kevin
  */
 public abstract class StyleCellUtils {
 

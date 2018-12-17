@@ -14,7 +14,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * @author: kevin
+ * @author kevin
  */
 @Retention(RUNTIME)
 @Target({FIELD, METHOD})

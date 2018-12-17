@@ -18,7 +18,7 @@ import java.util.ListIterator;
 import java.util.Objects;
 
 /**
- * @author: kevin
+ * @author kevin
  */
 public abstract class AbstractReadHandler<T> {
 

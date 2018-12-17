@@ -5,7 +5,7 @@ import org.apache.poi.ss.usermodel.Font;
 /**
  * 样式
  *
- * @author: kevin
+ * @author kevin
  */
 public interface StyleSheet {
 

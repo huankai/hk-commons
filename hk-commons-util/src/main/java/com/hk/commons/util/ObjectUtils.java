@@ -5,8 +5,8 @@ import java.util.Objects;
 /**
  * 对象工具类
  *
- * @author: kevin
- * @date: 2017年10月20日上午9:40:39
+ * @author kevin
+ * @date 2017年10月20日上午9:40:39
  */
 public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
 

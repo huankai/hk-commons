@@ -20,8 +20,8 @@ import com.hk.commons.poi.excel.style.StyleSheet.UnderLineStyle;
 
 /**
  * 样式
- * @author: kevin
- * @date: 2017年9月15日下午5:43:37
+ * @author kevin
+ * @date 2017年9月15日下午5:43:37
  */
 @Target({FIELD,TYPE})
 @Retention(RUNTIME)

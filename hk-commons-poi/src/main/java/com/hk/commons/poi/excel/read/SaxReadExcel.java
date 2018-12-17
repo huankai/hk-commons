@@ -14,7 +14,7 @@ import java.util.Locale;
 /**
  * Sax 解析Excel
  *
- * @author: kevin
+ * @author kevin
  */
 public class SaxReadExcel<T> extends AbstractReadExcel<T> {
 

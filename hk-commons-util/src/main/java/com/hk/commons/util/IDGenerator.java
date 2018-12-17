@@ -6,8 +6,8 @@ import java.util.UUID;
  * ID生成器
  *
  * @param <T>
- * @author: kevin
- * @date: 2017年8月22日下午1:32:03
+ * @author kevin
+ * @date 2017年8月22日下午1:32:03
  */
 @FunctionalInterface
 public interface IDGenerator<T> {

@@ -6,7 +6,7 @@ import lombok.Setter;
 import org.apache.poi.ss.usermodel.Cell;
 
 /**
- * @author: kevin
+ * @author kevin
  */
 public class StyleTitle extends Title {
 

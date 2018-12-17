@@ -5,8 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author: kevin
- * @date: 2018-07-27 08:53
+ * @author kevin
+ * @date 2018-07-27 08:53
  */
 public class DefaultSmsCodeSender implements SmsCodeSender {
 

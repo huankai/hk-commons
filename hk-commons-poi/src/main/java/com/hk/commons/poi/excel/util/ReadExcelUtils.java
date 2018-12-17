@@ -19,8 +19,8 @@ import java.util.stream.IntStream;
 /**
  * 读取Excel 工具类
  *
- * @author: kevin
- * @date: 2018年1月11日下午12:49:37
+ * @author kevin
+ * @date 2018年1月11日下午12:49:37
  */
 public abstract class ReadExcelUtils {
 

@@ -19,8 +19,8 @@ import com.hk.commons.util.ObjectUtils;
 
 /**
  * 支持文件上传的POST请求
- * @author: kevin
- * @date: 2017年10月12日下午4:58:33
+ * @author kevin
+ * @date 2017年10月12日下午4:58:33
  */
 public class MimePostHttpExecutor extends AbstractPostHttpExecutor<String,Map<String, Object>> {
 	

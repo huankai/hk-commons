@@ -6,8 +6,8 @@ import lombok.Data;
 /**
  * 导出Excel每一列的属性参数
  *
- * @author: kevin
- * @date: 2017年9月15日下午3:21:51
+ * @author kevin
+ * @date 2017年9月15日下午3:21:51
  */
 @Data
 public class ExcelColumnInfo {

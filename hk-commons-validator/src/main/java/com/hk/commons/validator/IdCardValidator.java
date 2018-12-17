@@ -8,8 +8,8 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * @author: kevin
- * @date: 2018-08-31 10:59
+ * @author kevin
+ * @date 2018-08-31 10:59
  */
 public class IdCardValidator implements ConstraintValidator<IdCard, CharSequence> {
 

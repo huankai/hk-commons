@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 
 /**
  * 
- * @author: kevin
+ * @author kevin
  *
  */
 @Documented

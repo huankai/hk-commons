@@ -27,8 +27,8 @@ import java.util.List;
 /**
  * JSON Utils
  *
- * @author: kevin
- * @date: 2018-07-17 14:48
+ * @author kevin
+ * @date 2018-07-17 14:48
  */
 public final class JsonUtils {
 

@@ -5,7 +5,7 @@ import com.hk.commons.poi.ReadException;
 
 /**
  * 读取Excel异常
- * @author: kevin
+ * @author kevin
  *
  */
 @SuppressWarnings("serial")

@@ -27,7 +27,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 /**
- * @author: kevin
+ * @author kevin
  */
 public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T> {
 

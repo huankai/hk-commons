@@ -9,8 +9,8 @@ import java.math.BigInteger;
  * String 转换为Number类型
  *
  * @param <T>
- * @author: kevin
- * @date: 2017年9月1日上午11:34:42
+ * @author kevin
+ * @date 2017年9月1日上午11:34:42
  */
 public abstract class StringToNumberConverter<T extends Number> extends StringGenericConverter<T> {
 
@@ -30,8 +30,8 @@ public abstract class StringToNumberConverter<T extends Number> extends StringGe
     /**
      * 转换为 Long类型
      *
-     * @author: kevin
-     * @date: 2017年9月1日上午11:34:55
+     * @author kevin
+     * @date 2017年9月1日上午11:34:55
      */
     public static class StringToLongConverter extends StringToNumberConverter<Long> {
 
@@ -43,8 +43,8 @@ public abstract class StringToNumberConverter<T extends Number> extends StringGe
     /**
      * 转换为 Integer类型
      *
-     * @author: kevin
-     * @date: 2017年9月1日上午11:35:04
+     * @author kevin
+     * @date 2017年9月1日上午11:35:04
      */
     public static class StringToIntegerConverter extends StringToNumberConverter<Integer> {
 
@@ -57,8 +57,8 @@ public abstract class StringToNumberConverter<T extends Number> extends StringGe
     /**
      * 转换为BigInteger类型
      *
-     * @author: kevin
-     * @date: 2017年9月1日上午11:35:20
+     * @author kevin
+     * @date 2017年9月1日上午11:35:20
      */
     public static class StringToBigIntegerConverter extends StringToNumberConverter<BigInteger> {
 
@@ -71,8 +71,8 @@ public abstract class StringToNumberConverter<T extends Number> extends StringGe
     /**
      * 转换为BigInteger类型
      *
-     * @author: kevin
-     * @date: 2017年9月1日上午11:35:20
+     * @author kevin
+     * @date 2017年9月1日上午11:35:20
      */
     public static class StringToBigDecimalConverter extends StringToNumberConverter<BigDecimal> {
 

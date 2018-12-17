@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.InputStream;
 
 /**
- * @author: kevin
+ * @author kevin
  */
 public class DomReadExcel<T> extends AbstractReadExcel<T> {
 

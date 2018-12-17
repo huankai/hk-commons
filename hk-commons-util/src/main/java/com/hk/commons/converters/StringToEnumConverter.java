@@ -3,8 +3,8 @@ package com.hk.commons.converters;
 /**
  * String To Enum 转换
  * 
- * @author: kevin
- * @date: 2017年09月20日上午9:05:45
+ * @author kevin
+ * @date 2017年09月20日上午9:05:45
  * @param <T>
  */
 public class StringToEnumConverter<T extends Enum<T>> extends StringGenericConverter<Enum<T>> {

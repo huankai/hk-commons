@@ -9,8 +9,8 @@ import java.time.format.DateTimeFormatter;
 /**
  * 日期Id生成器
  *
- * @author: kevin
- * @date: 2017年9月12日上午10:13:59
+ * @author kevin
+ * @date 2017年9月12日上午10:13:59
  */
 public class DateIdGenerator extends TimestampIDGenerator {
 

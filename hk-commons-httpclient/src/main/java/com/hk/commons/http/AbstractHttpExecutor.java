@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * 请求接口抽象实现
  *
- * @author: kevin
+ * @author kevin
  */
 public abstract class AbstractHttpExecutor<T, P> implements HttpExecutor<T, P> {
 

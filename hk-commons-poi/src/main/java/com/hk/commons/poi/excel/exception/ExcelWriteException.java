@@ -5,7 +5,7 @@ import com.hk.commons.poi.WriteException;
 
 /**
  * 写入Excel异常
- * @author: kevin
+ * @author kevin
  */
 @SuppressWarnings("serial")
 public class ExcelWriteException extends WriteException {

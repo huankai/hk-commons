@@ -7,7 +7,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.io.OutputStream;
 
 /**
- * @author: kevin
+ * @author kevin
  *
  */
 public abstract class AbstractWriteableExcel<T> implements WriteableExcel<T> {

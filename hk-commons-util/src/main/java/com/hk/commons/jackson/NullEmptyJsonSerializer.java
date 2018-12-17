@@ -8,8 +8,8 @@ import com.hk.commons.util.StringUtils;
 import java.io.IOException;
 
 /**
- * @author: kevin
- * @date: 2018-08-20 13:09
+ * @author kevin
+ * @date 2018-08-20 13:09
  */
 public class NullEmptyJsonSerializer extends JsonSerializer<Object> {
 

@@ -6,8 +6,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author: kevin
- * @date: 2018-05-30 11:17
+ * @author kevin
+ * @date 2018-05-30 11:17
  */
 public class FileUtils extends org.apache.commons.io.FileUtils {
 

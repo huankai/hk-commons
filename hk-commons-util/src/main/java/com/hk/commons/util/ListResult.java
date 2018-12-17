@@ -9,8 +9,8 @@ import java.util.*;
 import java.util.function.Consumer;
 
 /**
- * @author: kevin
- * @date: 2018-06-06 17:58
+ * @author kevin
+ * @date 2018-06-06 17:58
  */
 @NoArgsConstructor
 @AllArgsConstructor

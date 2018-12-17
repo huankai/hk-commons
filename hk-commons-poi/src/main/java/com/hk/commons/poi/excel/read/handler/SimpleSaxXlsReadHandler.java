@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Sax parse 97~2003
  *
- * @author: kevin
+ * @author kevin
  */
 public class SimpleSaxXlsReadHandler<T> extends AbstractSaxReadHandler<T> implements SaxXlsReadHandler<T>, HSSFListener {
 

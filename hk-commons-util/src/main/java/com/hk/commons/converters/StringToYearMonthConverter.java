@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
 /**
  * String to YearMouth
  * 
- * @author: kevin
- * @date: 2017年11月16日上午9:22:26
+ * @author kevin
+ * @date 2017年11月16日上午9:22:26
  */
 public class StringToYearMonthConverter extends StringGenericConverter<YearMonth> {
 
