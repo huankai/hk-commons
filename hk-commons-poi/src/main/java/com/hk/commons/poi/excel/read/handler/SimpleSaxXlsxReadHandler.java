@@ -171,7 +171,7 @@ public class SimpleSaxXlsxReadHandler<T> extends AbstractSaxReadHandler<T> imple
      */
     @Override
     public void cell(String cellReference, String formattedValue, XSSFComment comment) {
-        if (StringUtils.isNotBlank(formattedValue)) {
+        if (StringUtils.isNotEmpty(formattedValue)) {
             emptyRow = false;
             CellReference reference = new CellReference(cellReference);
             int thisRow = reference.getRow();
