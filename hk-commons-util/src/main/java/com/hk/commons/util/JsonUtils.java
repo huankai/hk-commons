@@ -1,7 +1,10 @@
 package com.hk.commons.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -11,6 +14,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import com.hk.commons.jackson.DisableJsonIgnorePropertiesAnnotationIntrospector;
 import com.hk.commons.util.date.DatePattern;
 
 import java.io.IOException;
@@ -85,6 +89,8 @@ public final class JsonUtils {
          */
         filterProvider.addFilter(IGNORE_ENTITY_SERIALIZE_FIELD_FILTER_ID, SimpleBeanPropertyFilter.serializeAllExcept("handler", "hibernateLazyInitializer"));
         om.setFilterProvider(filterProvider);
+
+        om.setAnnotationIntrospector(new DisableJsonIgnorePropertiesAnnotationIntrospector());
     }
 
     private static ObjectMapper indentMapper;
