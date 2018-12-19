@@ -1,7 +1,7 @@
 package com.hk.commons.poi.excel.util;
 
 import com.hk.commons.poi.excel.annotations.NestedProperty;
-import com.hk.commons.poi.excel.annotations.ReadExcel;
+import com.hk.commons.poi.excel.annotations.ReadExcelField;
 import com.hk.commons.poi.excel.exception.ExcelReadException;
 import com.hk.commons.util.FieldUtils;
 import com.hk.commons.util.StringUtils;
@@ -58,7 +58,7 @@ public abstract class ReadExcelUtils {
 
         List<Field> fieldList = getFieldWithExcelCellAnnotations(beanClass);
         for (Field field : fieldList) {
-            int[] arr = getExcelCellAnnotationColumns(field.getAnnotation(ReadExcel.class));
+            int[] arr = getExcelCellAnnotationColumns(field.getAnnotation(ReadExcelField.class));
             for (int column : arr) {
                 map.put(column, nestedPrefix + field.getName());
             }
@@ -91,7 +91,7 @@ public abstract class ReadExcelUtils {
      * @return 包含有 ReadExcel注解的属性
      */
     public static List<Field> getFieldWithExcelCellAnnotations(Class<?> cls) {
-        return FieldUtils.getFieldsListWithAnnotation(cls, ReadExcel.class);
+        return FieldUtils.getFieldsListWithAnnotation(cls, ReadExcelField.class);
     }
 
     /**
@@ -99,8 +99,8 @@ public abstract class ReadExcelUtils {
      * @param columnIndex
      * @return {@link ReadExcel}
      */
-    public static ReadExcel getAnnotation(Class<?> beanClazz, final int columnIndex) {
-        return getAnnotationField(beanClazz, columnIndex).getAnnotation(ReadExcel.class);
+    public static ReadExcelField getAnnotation(Class<?> beanClazz, final int columnIndex) {
+        return getAnnotationField(beanClazz, columnIndex).getAnnotation(ReadExcelField.class);
     }
 
     /**
@@ -109,9 +109,9 @@ public abstract class ReadExcelUtils {
      * @return {@link Field}
      */
     private static Field getAnnotationField(Class<?> beanClass, final int columnIndex) {
-        List<Field> fields = FieldUtils.getFieldsListWithAnnotation(beanClass, ReadExcel.class);
+        List<Field> fields = FieldUtils.getFieldsListWithAnnotation(beanClass, ReadExcelField.class);
         return fields.stream().filter(f -> {
-            ReadExcel readExcel = f.getAnnotation(ReadExcel.class);
+            ReadExcelField readExcel = f.getAnnotation(ReadExcelField.class);
             return readExcel.end() == -1 ? readExcel.start() == columnIndex
                     : columnIndex >= readExcel.start() && columnIndex <= readExcel.end();
         }).findFirst().orElseThrow(() -> new ExcelReadException(beanClass.getName() + "不包含列[" + columnIndex + "]的属性名"));
@@ -125,11 +125,11 @@ public abstract class ReadExcelUtils {
      * @return 属性对应的列
      */
     public static int[] getPropertyAnnotationColumns(Class<?> beanClass, String propertyName) {
-        List<Field> fields = FieldUtils.getFieldsListWithAnnotation(beanClass, ReadExcel.class);
-        ReadExcel excelCell = fields.stream().filter(field -> StringUtils.equals(field.getName(), propertyName))
+        List<Field> fields = FieldUtils.getFieldsListWithAnnotation(beanClass, ReadExcelField.class);
+        ReadExcelField excelCell = fields.stream().filter(field -> StringUtils.equals(field.getName(), propertyName))
                 .findFirst()
-                .orElseThrow(() -> new ExcelReadException(beanClass.getName() + "属性名[" + propertyName + "]的没有标示 " + ReadExcel.class.getName()))
-                .getAnnotation(ReadExcel.class);
+                .orElseThrow(() -> new ExcelReadException(beanClass.getName() + "属性名[" + propertyName + "]的没有标示 " + ReadExcelField.class.getName()))
+                .getAnnotation(ReadExcelField.class);
         return getExcelCellAnnotationColumns(excelCell);
     }
 
@@ -137,7 +137,7 @@ public abstract class ReadExcelUtils {
      * @param readExcel
      * @return
      */
-    public static int[] getExcelCellAnnotationColumns(ReadExcel readExcel) {
+    public static int[] getExcelCellAnnotationColumns(ReadExcelField readExcel) {
         if (readExcel.start() < readExcel.end()) {
             return IntStream.range(readExcel.start(), readExcel.end() + 1).toArray();
         }

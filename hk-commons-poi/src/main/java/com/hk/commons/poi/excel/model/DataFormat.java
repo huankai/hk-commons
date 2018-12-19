@@ -57,6 +57,7 @@ public enum DataFormat {
      * 小数格式, 精确到小数点后两位
      */
     DECIMAL_FORMAT_2("#.##"),
+
     /**
      * 小数格式, 精确到小数点三位
      */

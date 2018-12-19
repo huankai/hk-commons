@@ -104,8 +104,8 @@ public abstract class NumberUtils extends org.springframework.util.NumberUtils {
     /**
      * 格式化数值，默认保留两位小数
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return String
      */
     public static String formatDecimal(Object value) {
         return formatDecimal(value, "#.##");

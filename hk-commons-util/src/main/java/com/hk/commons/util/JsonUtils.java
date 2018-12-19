@@ -1,10 +1,7 @@
 package com.hk.commons.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -80,7 +77,7 @@ public final class JsonUtils {
 
         om.configure(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS, false);
         om.registerModule(JAVA_TIME_MODULE);
-
+//        om.configure(MapperFeature.USE_ANNOTATIONS, false);//忽略注解
         SimpleFilterProvider filterProvider = new SimpleFilterProvider();
         /*
          * 忽略实体中的Hibernate getOne查询返回的  "handler", "hibernateLazyInitializer" 字段
@@ -160,7 +157,7 @@ public final class JsonUtils {
      * @param <T>   T
      * @param json  json str
      * @param clazz class
-     * @return List
+     * @return 序列化的List
      */
     public static <T> List<T> deserializeList(String json, Class<T> clazz) {
         if (StringUtils.isEmpty(json)) {
@@ -175,9 +172,10 @@ public final class JsonUtils {
     }
 
     /**
+     * 反序列化json 字符串到对象
      * 二级泛型: 如：JsonResult<List<SysUser>>
      *
-     * @return
+     * @return 序列化的对象
      */
     public static <T> T deserialize(String json, Class<T> rawType, Class<?> parametrized, Class<?> parameterClasses) {
         if (StringUtils.isEmpty(json)) {

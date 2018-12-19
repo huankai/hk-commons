@@ -36,12 +36,12 @@ public class SaxReadExcel<T> extends AbstractReadExcel<T> {
     }
 
     /**
-     * @param param param
-     * @param xlsReadHandler xlsReadHandler
+     * @param param           param
+     * @param xlsReadHandler  xlsReadHandler
      * @param xlsxReadHandler xlsxReadHandler
      */
     public SaxReadExcel(ReadParam<T> param, SaxXlsReadHandler<T> xlsReadHandler,
-                              SaxXlsxReadHandler<T> xlsxReadHandler) {
+                        SaxXlsxReadHandler<T> xlsxReadHandler) {
         super(param);
         this.xlsReadHandler = xlsReadHandler;
         this.xlsxReadHandler = xlsxReadHandler;
@@ -59,7 +59,7 @@ public class SaxReadExcel<T> extends AbstractReadExcel<T> {
 
     @Override
     protected ReadHandler<T> createReadableHandler(File file) {
-        String extension = FileUtils.getExtension(file.getName()).toUpperCase(Locale.ENGLISH);
+        String extension = FileUtils.getExtension(file.getName()).toLowerCase(Locale.ENGLISH);
         if (StringUtils.equals(XLS_EXTENSION, extension)) {
             return xlsReadHandler;
         } else if (StringUtils.equals(XLSX_EXTENSION, extension)) {

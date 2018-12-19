@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hk.commons.poi.excel.annotations;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -19,61 +16,61 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target({FIELD, METHOD})
 @Documented
-public @interface WriteExcel {
+public @interface WriteExcelField {
 
     /**
      * 导出列
      *
-     * @return
+     * @return int
      */
     int index();
 
     /**
      * 导出的标题名称
      *
-     * @return
+     * @return String
      */
     String value();
 
     /**
      * 宽度
      *
-     * @return
+     * @return int
      */
     int width() default 20;
 
     /**
      * 是否在导出时统计，只有导出的单元格类型为NUMERIC并且不为日期类型才会统计
      *
-     * @return
+     * @return boolean
      */
     boolean isStatistics() default false;
 
     /**
      * 如果有注解，注解作者名称
      *
-     * @return
+     * @return String
      */
     String author() default "";
 
     /**
      * 如果有注解，注解是否可见，默认隐藏，需要鼠标移动到指定的区域才可见
      *
-     * @return
+     * @return boolean
      */
     boolean visible() default false;
 
     /**
      * 标题行样式
      *
-     * @return
+     * @return {@link CellStyle}
      */
     CellStyle titleStyle() default @CellStyle(bold = true, fontSize = 18, border = BorderStyle.THIN);
 
     /**
      * 数据行样式
      *
-     * @return
+     * @return {@link CellStyle}
      */
     CellStyle dataStyle() default @CellStyle(border = BorderStyle.THIN);
 

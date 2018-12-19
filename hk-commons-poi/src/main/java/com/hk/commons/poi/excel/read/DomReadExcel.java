@@ -19,27 +19,25 @@ public class DomReadExcel<T> extends AbstractReadExcel<T> {
     private final DomReadHandler<T> handler;
 
     /**
-     * @param readParam
+     * @param readParam 解析参数 {@link ReadParam}
      */
     public DomReadExcel(ReadParam<T> readParam) {
         this(readParam, new SimpleDomReadHandler<>(readParam));
     }
 
     /**
-     * @param readParam
-     * @param handler
+     * @param readParam 解析参数 {@link ReadParam}
+     * @param handler   解析处理 Handler {@link DomReadHandler}
      */
     public DomReadExcel(ReadParam<T> readParam, DomReadHandler<T> handler) {
         super(readParam);
         this.handler = handler;
     }
 
-
     @Override
     protected ReadHandler<T> createReadableHandler(InputStream in) {
         return handler;
     }
-
 
     @Override
     protected ReadHandler<T> createReadableHandler(File file) {

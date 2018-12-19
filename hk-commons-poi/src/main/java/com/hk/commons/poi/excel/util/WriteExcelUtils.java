@@ -1,7 +1,7 @@
 package com.hk.commons.poi.excel.util;
 
 import com.hk.commons.poi.excel.annotations.NestedProperty;
-import com.hk.commons.poi.excel.annotations.WriteExcel;
+import com.hk.commons.poi.excel.annotations.WriteExcelField;
 import com.hk.commons.poi.excel.exception.ExcelWriteException;
 import com.hk.commons.poi.excel.model.ExcelColumnInfo;
 import com.hk.commons.poi.excel.model.StyleTitle;
@@ -75,11 +75,11 @@ public abstract class WriteExcelUtils {
         } else {
             nestedPrefix = StringUtils.isEmpty(nestedPrefix) ? StringUtils.EMPTY : nestedPrefix;
         }
-        Map<String, WriteExcel> maps = getWriteExcelAnnotationList(parameterizedTypeClass);
+        Map<String, WriteExcelField> maps = getWriteExcelAnnotationList(parameterizedTypeClass);
         ExcelColumnInfo info;
         StyleTitle styleTitle;
-        for (Entry<String, WriteExcel> entry : maps.entrySet()) {
-            WriteExcel writeExcel = entry.getValue();
+        for (Entry<String, WriteExcelField> entry : maps.entrySet()) {
+            WriteExcelField writeExcel = entry.getValue();
             info = new ExcelColumnInfo();
             info.setStatistics(writeExcel.isStatistics());
             info.setCommentAuthor(writeExcel.author());
@@ -117,7 +117,7 @@ public abstract class WriteExcelUtils {
      * @return {@link List}
      */
     private static List<Field> getFieldWithWriteExcelAnnotationList(Class<?> cls) {
-        return FieldUtils.getFieldsListWithAnnotation(cls, WriteExcel.class);
+        return FieldUtils.getFieldsListWithAnnotation(cls, WriteExcelField.class);
     }
 
     /**
@@ -127,7 +127,7 @@ public abstract class WriteExcelUtils {
      * @return {@link List}
      */
     private static List<Method> getMethodWithWriteExcelAnnotationList(Class<?> cls) {
-        return MethodUtils.getMethodsListWithAnnotation(cls, WriteExcel.class);
+        return MethodUtils.getMethodsListWithAnnotation(cls, WriteExcelField.class);
     }
 
     /**
@@ -136,16 +136,16 @@ public abstract class WriteExcelUtils {
      * @param cls cls
      * @return {@link Map}
      */
-    private static Map<String, WriteExcel> getWriteExcelAnnotationList(Class<?> cls) {
+    private static Map<String, WriteExcelField> getWriteExcelAnnotationList(Class<?> cls) {
         List<Field> fields = getFieldWithWriteExcelAnnotationList(cls);
         List<Method> methods = getMethodWithWriteExcelAnnotationList(cls);
-        Map<String, WriteExcel> result = new HashMap<>();
-        fields.forEach(item -> result.put(item.getName(), item.getAnnotation(WriteExcel.class)));
+        Map<String, WriteExcelField> result = new HashMap<>();
+        fields.forEach(item -> result.put(item.getName(), item.getAnnotation(WriteExcelField.class)));
         methods.forEach(item -> {
             String methodName = item.getName();
             if (StringUtils.startsWithAny(methodName, GET_METHOD_PREFIX, IS_METHOD_PREFIX)) {
                 String name = StringUtils.uncapitalize(StringUtils.substring(methodName, GET_METHOD_PREFIX.length()));
-                result.put(name, item.getAnnotation(WriteExcel.class));
+                result.put(name, item.getAnnotation(WriteExcelField.class));
             }
         });
         return result;

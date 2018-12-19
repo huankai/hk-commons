@@ -42,6 +42,9 @@ public class ValueFormat {
         DEFAULT_FORMAT.put(LocalTime.class, DataFormat.TIME_FORMAT);
     }
 
+    /**
+     *
+     */
     public ValueFormat() {
         mapper.putAll(DEFAULT_FORMAT);
     }
@@ -68,8 +71,6 @@ public class ValueFormat {
 
     /**
      * 获取映射对象
-     *
-     * @return
      */
     public Map<Object, DataFormat> getMapper() {
         return mapper;
@@ -77,10 +78,15 @@ public class ValueFormat {
 
     /**
      * 构建值格式
+     * <pre>
+     *     先根据 propertyName 查询，
+     *     如果没有，再根据  propertyType 查询
+     *     如果还是没有，返回 {@link DataFormat#TEXT_FORMAT}
+     * </pre>
      *
      * @param propertyName 属性名称
      * @param propertyType 属性类型
-     * @return
+     * @return {@link DataFormat}
      */
     public DataFormat getFormat(String propertyName, Class<?> propertyType) {
         return mapper.getOrDefault(propertyName, mapper.getOrDefault(propertyType, DataFormat.TEXT_FORMAT));

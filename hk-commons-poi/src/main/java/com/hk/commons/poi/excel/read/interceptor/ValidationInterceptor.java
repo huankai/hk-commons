@@ -9,9 +9,9 @@ import com.hk.commons.poi.excel.model.ReadResult;
  */
 public interface ValidationInterceptor<T> {
 
-	
+
     @SuppressWarnings("rawtypes")
-	ValidationInterceptor INSTANCE = new ValidationInterceptor() {
+    ValidationInterceptor INSTANCE = new ValidationInterceptor() {
     };
 
     /**
@@ -20,7 +20,6 @@ public interface ValidationInterceptor<T> {
      * @param result result
      */
     default void preValidate(ReadResult<T> result) {
-
     }
 
     /**
@@ -39,7 +38,6 @@ public interface ValidationInterceptor<T> {
      * @param t t
      */
     default void afterValidate(T t) {
-
     }
 
     /**
@@ -48,7 +46,6 @@ public interface ValidationInterceptor<T> {
      * @param result result
      */
     default void afterComplete(ReadResult<T> result) {
-
     }
 
 }
