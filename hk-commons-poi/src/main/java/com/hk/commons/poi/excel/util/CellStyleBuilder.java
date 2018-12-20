@@ -11,8 +11,8 @@ import com.hk.commons.poi.excel.style.StyleSheet;
 /**
  * 样式创建工具类
  * 
- * @author: kevin
- * @date: 2017年9月14日下午3:34:37
+ * @author kevin
+ * @date 2017年9月14日下午3:34:37
  */
 public abstract class CellStyleBuilder {
 

@@ -9,8 +9,8 @@ import java.util.Objects;
 /**
  * 工作表数据
  *
- * @author: kevin
- * @date: 2018年1月10日下午4:05:03
+ * @author kevin
+ * @date 2018年1月10日下午4:05:03
  */
 @Data
 public final class SheetData<T> {
@@ -40,8 +40,8 @@ public final class SheetData<T> {
     }
 
     /**
-     * @param sheetIndex
-     * @param sheetName
+     * @param sheetIndex sheetIndex
+     * @param sheetName  sheetName
      */
     public SheetData(int sheetIndex, String sheetName) {
         this.sheetIndex = sheetIndex;
@@ -51,7 +51,7 @@ public final class SheetData<T> {
     /**
      * 添加数据
      *
-     * @param t
+     * @param t t
      */
     public void add(T t) {
         if (Objects.nonNull(t)) {
@@ -62,7 +62,7 @@ public final class SheetData<T> {
     /**
      * 添加错误日志
      *
-     * @param errorLog
+     * @param errorLog errorLog
      */
     public void addErrorLog(ErrorLog<T> errorLog) {
         if (Objects.nonNull(errorLog)) {

@@ -7,8 +7,8 @@ import java.time.format.FormatStyle;
 /**
  * String To LocalDateTime
  * 
- * @author: kevin
- * @date: 2017年11月16日上午9:26:34
+ * @author kevin
+ * @date 2017年11月16日上午9:26:34
  */
 public class StringToLocalDateTimeConverter extends StringGenericConverter<LocalDateTime> {
 

@@ -9,8 +9,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
- * @author: kevin
- * @date: 2018-04-16 09:41
+ * @author kevin
+ * @date 2018-04-16 09:41
  */
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
 
@@ -27,24 +27,20 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
      * 根据名称获取Bean
      *
      * @param name beanName
-     * @return
-     * @throws BeansException
+     * @return T
+     * @throws BeansException {@link BeansException}
      */
     @SuppressWarnings("unchecked")
     public static <T> T getBean(String name) throws BeansException {
         return (T) applicationContext.getBean(name);
     }
 
-    public static ApplicationContext getApplicationContext() {
-        return applicationContext;
-    }
-
     /**
      * 根据Bean类型获取bean
      *
      * @param clazz beanClass
-     * @return
-     * @throws BeansException
+     * @return T
+     * @throws BeansException {@link BeansException}
      */
     public static <T> T getBean(Class<T> clazz) throws BeansException {
         return applicationContext.getBean(clazz);
@@ -56,7 +52,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
      * @param code           code
      * @param defaultMessage defaultMessage
      * @param args           args
-     * @return
+     * @return i18n Message
      */
     public static String getMessage(String code, String defaultMessage, Object... args) {
         return applicationContext.getMessage(code, args, defaultMessage, LocaleContextHolder.getLocale());

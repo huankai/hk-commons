@@ -8,8 +8,8 @@ import com.hk.commons.util.StringUtils;
 /**
  * Json返回结果
  *
- * @author: kevin
- * @date: 2017年9月27日上午11:09:08
+ * @author kevin
+ * @date 2017年9月27日上午11:09:08
  */
 public final class JsonResult<T> {
 

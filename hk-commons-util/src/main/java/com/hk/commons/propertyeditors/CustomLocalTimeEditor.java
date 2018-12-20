@@ -7,6 +7,7 @@ import org.springframework.beans.BeanWrapper;
 import java.beans.PropertyEditorSupport;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 /**
@@ -18,6 +19,9 @@ public class CustomLocalTimeEditor extends PropertyEditorSupport {
 
     public static final CustomLocalTimeEditor INSTANCE = new CustomLocalTimeEditor();
 
+    private static final String[] datePatterns = new String[]{DatePattern.HH_MM_SS.getPattern(),
+            DatePattern.HH_MM.getPattern()};
+
     private CustomLocalTimeEditor() {
 
     }
@@ -25,7 +29,14 @@ public class CustomLocalTimeEditor extends PropertyEditorSupport {
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
         if (StringUtils.isNotEmpty(text)) {
-            setValue(LocalTime.parse(text, DateTimeFormatter.ofPattern(DatePattern.HH_MM.getPattern())));
+            for (String datePattern : datePatterns) {
+                try {
+                    setValue(LocalTime.parse(text, DateTimeFormatter.ofPattern(datePattern)));
+                    break;
+                } catch (DateTimeParseException e) {
+                    // ignore
+                }
+            }
         }
     }
 

@@ -1,12 +1,10 @@
 package com.hk.commons.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -14,6 +12,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import com.hk.commons.jackson.introspect.DisableAnnotationIntrospector;
 import com.hk.commons.util.date.DatePattern;
 
 import java.io.IOException;
@@ -22,13 +21,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * JSON Utils
  *
- * @author: kevin
- * @date: 2018-07-17 14:48
+ * @author kevin
+ * @date 2018-07-17 14:48
  */
 public final class JsonUtils {
 
@@ -36,10 +36,12 @@ public final class JsonUtils {
 
     private static ObjectMapper mapper;
 
-    private static final JavaTimeModule JAVA_TIME_MODULE;
+    private static final Module[] modules;
 
     static {
-        JAVA_TIME_MODULE = new JavaTimeModule();
+        List<Module> moduleList = new ArrayList<>();
+
+        JavaTimeModule JAVA_TIME_MODULE = new JavaTimeModule();
         JAVA_TIME_MODULE.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern())));
         JAVA_TIME_MODULE.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern())));
 
@@ -48,11 +50,14 @@ public final class JsonUtils {
 
         JAVA_TIME_MODULE.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.HH_MM_SS.getPattern())));
         JAVA_TIME_MODULE.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.HH_MM_SS.getPattern())));
+        moduleList.add(JAVA_TIME_MODULE);
+        moduleList.add(new Jdk8Module());
+        modules = moduleList.toArray(new Module[moduleList.size()]);
 
     }
 
-    public static JavaTimeModule getJavaTimeModule(){
-        return JAVA_TIME_MODULE;
+    public static Module[] modules() {
+        return modules;
     }
 
     private static ObjectMapper getMapper() {
@@ -60,7 +65,7 @@ public final class JsonUtils {
             synchronized (JsonUtils.class) {
                 if (mapper == null) {
                     mapper = new ObjectMapper();
-                    configure(mapper);
+                    configure(mapper, true);
                 }
             }
         }
@@ -68,6 +73,10 @@ public final class JsonUtils {
     }
 
     public static void configure(ObjectMapper om) {
+        configure(om, false);
+    }
+
+    public static void configure(ObjectMapper om, boolean disableAnnotation) {
 //        om.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 //        om.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 
@@ -79,8 +88,9 @@ public final class JsonUtils {
         om.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
         om.configure(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS, false);
-        om.registerModule(JAVA_TIME_MODULE);
-
+        /*  */
+        om.registerModules(modules());
+//        om.configure(MapperFeature.USE_ANNOTATIONS, false);//忽略注解
         SimpleFilterProvider filterProvider = new SimpleFilterProvider();
         /*
          * 忽略实体中的Hibernate getOne查询返回的  "handler", "hibernateLazyInitializer" 字段
@@ -88,6 +98,10 @@ public final class JsonUtils {
          */
         filterProvider.addFilter(IGNORE_ENTITY_SERIALIZE_FIELD_FILTER_ID, SimpleBeanPropertyFilter.serializeAllExcept("handler", "hibernateLazyInitializer"));
         om.setFilterProvider(filterProvider);
+
+        if (disableAnnotation) {
+            om.setAnnotationIntrospector(DisableAnnotationIntrospector.getInstance());
+        }
     }
 
     private static ObjectMapper indentMapper;
@@ -98,7 +112,7 @@ public final class JsonUtils {
                 if (indentMapper == null) {
                     indentMapper = new ObjectMapper();
                     indentMapper.enable(SerializationFeature.INDENT_OUTPUT);
-                    configure(indentMapper);
+                    configure(indentMapper, true);
                 }
             }
         }
@@ -160,7 +174,7 @@ public final class JsonUtils {
      * @param <T>   T
      * @param json  json str
      * @param clazz class
-     * @return List
+     * @return 序列化的List
      */
     public static <T> List<T> deserializeList(String json, Class<T> clazz) {
         if (StringUtils.isEmpty(json)) {
@@ -175,11 +189,12 @@ public final class JsonUtils {
     }
 
     /**
+     * 反序列化json 字符串到对象
      * 二级泛型: 如：JsonResult<List<SysUser>>
      *
-     * @return
+     * @return 序列化的对象
      */
-    public static <T> T deserialize(String json, Class<?> rawType, Class<?> parametrized, Class<?> parameterClasses) {
+    public static <T> T deserialize(String json, Class<T> rawType, Class<?> parametrized, Class<?> parameterClasses) {
         if (StringUtils.isEmpty(json)) {
             return null;
         }

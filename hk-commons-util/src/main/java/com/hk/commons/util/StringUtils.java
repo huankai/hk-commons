@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 /**
  * String 相关工具类
  *
- * @author: kevin
- * @date: 2017年8月30日下午1:15:35
+ * @author kevin
+ * @date 2017年8月30日下午1:15:35
  */
 public abstract class StringUtils extends org.springframework.util.StringUtils {
 
@@ -171,9 +171,14 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
-     * StringUtils.isBlank(null) = true StringUtils.isBlank("") = true
-     * StringUtils.isBlank(" ") = true StringUtils.isBlank("bob") = false
+     * <pre>
+     * StringUtils.isBlank(null) = true
+     * StringUtils.isBlank("") = true
+     * StringUtils.isBlank(" ") = true
+     * StringUtils.isBlank("bob") = false
      * StringUtils.isBlank(" bob ") = false
+     *
+     * </pre>
      *
      * @param args args
      * @return boolean
@@ -183,9 +188,14 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
-     * StringUtils.isNotBlank(null) = false StringUtils.isNotBlank("") = false
-     * StringUtils.isNotBlank(" ") = false StringUtils.isNotBlank("bob") = true
-     * StringUtils.isNotBlank(" bob ") = ftrue
+     * <pre>
+     * StringUtils.isNotBlank(null) = false
+     * StringUtils.isNotBlank("") = false
+     * StringUtils.isNotBlank(" ") = false
+     * StringUtils.isNotBlank("bob") = true
+     * StringUtils.isNotBlank(" bob ") = true
+     *
+     * </pre>
      *
      * @param args args
      * @return boolean

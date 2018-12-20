@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 写入到Excel 参数
  *
- * @author: kevin
+ * @author kevin
  */
 @Data
 @Builder
@@ -97,13 +97,26 @@ public class WriteParam<T> {
     @Builder.Default
     private boolean mergeCell = true;
 
-
-    public WriteParam<T> putFormat(String propertyName, DataFormat format) {
+    /**
+     * 添加属性单元格导出格式
+     *
+     * @param propertyName propertyName
+     * @param format       {@link DataFormat}
+     * @return {@link WriteParam}
+     */
+    public WriteParam<T> addPropertyformat(String propertyName, DataFormat format) {
         valueFormat.put(propertyName, format);
         return this;
     }
 
-    public WriteParam<T> putFormat(Class<?> clazz, DataFormat format) {
+    /**
+     * 添加指定类型的单元格导出样式
+     *
+     * @param clazz  clazz
+     * @param format {@link DataFormat}
+     * @return {@link WriteParam}
+     */
+    public WriteParam<T> addClassFormat(Class<?> clazz, DataFormat format) {
         valueFormat.put(clazz, format);
         return this;
     }

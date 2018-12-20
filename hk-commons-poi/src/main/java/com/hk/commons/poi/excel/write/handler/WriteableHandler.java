@@ -6,7 +6,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.io.OutputStream;
 
 /**
- * @author: kevin
+ * @author kevin
  *
  */
 public interface WriteableHandler<T> {

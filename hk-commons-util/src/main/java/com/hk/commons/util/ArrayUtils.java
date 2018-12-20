@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 /**
  * 数组工具类
  *
- * @author: kevin
- * @date: 2017年9月1日下午1:36:28
+ * @author kevin
+ * @date 2017年9月1日下午1:36:28
  */
 public abstract class ArrayUtils {
 

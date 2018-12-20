@@ -8,8 +8,8 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * @author: kevin
- * @date: 2018-08-31 10:57
+ * @author kevin
+ * @date 2018-08-31 10:57
  */
 public class EnumStringValidator implements ConstraintValidator<EnumString, CharSequence> {
 

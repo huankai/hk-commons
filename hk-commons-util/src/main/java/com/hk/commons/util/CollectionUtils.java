@@ -15,8 +15,8 @@ import java.util.stream.StreamSupport;
 /**
  * 集合工具类
  *
- * @author: kevin
- * @date: 2017年9月1日下午1:31:18
+ * @author kevin
+ * @date 2017年9月1日下午1:31:18
  */
 public abstract class CollectionUtils extends org.springframework.util.CollectionUtils {
 
@@ -106,7 +106,7 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     @SafeVarargs
-	public static <T> boolean containsAny(Collection<T> coll, T... elements) {
+    public static <T> boolean containsAny(Collection<T> coll, T... elements) {
         return isNotEmpty(coll)
                 && ArrayUtils.isNotEmpty(elements)
                 && containsAny(coll, Arrays.asList(elements));
@@ -359,7 +359,7 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
      * @return Map
      */
     public static <T> Optional<T> getFirstOrDefault(Collection<T> coll) {
-        return isEmpty(coll) ? Optional.empty() : Optional.of(coll.iterator().next());
+        return Optional.ofNullable(isEmpty(coll) ? null : coll.iterator().next());
     }
 
     /**

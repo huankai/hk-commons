@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 
 /**
- * @author: kevin
+ * @author kevin
  */
 public abstract class TypeUtils {
 

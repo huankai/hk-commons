@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * 使用注解Dom解析
  *
- * @author: kevin
+ * @author kevin
  */
 @SuppressWarnings("unchecked")
 public class SimpleDomReadHandler<T> extends AbstractDomReadHandler<T> {

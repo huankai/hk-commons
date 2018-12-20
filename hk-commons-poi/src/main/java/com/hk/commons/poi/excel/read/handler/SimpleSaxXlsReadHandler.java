@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Sax parse 97~2003
  *
- * @author: kevin
+ * @author kevin
  */
 public class SimpleSaxXlsReadHandler<T> extends AbstractSaxReadHandler<T> implements SaxXlsReadHandler<T>, HSSFListener {
 
@@ -90,7 +90,7 @@ public class SimpleSaxXlsReadHandler<T> extends AbstractSaxReadHandler<T> implem
     }
 
     @Override
-    public ReadResult<T> process(File file)throws IOException, EncryptedDocumentException {
+    public ReadResult<T> process(File file) throws IOException, EncryptedDocumentException {
         return parseFileSystem(new POIFSFileSystem(file, true));
     }
 
@@ -209,7 +209,7 @@ public class SimpleSaxXlsReadHandler<T> extends AbstractSaxReadHandler<T> implem
                 case BoolErrRecord.sid:// 单元格为布尔类型或错误类型
                     BoolErrRecord berec = (BoolErrRecord) record;
                     thisColumn = berec.getColumn();
-                    value = berec.isError() ? String.valueOf(false) : String.valueOf(berec.getBooleanValue());
+                    value = String.valueOf(!berec.isError() && berec.getBooleanValue());
                     break;
                 case FormulaRecord.sid: // 单元格为公式类型
                     FormulaRecord frec = (FormulaRecord) record;

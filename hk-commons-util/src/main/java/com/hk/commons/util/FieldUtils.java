@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * 字段工具类
  *
- * @author: kevin
- * @date: 2017年8月31日上午11:12:57
+ * @author kevin
+ * @date 2017年8月31日上午11:12:57
  */
 public abstract class FieldUtils {
 

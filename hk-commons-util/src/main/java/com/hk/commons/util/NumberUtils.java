@@ -6,8 +6,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 /**
- * @author: kevin
- * @date: 2017-11-24 17:00
+ * @author kevin
+ * @date 2017-11-24 17:00
  */
 public abstract class NumberUtils extends org.springframework.util.NumberUtils {
 
@@ -104,8 +104,8 @@ public abstract class NumberUtils extends org.springframework.util.NumberUtils {
     /**
      * 格式化数值，默认保留两位小数
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return String
      */
     public static String formatDecimal(Object value) {
         return formatDecimal(value, "#.##");

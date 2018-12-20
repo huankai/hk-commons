@@ -6,8 +6,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author: kevin
- * @date: 2018-05-30 11:17
+ * @author kevin
+ * @date 2018-05-30 11:17
  */
 public class FileUtils extends org.apache.commons.io.FileUtils {
 
@@ -16,8 +16,8 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     /**
      * 递推删除所有指定扩展名的文件，不会删除目录
      *
-     * @param file
-     * @param ext
+     * @param file 目录或文件
+     * @param ext  文件扩展名
      * @return true if success
      */
     public static boolean deleteFile(File file, String ext) {
@@ -41,6 +41,11 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         return result;
     }
 
+    /**
+     * 删除目录
+     *
+     * @param dir dir
+     */
     public static void deleteDir(File dir) {
         if (dir.exists() && dir.isDirectory()) {
             try {
@@ -68,11 +73,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
      * @return boolean
      */
     public static boolean isImage(File file) {
-        if (!file.exists() || file.isDirectory()) {
-            return false;
-        }
-        String extension = FilenameUtils.getExtension(file.getName());
-        return ArrayUtils.contains(IMAGE_EXT, extension.toLowerCase());
+        return file.exists() && file.isFile() && isImage(file.getName());
     }
 
     /**
@@ -82,7 +83,8 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
      * @return boolean
      */
     public static boolean isImage(String fileName) {
-        String extension = FilenameUtils.getExtension(fileName);
+        String extension = getExtension(fileName);
+        AssertUtils.hasText(extension, "文件扩展名不能为空");
         return ArrayUtils.contains(IMAGE_EXT, extension.toLowerCase());
     }
 

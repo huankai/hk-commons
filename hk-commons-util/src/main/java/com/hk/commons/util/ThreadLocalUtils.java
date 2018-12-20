@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 /**
- * @author: kevin
- * @date: 2017年09月18日上午9:16:49
+ * @author kevin
+ * @date 2017年09月18日上午9:16:49
  */
 public class ThreadLocalUtils {
 

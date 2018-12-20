@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 /**
  * 解析Excel 结果
  *
- * @author: kevin
- * @date: 2018年1月10日下午3:41:43
+ * @author kevin
+ * @date 2018年1月10日下午3:41:43
  */
 @SuppressWarnings("serial")
 public class ReadResult<T> implements Serializable {
@@ -40,7 +40,7 @@ public class ReadResult<T> implements Serializable {
     /**
      * 添加工作表数据
      *
-     * @param data
+     * @param data data
      */
     public void addSheetData(SheetData<T> data) {
         sheetDataList.add(data);
@@ -53,7 +53,7 @@ public class ReadResult<T> implements Serializable {
     /**
      * 添加错误日志信息
      *
-     * @param errorLogList
+     * @param errorLogList errorLogList
      */
     public void addErrorLogList(List<ErrorLog<T>> errorLogList) {
         this.errorLogList.addAll(errorLogList);
@@ -62,7 +62,7 @@ public class ReadResult<T> implements Serializable {
     /**
      * 添加错误日志信息
      *
-     * @param errorLog
+     * @param errorLog errorLog
      */
     public void addErrorLog(ErrorLog<T> errorLog) {
         this.errorLogList.add(errorLog);
@@ -71,7 +71,7 @@ public class ReadResult<T> implements Serializable {
     /**
      * 返回所有工作表名
      *
-     * @return
+     * @return 所有工作表名
      */
     public List<String> getSheetNameSet() {
         return sheetDataList.stream().map(SheetData::getSheetName).collect(Collectors.toList());
@@ -80,7 +80,7 @@ public class ReadResult<T> implements Serializable {
     /**
      * 返回所有工作表数据
      *
-     * @return
+     * @return 所有工作表数据
      */
     public List<T> getAllSheetData() {
         return sheetDataList.stream()
@@ -95,10 +95,11 @@ public class ReadResult<T> implements Serializable {
      * 返回指定工作表的数据
      *
      * @param sheetIndex 工作表索引
-     * @return
+     * @return 指定工作表解析的数据
      */
     public List<T> getSheetDataBySheetIndex(int sheetIndex) {
-        Optional<SheetData<T>> optional = sheetDataList.stream().filter(item -> item.getSheetIndex() == sheetIndex)
+        Optional<SheetData<T>> optional = sheetDataList.stream()
+                .filter(item -> item.getSheetIndex() == sheetIndex)
                 .findFirst();
         return optional.isPresent() ? optional.get().getData() : Collections.emptyList();
     }
@@ -107,7 +108,7 @@ public class ReadResult<T> implements Serializable {
      * 返回指定工作表的数据
      *
      * @param sheetName 工作表名称
-     * @return
+     * @return 指定工作表解析的数据
      */
     public List<T> getSheetDataBySheetName(String sheetName) {
         Optional<SheetData<T>> optional = sheetDataList.stream()
@@ -118,7 +119,7 @@ public class ReadResult<T> implements Serializable {
     /**
      * 是否有错误
      *
-     * @return
+     * @return 解析是否有错误
      */
     public boolean hasErrors() {
         return CollectionUtils.isNotEmpty(errorLogList);

@@ -6,8 +6,8 @@ import java.nio.charset.StandardCharsets;
 /**
  * 常量接口
  *
- * @author: kevin
- * @date: 2018-05-18 12:43
+ * @author kevin
+ * @date 2018-05-18 12:43
  */
 public interface Contants {
 

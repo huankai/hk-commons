@@ -1,8 +1,8 @@
 package com.hk.commons.util;
 
 /**
- * @author: kevin
- * @date: 2018-04-19 15:49
+ * @author kevin
+ * @date 2018-04-19 15:49
  */
 public interface ByteConstants {
 

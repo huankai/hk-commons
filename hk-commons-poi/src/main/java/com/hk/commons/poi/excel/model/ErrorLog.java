@@ -2,13 +2,14 @@ package com.hk.commons.poi.excel.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
 import java.util.List;
 
 /**
  * 解析Excel的错误日志信息
  *
- * @author: kevin
- * @date: 2018年1月10日下午3:42:58
+ * @author kevin
+ * @date 2018年1月10日下午3:42:58
  */
 @Data
 @AllArgsConstructor

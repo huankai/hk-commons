@@ -12,38 +12,38 @@ import java.util.Map;
 
 /**
  * Get请求
- * @author: kevin
  *
  * @param <T>
+ * @author kevin
  */
 public abstract class AbstractGetHttpExecutor<T> extends AbstractHttpExecutor<T, Map<String, Object>> {
 
-	protected AbstractGetHttpExecutor(ResponseHandler<T> responseHandler) {
-		super(responseHandler);
-	}
-	
-	protected AbstractGetHttpExecutor(CloseableHttpClient httpClient, ResponseHandler<T> responseHandler) {
-		super(httpClient, responseHandler);
-	}
-	
-	@Override
-	public T execute(String uri, Map<String, Object> params) throws IOException {
-		HttpGet get = buildHttpGet(uri, params);
-		return doExecute(get);
-	}
+    protected AbstractGetHttpExecutor(ResponseHandler<T> responseHandler) {
+        super(responseHandler);
+    }
 
-	/**
-	 * 创建一个HttpGet 
-	 * @param uri
-	 * @param params
-	 * @return
-	 */
-	protected final HttpGet buildHttpGet(String uri, Map<String, Object> params) {
-		HttpGet get = new HttpGet();
-		String uri_ = generateUri(uri, params);
-		get.setHeaders(generateHeaders());
-		get.setURI(URI.create(uri_));
-		return get;
-	}
-	
+    protected AbstractGetHttpExecutor(CloseableHttpClient httpClient, ResponseHandler<T> responseHandler) {
+        super(httpClient, responseHandler);
+    }
+
+    @Override
+    public T execute(String uri, Map<String, Object> params) throws IOException {
+        return doExecute(buildHttpGet(uri, params));
+    }
+
+    /**
+     * 创建一个HttpGet
+     *
+     * @param uri
+     * @param params
+     * @return
+     */
+    protected final HttpGet buildHttpGet(String uri, Map<String, Object> params) {
+        HttpGet get = new HttpGet();
+        String uri_ = generateUri(uri, params);
+        get.setHeaders(generateHeaders());
+        get.setURI(URI.create(uri_));
+        return get;
+    }
+
 }

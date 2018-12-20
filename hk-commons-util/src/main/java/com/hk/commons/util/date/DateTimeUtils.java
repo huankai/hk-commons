@@ -6,6 +6,8 @@ import org.apache.commons.lang3.time.DateUtils;
 
 import java.text.ParseException;
 import java.time.*;
+import java.time.chrono.ChronoLocalDate;
+import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
@@ -13,7 +15,7 @@ import java.util.*;
 /**
  * 日期工具类
  *
- * @author: kevin
+ * @author kevin
  */
 public abstract class DateTimeUtils {
 
@@ -185,6 +187,29 @@ public abstract class DateTimeUtils {
      */
     public static LocalDateTime getYearMinDay(LocalDateTime localDateTime) {
         return getYearMinDay(localDateTime.toLocalDate());
+    }
+
+    /**
+     * Object to String
+     *
+     * @param obj     obj
+     * @param pattern {@link DatePattern#getPattern()}
+     * @return pattern string 格式
+     */
+    public static String objectToString(Object obj, String pattern) {
+        if (obj instanceof Date) {
+            return dateToString((Date) obj, DatePattern.parse(pattern));
+        }
+        if (obj instanceof ChronoLocalDateTime) {
+            return ((ChronoLocalDateTime<?>) obj).format(DateTimeFormatter.ofPattern(pattern));
+        }
+        if (obj instanceof ChronoLocalDate) {
+            return ((ChronoLocalDate) obj).format(DateTimeFormatter.ofPattern(pattern));
+        }
+        if (obj instanceof LocalTime) {
+            return ((LocalTime) obj).format(DateTimeFormatter.ofPattern(pattern));
+        }
+        return obj.toString();
     }
 
     /**

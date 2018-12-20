@@ -3,8 +3,8 @@ package com.hk.commons.util;
 /**
  * Boolean工具类
  *
- * @author: kevin
- * @date: 2017年9月12日上午10:05:40
+ * @author kevin
+ * @date 2017年9月12日上午10:05:40
  */
 public abstract class BooleanUtils extends org.apache.commons.lang3.BooleanUtils {
 
@@ -44,7 +44,7 @@ public abstract class BooleanUtils extends org.apache.commons.lang3.BooleanUtils
      * @return true or false
      */
     public static boolean toBoolean(String args) {
-        if (StringUtils.isBlank(args)) {
+        if (StringUtils.isEmpty(args)) {
             return false;
         }
         final String trimValue = args.trim();

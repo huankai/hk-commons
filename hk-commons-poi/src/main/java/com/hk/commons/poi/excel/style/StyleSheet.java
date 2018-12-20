@@ -5,7 +5,7 @@ import org.apache.poi.ss.usermodel.Font;
 /**
  * 样式
  *
- * @author: kevin
+ * @author kevin
  */
 public interface StyleSheet {
 
@@ -14,15 +14,50 @@ public interface StyleSheet {
      */
     enum Fonts {
 
+        /**
+         * 宋体
+         */
         SONTTI("宋体"),
 
+        /**
+         * 新宋体
+         */
         NEW_SONTTI("新宋体"),
 
+        /**
+         * Consolas
+         */
         CONSOLAS("Consolas"),
 
+        /**
+         * Courier New
+         */
+        COURIER_NEW("Courier New"),
+
+        /**
+         * 黑体
+         */
         HEITI("黑体"),
 
-        YAHEI("微软雅黑");
+        /**
+         * 微软雅黑
+         */
+        YAHEI("微软雅黑"),
+
+        /**
+         * 隶书
+         */
+        LISHU("隶书"),
+
+        /**
+         * 华文新魏
+         */
+        HUAWENXINWEI("华文新魏"),
+
+        /**
+         * 华文行楷
+         */
+        HUAWENXINGKAI("华文行楷");
 
         private String fontName;
 

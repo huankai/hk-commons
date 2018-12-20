@@ -7,7 +7,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 
 /**
- * @author: kevin
+ * @author kevin
  */
 public final class HSSFWriteableExcel<T> extends AbstractWriteableExcel<T> {
 

@@ -1,26 +1,19 @@
 package com.hk.commons.poi.excel.read.handler;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.ss.util.CellRangeAddress;
-
 import com.hk.commons.poi.excel.model.ReadParam;
 import com.hk.commons.poi.excel.model.ReadResult;
 import com.hk.commons.poi.excel.model.SheetData;
 import com.hk.commons.poi.excel.model.Title;
 import com.hk.commons.util.CollectionUtils;
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <pre>
@@ -28,7 +21,7 @@ import com.hk.commons.util.CollectionUtils;
  * Dom parse Excel Only a small file can be parsed,if you want to parse to large file,please see AbstractSaxReadHandler
  * </pre>
  *
- * @author: kevin
+ * @author kevin
  * @see AbstractSaxReadHandler
  */
 public abstract class AbstractDomReadHandler<T> extends AbstractReadHandler<T> implements DomReadHandler<T> {
@@ -43,14 +36,14 @@ public abstract class AbstractDomReadHandler<T> extends AbstractReadHandler<T> i
     }
 
     @Override
-    public final ReadResult<T> process(InputStream in) throws IOException, EncryptedDocumentException, OpenXML4JException {
+    public final ReadResult<T> process(InputStream in) throws IOException, EncryptedDocumentException {
         workbook = WorkbookFactory.create(in);
         sheetParseInit();
         return processWorkbook();
     }
 
     @Override
-    public final ReadResult<T> process(File file) throws IOException, EncryptedDocumentException, OpenXML4JException {
+    public final ReadResult<T> process(File file) throws IOException, EncryptedDocumentException {
         workbook = WorkbookFactory.create(file);
         sheetParseInit();
         return processWorkbook();

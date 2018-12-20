@@ -1,21 +1,27 @@
 package com.hk.commons.propertyeditors;
 
 import com.hk.commons.util.StringUtils;
+import com.hk.commons.util.date.DatePattern;
 import org.springframework.beans.BeanWrapper;
 
 import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * BeanWrapper LocalDate support
  *
- * @author: kevin
+ * @author kevin
  * @see com.hk.commons.util.BeanWrapperUtils#registryDefaultEditor(BeanWrapper)
  */
 public class CustomLocalDateEditor extends PropertyEditorSupport {
 
     public static final CustomLocalDateEditor INSTANCE = new CustomLocalDateEditor();
+
+    private static final String[] datePatterns = new String[]{DatePattern.YYYY_MM_DD.getPattern(),
+            DatePattern.YYYY_MM_DD_EN.getPattern(),
+            DatePattern.YYYY_MM_DD_CN.getPattern()};
 
     private CustomLocalDateEditor() {
 
@@ -23,8 +29,15 @@ public class CustomLocalDateEditor extends PropertyEditorSupport {
 
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
-        if (StringUtils.isNotBlank(text)) {
-            setValue(LocalDate.parse(text, DateTimeFormatter.ISO_LOCAL_DATE));
+        if (StringUtils.isNotEmpty(text)) {
+            for (String datePattern : datePatterns) {
+                try {
+                    setValue(LocalDate.parse(text, DateTimeFormatter.ofPattern(datePattern)));
+                    break;
+                } catch (DateTimeParseException e) {
+                    // ignore
+                }
+            }
         }
     }
 

@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * 请求接口抽象实现
  *
- * @author: kevin
+ * @author kevin
  */
 public abstract class AbstractHttpExecutor<T, P> implements HttpExecutor<T, P> {
 
@@ -109,7 +109,7 @@ public abstract class AbstractHttpExecutor<T, P> implements HttpExecutor<T, P> {
             ConverterUtils converterUtils = ConverterUtils.getInstance();
             params.forEach((key, value) -> {
                 String convertValue = converterUtils.convert(value, String.class);
-                if (StringUtils.isNotBlank(convertValue)) {
+                if (StringUtils.isNotEmpty(convertValue)) {
                     nvps.add(new BasicNameValuePair(key, convertValue));
                 }
             });

@@ -1,7 +1,7 @@
 package com.hk.commons.poi.excel.util;
 
 import com.hk.commons.poi.excel.annotations.NestedProperty;
-import com.hk.commons.poi.excel.annotations.ReadExcel;
+import com.hk.commons.poi.excel.annotations.ReadExcelField;
 import com.hk.commons.poi.excel.exception.ExcelReadException;
 import com.hk.commons.util.FieldUtils;
 import com.hk.commons.util.StringUtils;
@@ -19,8 +19,8 @@ import java.util.stream.IntStream;
 /**
  * 读取Excel 工具类
  *
- * @author: kevin
- * @date: 2018年1月11日下午12:49:37
+ * @author kevin
+ * @date 2018年1月11日下午12:49:37
  */
 public abstract class ReadExcelUtils {
 
@@ -32,7 +32,7 @@ public abstract class ReadExcelUtils {
      * @return 标示有 ReadExcel.class 注解的属性列与属性名的map
      */
     public static Map<Integer, String> getReadExcelAnnotationMapping(Class<?> beanClass) {
-        Map<Integer, String> map =  new HashMap<>();
+        Map<Integer, String> map = new HashMap<>();
         putReadExcel(beanClass, null, null, map);
         return map;
     }
@@ -46,8 +46,8 @@ public abstract class ReadExcelUtils {
             }
             /*
              * else if(wrapClass.isArray()) { nestedPath = StringUtils.isBlank(nestedPath) ?
-			 * StringUtils.EMPTY : nestedPath + "."; }
-			 */
+             * StringUtils.EMPTY : nestedPath + "."; }
+             */
             else {
                 nestedPrefix = StringUtils.isEmpty(nestedPrefix) ?
                         StringUtils.EMPTY : nestedPrefix + PropertyAccessor.NESTED_PROPERTY_SEPARATOR;
@@ -58,7 +58,7 @@ public abstract class ReadExcelUtils {
 
         List<Field> fieldList = getFieldWithExcelCellAnnotations(beanClass);
         for (Field field : fieldList) {
-            int[] arr = getExcelCellAnnotationColumns(field.getAnnotation(ReadExcel.class));
+            int[] arr = getExcelCellAnnotationColumns(field.getAnnotation(ReadExcelField.class));
             for (int column : arr) {
                 map.put(column, nestedPrefix + field.getName());
             }
@@ -91,43 +91,45 @@ public abstract class ReadExcelUtils {
      * @return 包含有 ReadExcel注解的属性
      */
     public static List<Field> getFieldWithExcelCellAnnotations(Class<?> cls) {
-        return FieldUtils.getFieldsListWithAnnotation(cls, ReadExcel.class);
+        return FieldUtils.getFieldsListWithAnnotation(cls, ReadExcelField.class);
     }
 
     /**
      * @param beanClazz
      * @param columnIndex
-     * @return
+     * @return {@link ReadExcel}
      */
-    public static ReadExcel getAnnotation(Class<?> beanClazz, final int columnIndex) {
-        return getAnnotationField(beanClazz, columnIndex).getAnnotation(ReadExcel.class);
+    public static ReadExcelField getAnnotation(Class<?> beanClazz, final int columnIndex) {
+        return getAnnotationField(beanClazz, columnIndex).getAnnotation(ReadExcelField.class);
     }
 
     /**
      * @param beanClass
      * @param columnIndex
-     * @return
+     * @return {@link Field}
      */
     private static Field getAnnotationField(Class<?> beanClass, final int columnIndex) {
-        List<Field> fields = FieldUtils.getFieldsListWithAnnotation(beanClass, ReadExcel.class);
+        List<Field> fields = FieldUtils.getFieldsListWithAnnotation(beanClass, ReadExcelField.class);
         return fields.stream().filter(f -> {
-            ReadExcel readExcel = f.getAnnotation(ReadExcel.class);
+            ReadExcelField readExcel = f.getAnnotation(ReadExcelField.class);
             return readExcel.end() == -1 ? readExcel.start() == columnIndex
                     : columnIndex >= readExcel.start() && columnIndex <= readExcel.end();
         }).findFirst().orElseThrow(() -> new ExcelReadException(beanClass.getName() + "不包含列[" + columnIndex + "]的属性名"));
     }
 
     /**
-     * @param beanClass
-     * @param propertyName
-     * @return
+     * 返回标记有 {@link ReadExcel} 注解的属性对应的列
+     *
+     * @param beanClass    bean class
+     * @param propertyName 属性名
+     * @return 属性对应的列
      */
     public static int[] getPropertyAnnotationColumns(Class<?> beanClass, String propertyName) {
-        List<Field> fields = FieldUtils.getFieldsListWithAnnotation(beanClass, ReadExcel.class);
-        ReadExcel excelCell = fields.stream().filter(field -> StringUtils.equals(field.getName(), propertyName))
+        List<Field> fields = FieldUtils.getFieldsListWithAnnotation(beanClass, ReadExcelField.class);
+        ReadExcelField excelCell = fields.stream().filter(field -> StringUtils.equals(field.getName(), propertyName))
                 .findFirst()
-                .orElseThrow(() -> new ExcelReadException(beanClass.getName() + "属性名[" + propertyName + "]的没有标示 " + ReadExcel.class.getName()))
-                .getAnnotation(ReadExcel.class);
+                .orElseThrow(() -> new ExcelReadException(beanClass.getName() + "属性名[" + propertyName + "]的没有标示 " + ReadExcelField.class.getName()))
+                .getAnnotation(ReadExcelField.class);
         return getExcelCellAnnotationColumns(excelCell);
     }
 
@@ -135,7 +137,7 @@ public abstract class ReadExcelUtils {
      * @param readExcel
      * @return
      */
-    public static int[] getExcelCellAnnotationColumns(ReadExcel readExcel) {
+    public static int[] getExcelCellAnnotationColumns(ReadExcelField readExcel) {
         if (readExcel.start() < readExcel.end()) {
             return IntStream.range(readExcel.start(), readExcel.end() + 1).toArray();
         }
