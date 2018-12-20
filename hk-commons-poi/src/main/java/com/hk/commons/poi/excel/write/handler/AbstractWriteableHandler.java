@@ -161,7 +161,7 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
      * @param obj          对象
      * @param propertyName 对象属性
      * @param propertyType 对象属性类型
-     * @return 需要设置的批注信息 ，如果返回值为 null || "" || " " ，不设置批注信息
+     * @return 需要设置的批注信息 ，如果返回值为 null || ""，不设置批注信息
      */
     protected String getCommentText(T obj, String propertyName, Class<?> propertyType) {
         return null;
