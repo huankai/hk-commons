@@ -36,7 +36,7 @@ public class SimplePostHttpExecutor extends AbstractPostHttpExecutor<String, Map
         List<NameValuePair> nvps = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(params)) {
             for (Map.Entry<String, Object> entry : params.entrySet()) {
-                String value = ConverterUtils.getInstance().convert(entry.getValue(), String.class);
+                String value = ConverterUtils.defaultConvert(entry.getValue(), String.class);
                 if (StringUtils.isNotEmpty(value)) {
                     nvps.add(new BasicNameValuePair(entry.getKey(), value));
                 }
