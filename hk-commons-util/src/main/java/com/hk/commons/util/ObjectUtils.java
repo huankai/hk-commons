@@ -1,5 +1,6 @@
 package com.hk.commons.util;
 
+
 import java.util.Objects;
 
 /**
@@ -64,7 +65,43 @@ public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
      * @return toString
      */
     public static String toString(Object obj) {
-        return Objects.isNull(obj) ? null : obj.toString();
+        if (null == obj) {
+            return null;
+        }
+        if (obj instanceof String) {
+            return (String) obj;
+        }
+        if (obj instanceof byte[]) {
+            return byteToString((byte[]) obj);
+        }
+        if (obj instanceof char[]) {
+            return charToString((char[]) obj);
+        }
+        return obj.toString();
+    }
+
+    /**
+     * char 数组转换为 string
+     *
+     * @param chars chars
+     * @return char -> string
+     */
+    public static String charToString(char[] chars) {
+        StringBuilder sb = new StringBuilder();
+        for (char item : chars) {
+            sb.append(item);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * byte 数组转换为 string
+     *
+     * @param chars chars
+     * @return byte -> string
+     */
+    public static String byteToString(byte[] bytes) {
+        return new String(bytes);
     }
 
 }

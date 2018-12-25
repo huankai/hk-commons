@@ -43,7 +43,7 @@ public class ConverterUtils {
      *
      * @return ConverterUtils
      */
-    public static ConverterUtils getInstance() {
+    public static ConverterUtils newInstance() {
         return new ConverterUtils();
     }
 
@@ -100,6 +100,17 @@ public class ConverterUtils {
      */
     public <T> T convert(Object value, Class<T> targetType) {
         return conversionService.convert(value, targetType);
+    }
+
+    /**
+     * 使用默认的转换器
+     *
+     * @param value      value
+     * @param targetType 转换类型
+     * @return convert value.
+     */
+    public static <T> T defaultConvert(Object value, Class<T> targetType) {
+        return DEFAULT_CONVERSION_SERVICE.convert(value, targetType);
     }
 
 }

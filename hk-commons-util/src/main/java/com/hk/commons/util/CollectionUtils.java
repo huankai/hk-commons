@@ -293,7 +293,7 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         if (value == null) {
             return defaultValue;
         }
-        return ConverterUtils.getInstance().convert(value, clazz);
+        return ConverterUtils.defaultConvert(value, clazz);
     }
 
     /**
