@@ -6,6 +6,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 字段工具类
@@ -80,7 +81,7 @@ public abstract class FieldUtils {
      * @see ReflectionUtils#findField
      */
     public static List<Field> getAllFieldsList(final Class<?> cls) {
-        AssertUtils.notNull(cls, "The class must not be null");
+        AssertUtils.isTrue(Objects.nonNull(cls), "The class must not be null");
         final List<Field> allFields = new ArrayList<>();
         Class<?> currentClass = cls;
         while (null != currentClass) {

@@ -84,8 +84,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
      */
     public static boolean isImage(String fileName) {
         String extension = getExtension(fileName);
-        AssertUtils.hasText(extension, "文件扩展名不能为空");
-        return ArrayUtils.contains(IMAGE_EXT, extension.toLowerCase());
+        return StringUtils.isNotEmpty(extension) && ArrayUtils.contains(IMAGE_EXT, extension.toLowerCase());
     }
 
 }

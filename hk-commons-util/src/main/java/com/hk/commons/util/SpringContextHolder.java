@@ -49,13 +49,24 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     /**
      * 获取国际化消息
      *
+     * @param code code
+     * @param args args
+     * @return i18n Message
+     */
+    public static String getMessage(String code, Object... args) {
+        return getMessageWithDefault(code, null, args);
+    }
+
+    /**
+     * 获取国际化消息
+     *
      * @param code           code
      * @param defaultMessage defaultMessage
      * @param args           args
      * @return i18n Message
      */
-    public static String getMessage(String code, String defaultMessage, Object... args) {
-        return applicationContext.getMessage(code, args, defaultMessage, LocaleContextHolder.getLocale());
+    public static String getMessageWithDefault(String code, String defaultMessage, Object... args) {
+        return null == applicationContext ? code : applicationContext.getMessage(code, args, defaultMessage, LocaleContextHolder.getLocale());
     }
 
     @Override

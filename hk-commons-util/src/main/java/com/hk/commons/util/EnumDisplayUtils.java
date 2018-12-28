@@ -1,13 +1,12 @@
 package com.hk.commons.util;
 
+import com.hk.commons.annotations.EnumDisplay;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.hk.commons.annotations.EnumDisplay;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * EnumDisplay Util
@@ -19,23 +18,15 @@ import lombok.EqualsAndHashCode;
 public abstract class EnumDisplayUtils {
 
     /**
-     * @param enumValue enumValue
-     * @return enumText
-     */
-    public static String getDisplayText(Object enumValue) {
-        return getDisplayText(enumValue, true);
-    }
-
-    /**
      * 获取 EnumDisplay注解修饰的value
      *
      * @param enumValue enumValue
      * @param useI18n   useI18n
      * @return enumText
      */
-    public static String getDisplayText(Object enumValue, boolean useI18n) {
+    public static String getDisplayText(Object enumValue) {
         EnumDisplay enumDisplay = getEnumDisplay(enumValue);
-        return useI18n ? SpringContextHolder.getMessage(enumDisplay.value(), enumDisplay.value()) : enumDisplay.value();
+        return SpringContextHolder.getMessageWithDefault(enumDisplay.value(), enumDisplay.value());
     }
 
     /**
@@ -44,12 +35,12 @@ public abstract class EnumDisplayUtils {
      * @param useI18n   useI18n
      * @return enumText
      */
-    public static String getDisplayText(Class<? extends Enum<?>> enumClass, int order, boolean useI18n) {
+    public static String getDisplayText(Class<? extends Enum<?>> enumClass, int order) {
         Enum<?>[] enumConstants = enumClass.getEnumConstants();
         for (Enum<?> enumConstant : enumConstants) {
             EnumDisplay enumDisplay = getEnumDisplay(enumConstant);
             if (enumDisplay.order() == order) {
-                return useI18n ? SpringContextHolder.getMessage(enumDisplay.value(), enumDisplay.value()) : enumDisplay.value();
+                return SpringContextHolder.getMessageWithDefault(enumDisplay.value(), enumDisplay.value());
             }
         }
         return null;
@@ -87,42 +78,23 @@ public abstract class EnumDisplayUtils {
     }
 
     /**
-     * @param enumValue enumValue
-     * @param enumClass enumClass
-     * @return text
-     */
-    public static String getDisplayText(String enumValue, Class<? extends Enum<?>> enumClass) {
-        return getDisplayText(enumValue, enumClass, true);
-    }
-
-    /**
      *
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public static String getDisplayText(String enumValue, Class<? extends Enum> enumClass, boolean useI18n) {
+    public static String getDisplayText(String enumValue, Class<? extends Enum> enumClass) {
         Object value = Enum.valueOf(enumClass, enumValue);
-        return getDisplayText(value, useI18n);
-    }
-
-    /**
-     * @param enumClass 枚举类
-     * @param <TEnum>   TEnum
-     * @return enumItem
-     */
-    public static <TEnum extends Enum<?>> List<EnumItem> getEnumItemList(Class<TEnum> enumClass) {
-        return getEnumItemList(enumClass, true);
+        return getDisplayText(value);
     }
 
     /**
      * 读取枚举项列表。
      *
      * @param enumClass 枚举类
-     * @param useI18n   是否使用国际化
      * @return 枚举项的列表 1.value为枚举值value
      * 2.如果枚举项有@EnumDisplay标注，text则取标注的value属性，order取标注的order属性
      * 3.如果没有@EnumDisplay标注，text值为枚举值value，order为0
      */
-    public static <TEnum extends Enum<?>> List<EnumItem> getEnumItemList(Class<TEnum> enumClass, boolean useI18n) {
+    public static <TEnum extends Enum<?>> List<EnumItem> getEnumItemList(Class<TEnum> enumClass) {
         List<EnumItem> items = new ArrayList<>();
         Field[] fields = enumClass.getFields();
         EnumItem item;
@@ -136,7 +108,7 @@ public abstract class EnumDisplayUtils {
                     item.setOrder(0);
                     EnumDisplay ed = field.getAnnotation(EnumDisplay.class);
                     if (null != ed) {
-                        item.setText(useI18n ? SpringContextHolder.getMessage(ed.value(), ed.value()) : ed.value());
+                        item.setText(SpringContextHolder.getMessageWithDefault(ed.value(), ed.value()));
                         item.setOrder(ed.order());
                     }
                     items.add(item);

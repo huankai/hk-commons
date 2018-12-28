@@ -10,6 +10,7 @@ import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -39,7 +40,7 @@ public abstract class StringGenericConverter<T> implements GenericConverter {
     }
 
     protected StringGenericConverter(T defaultValue, Class<T> targetType) {
-        AssertUtils.notNull(targetType, "target Type must not be null");
+        AssertUtils.isTrue(Objects.nonNull(targetType), "target Type must not be null");
         this.defaultValue = defaultValue;
         this.targetType = targetType;
     }
