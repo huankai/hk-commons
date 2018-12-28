@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author kevin
@@ -32,7 +33,7 @@ abstract class AbstractReadExcel<T> implements ReadableExcel<T> {
     protected final Class<T> beanClazz;
 
     AbstractReadExcel(ReadParam<T> readParam) {
-        AssertUtils.notNull(readParam, "ReadParam must not be null");
+        AssertUtils.isTrue(Objects.nonNull(readParam), "ReadParam must not be null");
         AssertUtils.isTrue(readParam.getTitleRow() < readParam.getDataStartRow(), "标题行必须小于数据开始行");
         this.beanClazz = readParam.getBeanClazz();
         readParam.setColumnProperties(getColumnProperty().getColumnProperties());
