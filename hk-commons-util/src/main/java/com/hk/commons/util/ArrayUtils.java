@@ -177,4 +177,7 @@ public abstract class ArrayUtils {
     }
 
 
+    public static boolean isNotEmpty(byte[] bytes) {
+        return !isEmpty(bytes);
+    }
 }
