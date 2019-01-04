@@ -15,7 +15,9 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.hk.commons.jackson.introspect.DisableAnnotationIntrospector;
 import com.hk.commons.util.date.DatePattern;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -145,6 +147,63 @@ public final class JsonUtils {
             return mapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 序列化到 byte 数组
+     *
+     * @param obj    obj
+     * @param indent indent
+     * @return byte[]
+     */
+    public static byte[] serializeToByte(Object obj, boolean indent) {
+        if (null == obj) {
+            return null;
+        }
+        ObjectMapper mapper = indent ? getIndentMapper() : getMapper();
+        try {
+            return mapper.writeValueAsBytes(obj);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 序列化到 outputStream
+     *
+     * @param obj          obj
+     * @param indent       indent
+     * @param outputStream outputStream
+     */
+    public static void serializeToOutputStream(Object obj, boolean indent, OutputStream outputStream) {
+        if (null != obj) {
+            ObjectMapper mapper = indent ? getIndentMapper() : getMapper();
+            try {
+                mapper.writeValue(outputStream, obj);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
+
+    /**
+     * 序列化为文件
+     *
+     * @param obj    obj
+     * @param indent indent
+     * @param file   file
+     */
+    public static void serializeToFile(Object obj, boolean indent, File file) {
+        if (null != obj) {
+            ObjectMapper mapper = indent ? getIndentMapper() : getMapper();
+            try {
+                mapper.writeValue(file, obj);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
         }
     }
 
