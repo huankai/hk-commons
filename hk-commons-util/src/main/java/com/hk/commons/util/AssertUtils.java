@@ -15,7 +15,7 @@ public abstract class AssertUtils {
      * @param params 国际化消息参数
      */
     public static void notBlank(String args, Object... params) {
-        notBlank(args, "validate.args.notBlank.message", params);
+        notBlankWithDefault(args, "validate.args.notBlank.message", params);
     }
 
     /**
@@ -25,20 +25,26 @@ public abstract class AssertUtils {
      * @param messageCode Custom validation is not through the error message
      * @param params      国际化消息参数
      */
-    public static void notBlank(String code, String messageCode, Object... params) {
+    public static void notBlankWithDefault(String code, String messageCode, Object... params) {
         if (StringUtils.isBlank(code)) {
             throw new IllegalArgumentException(SpringContextHolder.getMessageWithDefault(messageCode, messageCode, params));
+        }
+    }
+
+    public static void notEmpty(CharSequence args) {
+        if (StringUtils.isEmpty(args)) {
+            throw new IllegalArgumentException("null");
         }
     }
 
     /**
      * 检查参数是否为空
      *
-     * @param args   args
-     * @param params 国际化消息参数
+     * @param args      args
+     * @param paramName 国际化消息参数
      */
-    public static void notEmpty(CharSequence args, Object... params) {
-        notEmpty(args, "validate.args.notEmpty.message", params);
+    public static void notEmpty(CharSequence args, Object paramName) {
+        notEmptyWithDefault(args, "validate.args.notEmpty.message", paramName);
     }
 
     /**
@@ -48,9 +54,9 @@ public abstract class AssertUtils {
      * @param messageCode 国际化消息Code
      * @param params      国际化消息参数
      */
-    public static void notEmpty(CharSequence args, String messageCode, Object... params) {
+    public static void notEmptyWithDefault(CharSequence args, String messageCode, Object... paramName) {
         if (StringUtils.isEmpty(args)) {
-            throw new IllegalArgumentException(SpringContextHolder.getMessageWithDefault(messageCode, messageCode, params));
+            throw new IllegalArgumentException(SpringContextHolder.getMessageWithDefault(messageCode, messageCode, paramName));
         }
     }
 
