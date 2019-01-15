@@ -61,7 +61,7 @@ public abstract class AssertUtils {
      * @param message message
      */
     public static void notNull(Object object, String message) {
-        if (object == null || (object instanceof Optional && !((Optional) object).isPresent())) {
+        if (object == null || (object instanceof Optional && !((Optional<?>) object).isPresent())) {
             throw new IllegalArgumentException(message);
         }
     }

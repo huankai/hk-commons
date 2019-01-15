@@ -13,6 +13,7 @@ import java.io.Serializable;
  * @date 2018年1月10日下午3:44:48
  */
 @Data
+@SuppressWarnings("serial")
 public class InvalidCell implements Serializable {
 
     /**
