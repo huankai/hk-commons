@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Cell;
 /**
  * @author kevin
  */
+@SuppressWarnings("serial")
 public class StyleTitle extends Title {
 
     private static final int WIDTH_UNITS = 256;

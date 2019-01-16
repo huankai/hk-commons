@@ -13,6 +13,7 @@ import java.io.Serializable;
  * @date 2018年1月10日下午3:45:32
  */
 @Data
+@SuppressWarnings("serial")
 public class Title implements Serializable {
 
     /**

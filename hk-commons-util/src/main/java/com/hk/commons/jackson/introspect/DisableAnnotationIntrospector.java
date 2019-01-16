@@ -13,6 +13,7 @@ import java.lang.annotation.Annotation;
  * @author huangkai
  * @date 2018-12-19 23:34
  */
+@SuppressWarnings("serial")
 public class DisableAnnotationIntrospector extends JacksonAnnotationIntrospector {
 
     private static final DisableAnnotationIntrospector INSTANCE = new DisableAnnotationIntrospector();
