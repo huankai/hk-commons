@@ -1,6 +1,8 @@
 package com.hk.commons.util.date;
 
 import com.hk.commons.util.ArrayUtils;
+import com.hk.commons.util.ObjectUtils;
+
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -209,7 +211,7 @@ public abstract class DateTimeUtils {
         if (obj instanceof LocalTime) {
             return ((LocalTime) obj).format(DateTimeFormatter.ofPattern(pattern));
         }
-        return obj.toString();
+        return ObjectUtils.toString(obj);
     }
 
     /**

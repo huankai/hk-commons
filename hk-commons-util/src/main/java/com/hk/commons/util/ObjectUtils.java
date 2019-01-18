@@ -97,7 +97,7 @@ public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
     /**
      * byte 数组转换为 string
      *
-     * @param chars chars
+     * @param bytes bytes
      * @return byte -> string
      */
     public static String byteToString(byte[] bytes) {
