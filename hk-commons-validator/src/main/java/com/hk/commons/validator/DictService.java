@@ -10,5 +10,5 @@ public interface DictService {
 
     List<Byte> getDictValueListByCodeId(String codeId);
 
-    String getCodeName(String baseCodeId, byte value);
+    String getCodeName(String baseCodeId, Number value);
 }
