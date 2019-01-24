@@ -32,7 +32,6 @@ public abstract class EnumDisplayUtils {
     /**
      * @param enumClass enumClass
      * @param order     order
-     * @param useI18n   useI18n
      * @return enumText
      */
     public static String getDisplayText(Class<? extends Enum<?>> enumClass, int order) {

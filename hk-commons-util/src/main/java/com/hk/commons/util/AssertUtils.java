@@ -13,23 +13,23 @@ public abstract class AssertUtils {
     /**
      * Check the args is not blank
      *
-     * @param code   validate String input
-     * @param params 国际化消息参数
+     * @param str  validate String input
+     * @param args 国际化消息参数
      */
-    public static void notBlankWithI18n(String args, Object... params) {
-        notBlankWithI18n(args, "validate.args.notBlank.message", params);
+    public static void notBlankWithI18n(String str, Object... args) {
+        notBlankWithI18n(str, "validate.args.notBlank.message", args);
     }
 
     /**
      * Check the args is not blank
      *
-     * @param args        validate String input
+     * @param str         validate String input
      * @param messageCode Custom validation is not through the error message
-     * @param params      国际化消息参数
+     * @param args        国际化消息参数
      */
-    public static void notBlankWithI18n(String code, String messageCode, Object... params) {
-        if (StringUtils.isBlank(code)) {
-            throw new IllegalArgumentException(SpringContextHolder.getMessageWithDefault(messageCode, messageCode, params));
+    public static void notBlankWithI18n(String str, String messageCode, Object... args) {
+        if (StringUtils.isBlank(str)) {
+            throw new IllegalArgumentException(SpringContextHolder.getMessageWithDefault(messageCode, messageCode, args));
         }
     }
 
@@ -70,9 +70,8 @@ public abstract class AssertUtils {
     /**
      * 检查表达式是否为 true
      *
-     * @param expression  表达式
-     * @param messageCode 国际化消息Code
-     * @param params      国际化消息参数
+     * @param expression 表达式
+     * @param message    国际化消息Code
      */
     public static void isTrue(boolean expression, String message) {
         if (!expression) {
@@ -93,13 +92,13 @@ public abstract class AssertUtils {
     /**
      * 检查参数是否为空
      *
-     * @param args        args
+     * @param str         str
      * @param messageCode 国际化消息Code
-     * @param params      国际化消息参数
+     * @param args        国际化消息参数
      */
-    public static void notEmptyWithI18n(CharSequence args, String messageCode, Object... paramName) {
-        if (StringUtils.isEmpty(args)) {
-            throw new IllegalArgumentException(SpringContextHolder.getMessageWithDefault(messageCode, messageCode, paramName));
+    public static void notEmptyWithI18n(CharSequence str, String messageCode, Object... args) {
+        if (StringUtils.isEmpty(str)) {
+            throw new IllegalArgumentException(SpringContextHolder.getMessageWithDefault(messageCode, messageCode, args));
         }
     }
 
