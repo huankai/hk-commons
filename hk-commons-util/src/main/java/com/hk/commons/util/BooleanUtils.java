@@ -49,11 +49,11 @@ public abstract class BooleanUtils extends org.apache.commons.lang3.BooleanUtils
         }
         final String trimValue = args.trim();
         return StringUtils.equalsIgnoreCase("yes", trimValue)
+                || StringUtils.equals("1", trimValue)
                 || StringUtils.equals(TRUE_CHINESE, trimValue)
                 || StringUtils.equalsIgnoreCase("true", trimValue)
                 || StringUtils.equalsIgnoreCase("y", trimValue)
-                || StringUtils.equalsIgnoreCase("on", trimValue)
-                || StringUtils.equals("1", trimValue);
+                || StringUtils.equalsIgnoreCase("on", trimValue);
     }
 
     /**

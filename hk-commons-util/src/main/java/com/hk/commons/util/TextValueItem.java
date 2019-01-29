@@ -1,9 +1,16 @@
 package com.hk.commons.util;
 
-import lombok.Data;
+import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@SuppressWarnings("serial")
 @Data
-public class TextValueItem {
+@NoArgsConstructor
+@AllArgsConstructor
+public class TextValueItem implements Serializable {
 
     private String text;
 

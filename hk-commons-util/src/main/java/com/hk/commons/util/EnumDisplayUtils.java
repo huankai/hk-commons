@@ -1,12 +1,15 @@
 package com.hk.commons.util;
 
-import com.hk.commons.annotations.EnumDisplay;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.hk.commons.annotations.EnumDisplay;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * EnumDisplay Util
@@ -116,11 +119,14 @@ public abstract class EnumDisplayUtils {
         } catch (IllegalArgumentException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        return items;
+        return items.stream()
+        		.sorted(Comparator.comparingInt(EnumItem::getOrder))
+        		.collect(Collectors.toList());
     }
 
-    @Data
+	@Data
     @EqualsAndHashCode(callSuper = true)
+	@SuppressWarnings("serial")
     public static class EnumItem extends TextValueItem {
 
         private int order;

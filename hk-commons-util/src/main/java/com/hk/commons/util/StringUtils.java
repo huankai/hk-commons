@@ -1,12 +1,12 @@
 package com.hk.commons.util;
 
-import org.springframework.core.io.UrlResource;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.springframework.core.io.UrlResource;
 
 /**
  * String 相关工具类
@@ -29,6 +29,8 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     private static final String HUMP_TO_LINE = "[A-Z]";
 
     public static final String LF = org.apache.commons.lang3.StringUtils.LF;
+    
+    public static final String SPACE = org.apache.commons.lang3.StringUtils.SPACE;
 
     /**
      * 下划线转小驼峰

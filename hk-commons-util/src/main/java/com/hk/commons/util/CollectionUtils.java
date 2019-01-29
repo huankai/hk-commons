@@ -90,13 +90,13 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     /**
      * 是否包含指定元素
      *
-     * @param iterable iterable
+     * @param it it
      * @param element  element
      * @return boolean
      */
-    public static boolean contains(Iterable<?> iterable, Object element) {
-        if (null != iterable) {
-            for (Object e : iterable) {
+    public static boolean contains(Iterable<?> it, Object element) {
+        if (null != it) {
+            for (Object e : it) {
                 if (ObjectUtils.nullSafeEquals(e, element)) {
                     return true;
                 }
