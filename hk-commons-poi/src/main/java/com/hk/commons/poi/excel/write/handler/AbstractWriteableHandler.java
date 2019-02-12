@@ -1,5 +1,36 @@
 package com.hk.commons.poi.excel.write.handler;
 
+import java.io.OutputStream;
+import java.time.temporal.Temporal;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.Set;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.ClientAnchor.AnchorType;
+import org.apache.poi.ss.usermodel.Comment;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.util.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.util.ClassUtils;
+
 import com.hk.commons.poi.excel.exception.ExcelWriteException;
 import com.hk.commons.poi.excel.model.DataFormat;
 import com.hk.commons.poi.excel.model.ExcelColumnInfo;
@@ -8,23 +39,15 @@ import com.hk.commons.poi.excel.model.WriteParam;
 import com.hk.commons.poi.excel.style.CustomCellStyle;
 import com.hk.commons.poi.excel.util.CellStyleBuilder;
 import com.hk.commons.poi.excel.util.WriteExcelUtils;
-import com.hk.commons.util.*;
+import com.hk.commons.util.BeanWrapperUtils;
+import com.hk.commons.util.CollectionUtils;
+import com.hk.commons.util.NumberUtils;
+import com.hk.commons.util.ObjectUtils;
+import com.hk.commons.util.StringUtils;
 import com.hk.commons.util.date.DateTimeUtils;
+
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.usermodel.ClientAnchor.AnchorType;
-import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.util.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.util.ClassUtils;
-
-import java.io.OutputStream;
-import java.time.temporal.Temporal;
-import java.util.*;
-import java.util.Map.Entry;
 
 /**
  * @author kevin
@@ -118,7 +141,8 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
         this.params = param;
         this.workbook = workbook;
         try {
-            writeWrokbook();
+            init();
+            writeWorkbook();
             this.workbook.write(out);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -129,9 +153,16 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
     }
 
     /**
+     * 写在入workbook之前初始化，如可以初始化样式
+     */
+    protected void init() {
+
+    }
+
+    /**
      * 写入数据到工作表
      */
-    protected abstract void writeWrokbook();
+    protected abstract void writeWorkbook();
 
     @Override
     public Workbook getWorkBook() {
@@ -188,8 +219,8 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
     /**
      * 根据属性名称获取对应的单元格式
      *
-     * @param propertyType
-     * @return
+     * @param propertyType propertyType
+     * @return {@link CellType}
      */
     protected final CellType getCellType(Class<?> propertyType) {
         CellType cellType = CellType.STRING;
@@ -206,8 +237,8 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
     /**
      * 创建数据行
      *
-     * @param sheet
-     * @param dataList
+     * @param sheet    sheet
+     * @param dataList dataList
      */
     protected void createDataRows(Sheet sheet, List<T> dataList) {
         if (CollectionUtils.isNotEmpty(dataList)) {
@@ -299,12 +330,13 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
     }
 
     /**
-     * @param row
-     * @param data
-     * @param excelColumnInfo
-     * @param beanWrapper
-     * @param helper
-     * @param drawing
+     * 创建单元格，设置样式与值
+     * @param row             row
+     * @param data            data
+     * @param excelColumnInfo excelColumnInfo
+     * @param beanWrapper     beanWrapper
+     * @param helper          helper
+     * @param drawing         drawing
      */
     private Cell createCell(Row row, T data, ExcelColumnInfo excelColumnInfo, String nestedPropertyName, BeanWrapper beanWrapper,
                             CreationHelper helper, Drawing<?> drawing) {
@@ -341,9 +373,9 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
     }
 
     /**
-     * @param statisticsFormula
-     * @param row
-     * @param statisticsStyle
+     * @param statisticsFormula statisticsFormula
+     * @param row               row
+     * @param statisticsStyle   statisticsStyle
      */
     protected void buildStatisRow(Map<Integer, String> statisticsFormula, Row row, CustomCellStyle statisticsStyle) {
         CellStyle style = CellStyleBuilder.buildCellStyle(workbook, statisticsStyle, DataFormat.TEXT_FORMAT);
@@ -417,10 +449,10 @@ public abstract class AbstractWriteableHandler<T> implements WriteableHandler<T>
     /**
      * 设置单元格注释
      *
-     * @param drawing
-     * @param helper
-     * @param cell
-     * @param commentText
+     * @param drawing     drawing
+     * @param helper      helper
+     * @param cell        cell
+     * @param commentText commentText
      */
     private void setCellComment(Drawing<?> drawing, CreationHelper helper, Cell cell, String commentText, String author,
                                 boolean visible) {

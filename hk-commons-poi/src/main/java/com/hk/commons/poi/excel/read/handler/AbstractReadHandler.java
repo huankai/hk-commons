@@ -1,21 +1,27 @@
 package com.hk.commons.poi.excel.read.handler;
 
-import com.hk.commons.poi.excel.exception.ExcelReadException;
-import com.hk.commons.poi.excel.model.*;
-import com.hk.commons.poi.excel.read.interceptor.ValidationInterceptor;
-import com.hk.commons.poi.excel.read.validation.Validationable;
-import com.hk.commons.util.CollectionUtils;
-import com.hk.commons.util.ObjectUtils;
-import com.hk.commons.util.StringUtils;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Objects;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeansException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Objects;
+import com.hk.commons.poi.excel.exception.ExcelReadException;
+import com.hk.commons.poi.excel.model.ErrorLog;
+import com.hk.commons.poi.excel.model.InvalidCell;
+import com.hk.commons.poi.excel.model.ReadParam;
+import com.hk.commons.poi.excel.model.ReadResult;
+import com.hk.commons.poi.excel.model.SheetData;
+import com.hk.commons.poi.excel.model.Title;
+import com.hk.commons.poi.excel.read.interceptor.ValidationInterceptor;
+import com.hk.commons.poi.excel.read.validation.Validationable;
+import com.hk.commons.util.CollectionUtils;
+import com.hk.commons.util.ObjectUtils;
+import com.hk.commons.util.StringUtils;
 
 /**
  * @author kevin
@@ -137,7 +143,7 @@ public abstract class AbstractReadHandler<T> {
             result = StringUtils.trimToNull(result);
         }
         if (StringUtils.isNotEmpty(result) && readParam.isIgnoreLineBreak()) {
-            StringUtils.replace(result, StringUtils.LF, StringUtils.EMPTY);
+        	result = StringUtils.replace(result, StringUtils.LF, StringUtils.EMPTY);
         }
         return result;
     }

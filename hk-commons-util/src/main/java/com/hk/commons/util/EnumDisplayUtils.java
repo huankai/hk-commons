@@ -1,15 +1,14 @@
 package com.hk.commons.util;
 
+import com.hk.commons.annotations.EnumDisplay;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.hk.commons.annotations.EnumDisplay;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * EnumDisplay Util
@@ -24,7 +23,6 @@ public abstract class EnumDisplayUtils {
      * 获取 EnumDisplay注解修饰的value
      *
      * @param enumValue enumValue
-     * @param useI18n   useI18n
      * @return enumText
      */
     public static String getDisplayText(Object enumValue) {

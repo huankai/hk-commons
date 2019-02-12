@@ -159,8 +159,7 @@ public class SimpleSaxXlsxReadHandler<T> extends AbstractSaxReadHandler<T> imple
             try {
                 getSheetData().add(parseToData(rowNum));
             } catch (InvalidCellReadableExcelException e) {
-                @SuppressWarnings("unchecked")
-                ErrorLog<T> errorLog = new ErrorLog<>(null, rowNum, (T) e.getTarget(), e.getInvalidCells());
+                ErrorLog<T> errorLog = new ErrorLog<>(null, rowNum, e.getTarget(), e.getInvalidCells());
                 getSheetData().addErrorLog(errorLog);
             }
         }

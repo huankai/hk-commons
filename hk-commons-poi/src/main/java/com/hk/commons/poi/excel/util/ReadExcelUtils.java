@@ -95,17 +95,17 @@ public abstract class ReadExcelUtils {
     }
 
     /**
-     * @param beanClazz
-     * @param columnIndex
-     * @return {@link ReadExcel}
+     * @param beanClazz beanClazz
+     * @param columnIndex columnIndex
+     * @return {@link ReadExcelField}
      */
     public static ReadExcelField getAnnotation(Class<?> beanClazz, final int columnIndex) {
         return getAnnotationField(beanClazz, columnIndex).getAnnotation(ReadExcelField.class);
     }
 
     /**
-     * @param beanClass
-     * @param columnIndex
+     * @param beanClass beanClass
+     * @param columnIndex columnIndex
      * @return {@link Field}
      */
     private static Field getAnnotationField(Class<?> beanClass, final int columnIndex) {
@@ -118,7 +118,7 @@ public abstract class ReadExcelUtils {
     }
 
     /**
-     * 返回标记有 {@link ReadExcel} 注解的属性对应的列
+     * 返回标记有 {@link ReadExcelField} 注解的属性对应的列
      *
      * @param beanClass    bean class
      * @param propertyName 属性名
@@ -145,20 +145,20 @@ public abstract class ReadExcelUtils {
     }
 
     /**
-     * @param beanClass
-     * @param propertyName
-     * @return
+     * @param beanClass    beanClass
+     * @param propertyName propertyName
+     * @return 获取标记有 {@link ReadExcelField} 字段的指定第一个索引的值
      */
     public static int getFirstPropertyAnnotationColumn(Class<?> beanClass, String propertyName) {
         return gePropertyAnnotationColumn(beanClass, propertyName, 0);
     }
 
     /**
-     * @param beanClass
-     * @param propertyName
-     * @param index
-     * @return
-     * @throws ArrayIndexOutOfBoundsException
+     * @param beanClass    beanClass
+     * @param propertyName propertyName
+     * @param index        index
+     * @return 获取标记有 {@link ReadExcelField} 字段的指定 index 的值
+     * @throws ArrayIndexOutOfBoundsException 超出指定索引抛出异常
      */
     public static int gePropertyAnnotationColumn(Class<?> beanClass, String propertyName, int index) {
         return getPropertyAnnotationColumns(beanClass, propertyName)[index];

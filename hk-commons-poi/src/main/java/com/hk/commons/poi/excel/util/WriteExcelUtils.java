@@ -30,12 +30,12 @@ public abstract class WriteExcelUtils {
     /**
      * get method prefix
      */
-    public static final String GET_METHOD_PREFIX = "get";
+    private static final String GET_METHOD_PREFIX = "get";
 
     /**
      * is method prefix
      */
-    public static final String IS_METHOD_PREFIX = "is";
+    private static final String IS_METHOD_PREFIX = "is";
 
     /**
      * 嵌套集合属性
@@ -113,7 +113,7 @@ public abstract class WriteExcelUtils {
     /**
      * 获取有ExportExcel注解修饰的属性，包括父类
      *
-     * @param cls
+     * @param cls cls
      * @return {@link List}
      */
     private static List<Field> getFieldWithWriteExcelAnnotationList(Class<?> cls) {

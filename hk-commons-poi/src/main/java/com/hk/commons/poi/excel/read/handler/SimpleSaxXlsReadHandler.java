@@ -143,7 +143,6 @@ public class SimpleSaxXlsReadHandler<T> extends AbstractSaxReadHandler<T> implem
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void processRecord(Record record) {
         if (record.getSid() == BOFRecord.sid) { // 一个文件的开始,表示sheet或workbook的开始
             BOFRecord br = (BOFRecord) record;
@@ -298,8 +297,7 @@ public class SimpleSaxXlsReadHandler<T> extends AbstractSaxReadHandler<T> implem
                             getSheetData().add(parseToData(rowNum));
                         } catch (InvalidCellReadableExcelException e) {
                             BoundSheetRecord sheetRecord = orderedBSRs[currentSheetIndex];
-
-                            getSheetData().addErrorLog(new ErrorLog<>(sheetRecord.getSheetname(), rowNum, (T) e.getTarget(), e.getInvalidCells()));
+                            getSheetData().addErrorLog(new ErrorLog<>(sheetRecord.getSheetname(), rowNum, e.getTarget(), e.getInvalidCells()));
                         }
                     }
                 }

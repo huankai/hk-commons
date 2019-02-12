@@ -14,7 +14,7 @@ import com.hk.commons.util.StringUtils;
 public class SimpleWriteableHandler<T> extends AbstractWriteableHandler<T> {
 
 	@Override
-	protected void writeWrokbook() {
+	protected void writeWorkbook() {
 		Sheet sheet = workbook.createSheet(WorkbookUtil.createSafeSheetName(params.getSheetName()));
 		if (StringUtils.isNotEmpty(params.getPassword())) {
 			sheet.protectSheet(params.getPassword());

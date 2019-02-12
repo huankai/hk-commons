@@ -42,7 +42,7 @@ public class SimpleDomReadHandler<T> extends AbstractDomReadHandler<T> {
                     dataSheet.add(parseRow(row));
                 } catch (InvalidCellReadableExcelException e) {
                     // 有错误的单元格数据，不能设置为属性值，记录日志
-                    errorLogs.add(new ErrorLog<>(sheetName, row.getRowNum(), (T) e.getTarget(), e.getInvalidCells()));
+                    errorLogs.add(new ErrorLog<>(sheetName, row.getRowNum(), e.getTarget(), e.getInvalidCells()));
                 }
             }
         }

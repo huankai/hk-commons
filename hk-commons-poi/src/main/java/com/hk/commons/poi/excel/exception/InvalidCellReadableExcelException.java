@@ -1,8 +1,8 @@
 package com.hk.commons.poi.excel.exception;
 
-import com.hk.commons.poi.excel.model.InvalidCell;
-
 import java.util.List;
+
+import com.hk.commons.poi.excel.model.InvalidCell;
 
 /**
  * 解析数据时出现的异常，记录每个单元格的错误信息
@@ -33,9 +33,9 @@ public class InvalidCellReadableExcelException extends ExcelReadException {
         return invalidCells;
     }
 
-
-    public Object getTarget() {
-        return target;
+    @SuppressWarnings("unchecked")
+	public <T> T getTarget() {
+        return (T) target;
     }
 
 }
