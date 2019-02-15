@@ -1,12 +1,13 @@
 package com.hk.commons.util;
 
+import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.core.io.UrlResource;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.springframework.core.io.UrlResource;
 
 /**
  * String 相关工具类
@@ -26,10 +27,20 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
 
     private static final Pattern LINE_PATTERN = Pattern.compile("_(\\w)");
 
+    /**
+     * 数字开头匹配
+     */
+    private static final Pattern NUMBER_PATTERN = Pattern.compile("[0-9]*");
+
+    /**
+     * 字母开头匹配
+     */
+    private static final Pattern LETTER_PATTERN = Pattern.compile("[A-Z]*");
+
     private static final String HUMP_TO_LINE = "[A-Z]";
 
     public static final String LF = org.apache.commons.lang3.StringUtils.LF;
-    
+
     public static final String SPACE = org.apache.commons.lang3.StringUtils.SPACE;
 
     /**
@@ -50,6 +61,26 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
         }
         matcher.appendTail(sb);
         return sb.toString();
+    }
+
+    /**
+     * 判断是否以数字开头
+     *
+     * @param str str
+     * @return true or false
+     */
+    public static boolean startWithNumber(String str) {
+        return isNotEmpty(str) && NUMBER_PATTERN.matcher(String.valueOf(str.charAt(0))).matches();
+    }
+
+    /**
+     * 判断是否以字母开头
+     *
+     * @param str str
+     * @return true or false
+     */
+    public static boolean startWithLetter(String str) {
+        return isNotEmpty(str) && LETTER_PATTERN.matcher(String.valueOf(str.charAt(0))).matches();
     }
 
     /**
@@ -98,6 +129,16 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      */
     public static byte[] getByteUtf8(String s) {
         return isEmpty(s) ? null : s.getBytes(StandardCharsets.UTF_8);
+    }
+
+    /**
+     * 是否为数字类型
+     *
+     * @param args args
+     * @return true or false
+     */
+    public static boolean isNumber(String args) {
+        return NumberUtils.isCreatable(args);
     }
 
     /**

@@ -44,7 +44,7 @@ public abstract class FieldUtils {
      */
     public static Field[] getFieldsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
         List<Field> annotatedFieldsList = getFieldsListWithAnnotation(cls, annotationCls);
-        return annotatedFieldsList.toArray(new Field[annotatedFieldsList.size()]);
+        return annotatedFieldsList.toArray(new Field[0]);
     }
 
     /**
@@ -55,7 +55,7 @@ public abstract class FieldUtils {
      */
     public static Field[] getAllFields(final Class<?> cls) {
         List<Field> allFieldsList = getAllFieldsList(cls);
-        return allFieldsList.toArray(new Field[allFieldsList.size()]);
+        return allFieldsList.toArray(new Field[0]);
     }
 
     /**
