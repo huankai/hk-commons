@@ -58,8 +58,8 @@ public final class SXSSFWriteableExcel<T> extends AbstractWriteableExcel<T> {
         this(new SimpleWriteableHandler<>());
     }
 
-    public SXSSFWriteableExcel(WriteableHandler<T> writeableHandler) {
-        super(writeableHandler);
+    public SXSSFWriteableExcel(WriteableHandler<T> writeHandler) {
+        super(writeHandler);
     }
 
     public SXSSFWriteableExcel(int rowAccessWindowSize) {

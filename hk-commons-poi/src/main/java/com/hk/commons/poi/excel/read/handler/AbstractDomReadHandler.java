@@ -1,10 +1,12 @@
 package com.hk.commons.poi.excel.read.handler;
 
+import com.hk.commons.poi.ReadException;
 import com.hk.commons.poi.excel.model.ReadParam;
 import com.hk.commons.poi.excel.model.ReadResult;
 import com.hk.commons.poi.excel.model.SheetData;
 import com.hk.commons.poi.excel.model.Title;
 import com.hk.commons.util.CollectionUtils;
+import lombok.AllArgsConstructor;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * <pre>
@@ -80,21 +83,70 @@ public abstract class AbstractDomReadHandler<T> extends AbstractReadHandler<T> i
      */
     protected final ReadResult<T> doProcessWorkbook() {
         ReadResult<T> result = new ReadResult<>();
-        for (int index = readParam.getSheetStartIndex(); index <= readParam.getSheetMaxIndex(); index++) {
-            final Sheet sheet = workbook.getSheetAt(index);
-            if (null != sheet) {
-                if (null == result.getTitleList()) {
-                    List<Title> titles = parseTitleRow(sheet.getRow(readParam.getTitleRow()));
-                    result.setTitleList(titles);
-                }
-                SheetData<T> sheetData = processSheet(sheet, index);
-                result.addSheetData(sheetData);
-                if (CollectionUtils.isNotEmpty(sheetData.getErrorLogs())) {
-                    result.addErrorLogList(sheetData.getErrorLogs());
-                }
+        int sheetMaxIndex = readParam.getSheetMaxIndex();
+        int sheetStartIndex = readParam.getSheetStartIndex();
+        int sheetNum = workbook.getNumberOfSheets();
+        if (sheetNum > 1 && sheetStartIndex < sheetMaxIndex) { // 如果需要解析的工作表大于1
+            CountDownLatch countDownLatch = new CountDownLatch(sheetMaxIndex - sheetStartIndex + 1);
+            for (int index = sheetStartIndex; index <= sheetMaxIndex; index++) {
+                new ReadSheetThread(countDownLatch, index, result).start();
+            }
+            try {
+                countDownLatch.await();
+            } catch (InterruptedException e) {
+                throw new ReadException("ThreadName: " + Thread.currentThread().getName() + ",,Message:" + e.getMessage(), e);
+            }
+        } else {
+            for (int index = sheetStartIndex; index <= sheetMaxIndex; index++) {
+                parseSheet(index, result);
             }
         }
         return result;
+    }
+
+    /**
+     * 解析工作表
+     *
+     * @param sheetIndex 工作表索引
+     * @param result     结果
+     */
+    private void parseSheet(int sheetIndex, ReadResult<T> result) {
+        final Sheet sheet = workbook.getSheetAt(sheetIndex);
+        if (null != sheet) {
+            if (null == result.getTitleList()) {
+                List<Title> titles = parseTitleRow(sheet.getRow(readParam.getTitleRow()));
+                result.setTitleList(titles);
+            }
+            SheetData<T> sheetData = processSheet(sheet, sheetIndex);
+            result.addSheetData(sheetData);
+            if (CollectionUtils.isNotEmpty(sheetData.getErrorLogs())) {
+                result.addErrorLogList(sheetData.getErrorLogs());
+            }
+        }
+    }
+
+    /**
+     * 解析工作表
+     */
+    @AllArgsConstructor
+    private class ReadSheetThread extends Thread {
+
+        private final CountDownLatch countDownLatch;
+
+        private final int sheetIndex;
+
+        private ReadResult<T> result;
+
+        @Override
+        public void run() {
+            try {
+                parseSheet(sheetIndex, result);
+            } finally {
+                if (countDownLatch != null) {
+                    countDownLatch.countDown();
+                }
+            }
+        }
     }
 
     /**

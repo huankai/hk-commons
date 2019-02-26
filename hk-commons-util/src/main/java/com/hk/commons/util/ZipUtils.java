@@ -20,7 +20,7 @@ public class ZipUtils {
     }
 
     private static void compress(File sourceFile, ZipOutputStream zops, String fileName, boolean keepDirStructure) throws IOException {
-        byte[] buf = new byte[2 * 1024];
+        byte[] buf = new byte[4 * 1024];
         if (sourceFile.isFile()) {
             // 向zip输出流中添加一个zip实体，构造器中name为zip实体的文件的名字
             zops.putNextEntry(new ZipEntry(fileName));

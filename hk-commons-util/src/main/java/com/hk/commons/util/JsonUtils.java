@@ -54,7 +54,7 @@ public final class JsonUtils {
         JAVA_TIME_MODULE.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.HH_MM_SS.getPattern())));
         moduleList.add(JAVA_TIME_MODULE);
         moduleList.add(new Jdk8Module());
-        modules = moduleList.toArray(new Module[moduleList.size()]);
+        modules = moduleList.toArray(new Module[0]);
 
     }
 

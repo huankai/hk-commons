@@ -1,8 +1,8 @@
 package com.hk.commons.poi.excel.exception;
 
-import java.util.List;
-
 import com.hk.commons.poi.excel.model.InvalidCell;
+
+import java.util.List;
 
 /**
  * 解析数据时出现的异常，记录每个单元格的错误信息
@@ -14,12 +14,12 @@ import com.hk.commons.poi.excel.model.InvalidCell;
 public class InvalidCellReadableExcelException extends ExcelReadException {
 
     /**
-     * 失效的单元格数据
+     * 解析出错的单元格数据
      */
     private final List<InvalidCell> invalidCells;
 
     /**
-     * 转换的对象对象
+     * 转换的目标对象
      */
     private final Object target;
 
@@ -33,8 +33,12 @@ public class InvalidCellReadableExcelException extends ExcelReadException {
         return invalidCells;
     }
 
+    /**
+     * @return {@link #target}
+     * @throws ClassCastException 强制类型转换异常
+     */
     @SuppressWarnings("unchecked")
-	public <T> T getTarget() {
+    public <T> T getTarget() throws ClassCastException {
         return (T) target;
     }
 

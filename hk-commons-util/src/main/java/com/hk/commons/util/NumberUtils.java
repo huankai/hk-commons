@@ -1,7 +1,5 @@
 package com.hk.commons.util;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -37,22 +35,7 @@ public abstract class NumberUtils extends org.springframework.util.NumberUtils {
         if (!n1.getClass().equals(n2.getClass())) {
             return false;
         }
-        if (n1 instanceof Byte) {
-            return n1.byteValue() == n2.byteValue();
-        }
-        if (n1 instanceof Short) {
-            return n1.shortValue() == n2.shortValue();
-        }
-        if (n1 instanceof Integer || n1 instanceof BigInteger) {
-            return n1.intValue() == n2.intValue();
-        }
-        if (n1 instanceof Long) {
-            return n1.longValue() == n2.longValue();
-        }
-        if (n1 instanceof Float) {
-            return n1.floatValue() == n2.floatValue();
-        }
-        return (n1 instanceof Double || n1 instanceof BigDecimal) && n1.doubleValue() == n2.doubleValue();
+        return n1.doubleValue() == n2.doubleValue();
     }
 
     public static boolean equalsAny(Number value, Number... arr) {

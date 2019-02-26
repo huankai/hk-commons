@@ -7,23 +7,21 @@ import java.io.OutputStream;
 
 /**
  * @author kevin
- *
  */
 public interface WriteableHandler<T> {
 
-	/**
-	 * 
-	 * @param workbook
-	 * @param param
-	 * @param out
-	 */
-	void write(Workbook workbook, WriteParam<T> param, OutputStream out);
+    /**
+     * @param workbook workbook
+     * @param param    param
+     * @param out      out
+     */
+    void write(Workbook workbook, WriteParam<T> param, OutputStream out);
 
-	/**
-	 * 返回工作表
-	 * 
-	 * @return
-	 */
-	Workbook getWorkBook();
+    /**
+     * 返回工作表
+     *
+     * @return {@link Workbook}
+     */
+    Workbook getWorkBook();
 
 }

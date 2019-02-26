@@ -16,8 +16,8 @@ public final class XSSFWriteableExcel<T> extends AbstractWriteableExcel<T> {
 		super(new SimpleWriteableHandler<>());
 	}
 
-	public XSSFWriteableExcel(WriteableHandler<T> writeableHandler) {
-		super(writeableHandler);
+	public XSSFWriteableExcel(WriteableHandler<T> writeHandler) {
+		super(writeHandler);
 	}
 
 	@Override

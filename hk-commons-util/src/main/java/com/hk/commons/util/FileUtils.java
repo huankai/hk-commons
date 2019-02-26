@@ -46,14 +46,17 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
      *
      * @param dir dir
      */
-    public static void deleteDir(File dir) {
+    public static boolean deleteDir(File dir) {
+        boolean result = false;
         if (dir.exists() && dir.isDirectory()) {
             try {
                 deleteDirectory(dir);
+                result = true;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return result;
     }
 
     /**

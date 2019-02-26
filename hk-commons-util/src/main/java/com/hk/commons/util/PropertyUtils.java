@@ -28,7 +28,8 @@ public abstract class PropertyUtils {
      *
      * @param bean         bean
      * @param propertyName propertyName
-     * @return
+     * @return bean 属性值
+     * @throws ClassCastException 强制类型转换异常
      */
     @SuppressWarnings("unchecked")
     public static <T> T getPropertyValue(Object bean, String propertyName) {

@@ -27,7 +27,6 @@ public class ReadResult<T> implements Serializable {
     /**
      * 解析的每个工作表数据
      */
-    @Getter
     private List<SheetData<T>> sheetDataList = new ArrayList<>();
 
     /**
@@ -75,6 +74,11 @@ public class ReadResult<T> implements Serializable {
      */
     public List<String> getSheetNameSet() {
         return sheetDataList.stream().map(SheetData::getSheetName).collect(Collectors.toList());
+    }
+
+    public List<SheetData<T>> getSheetDataList() {
+        sheetDataList.sort(Comparator.comparingInt(SheetData::getSheetIndex));
+        return sheetDataList;
     }
 
     /**

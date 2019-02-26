@@ -35,11 +35,14 @@ public class SimpleDomReadHandler<T> extends AbstractDomReadHandler<T> {
         final String sheetName = WorkbookUtil.createSafeSheetName(sheet.getSheetName());
         List<ErrorLog<T>> errorLogs = new ArrayList<>();
         SheetData<T> dataSheet = new SheetData<>(sheetIndex, sheetName);
+        BeanWrapper wrapper;
         for (int rowIndex = readParam.getDataStartRow(); rowIndex <= lastRowNum; rowIndex++) {
             Row row = sheet.getRow(rowIndex);
             if (null != row) {
                 try {
-                    dataSheet.add(parseRow(row));
+                    wrapper = BeanWrapperUtils.createBeanWrapper(readParam.getBeanClazz());
+                    parseRow(row, wrapper);
+                    dataSheet.add((T) wrapper.getWrappedInstance());
                 } catch (InvalidCellReadableExcelException e) {
                     // 有错误的单元格数据，不能设置为属性值，记录日志
                     errorLogs.add(new ErrorLog<>(sheetName, row.getRowNum(), e.getTarget(), e.getInvalidCells()));
@@ -53,11 +56,10 @@ public class SimpleDomReadHandler<T> extends AbstractDomReadHandler<T> {
     /**
      * 解析行
      *
-     * @param row
-     * @return
+     * @param row row
+     * @param wrapper wrapper
      */
-    protected T parseRow(Row row) throws InvalidCellReadableExcelException {
-        BeanWrapper wrapper = BeanWrapperUtils.createBeanWrapper(readParam.getBeanClazz());
+    protected void parseRow(Row row, BeanWrapper wrapper) throws InvalidCellReadableExcelException {
         final int rowNum = row.getRowNum();
         final int maxColumnIndex = getMaxColumnIndex();
         List<InvalidCell> invalidCellList = new ArrayList<>();
@@ -73,11 +75,9 @@ public class SimpleDomReadHandler<T> extends AbstractDomReadHandler<T> {
                 }
             }
         }
-        T target = (T) wrapper.getWrappedInstance();
         if (!invalidCellList.isEmpty()) {
-            throw new InvalidCellReadableExcelException("设置属性失败", target, invalidCellList);
+            throw new InvalidCellReadableExcelException("设置属性失败", wrapper.getWrappedInstance(), invalidCellList);
         }
-        return target;
     }
 
 }
