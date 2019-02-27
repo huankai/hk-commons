@@ -19,17 +19,17 @@ public class Title implements Serializable {
     /**
      * 单元格所在行
      */
-    private int row;
+    private final int row;
 
     /**
      * 标题所在列
      */
-    private int column;
+    private final int column;
 
     /**
      * 标题列所在的索引名称
      */
-    private String cellReference;
+    private final String cellReference;
 
     /**
      * 对应的属性名称
@@ -39,7 +39,7 @@ public class Title implements Serializable {
     /**
      * 标题内容
      */
-    private String value;
+    private final String value;
 
     /**
      * @param cell         单元格
