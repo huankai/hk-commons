@@ -14,7 +14,7 @@ public class StringToCalendarConverter extends StringGenericConverter<Calendar> 
     @Override
     protected Calendar doConvert(String source) {
         Date date = DateTimeUtils.stringToDate(source);
-        return null == date ? null : DateTimeUtils.dateToCalendar(date);
+        return (null == date) ? null : DateTimeUtils.dateToCalendar(date);
     }
 
 }

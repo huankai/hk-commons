@@ -17,14 +17,29 @@ import java.util.regex.Pattern;
  */
 public abstract class StringUtils extends org.springframework.util.StringUtils {
 
+    /**
+     * - 分隔符
+     */
     public static final String RUNG = "-";
 
+    /**
+     * : 分隔符
+     */
     public static final String COLON_SEPARATE = ":";
 
+    /**
+     * , 分隔符
+     */
     public static final String COMMA_SEPARATE = ",";
 
+    /**
+     * 空字符串
+     */
     public static final String EMPTY = org.apache.commons.lang3.StringUtils.EMPTY;
 
+    /**
+     * 下划线 pattern
+     */
     private static final Pattern LINE_PATTERN = Pattern.compile("_(\\w)");
 
     /**
@@ -37,10 +52,19 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      */
     private static final Pattern LETTER_PATTERN = Pattern.compile("[A-Z]*");
 
+    /**
+     * 大写字符匹配
+     */
     private static final String HUMP_TO_LINE = "[A-Z]";
 
+    /**
+     * 换行符
+     */
     public static final String LF = org.apache.commons.lang3.StringUtils.LF;
 
+    /**
+     * 空白字符
+     */
     public static final String SPACE = org.apache.commons.lang3.StringUtils.SPACE;
 
     /**
@@ -85,6 +109,8 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
 
     /**
      * 下划线转大驼峰
+     *
+     * @param str str
      */
     public static String lineToBigHump(String str) {
         return lineToHump(capitalize(str));
@@ -115,7 +141,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      *
      * @param cs1           cs1
      * @param charSequences charSequences
-     * @return boolean
+     * @return true or false
      */
     public static boolean equalsAny(CharSequence cs1, CharSequence... charSequences) {
         return org.apache.commons.lang3.StringUtils.equalsAny(cs1, charSequences);
@@ -154,7 +180,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      *
      * @param cs1           cs1
      * @param charSequences charSequences
-     * @return boolean
+     * @return true or false
      */
     public static boolean equalsAnyIgnoreCase(CharSequence cs1, CharSequence... charSequences) {
         return org.apache.commons.lang3.StringUtils.equalsAnyIgnoreCase(cs1, charSequences);
@@ -207,7 +233,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * </pre>
      *
      * @param args args
-     * @return boolean
+     * @return true or false
      */
     public static boolean isNotEmpty(CharSequence args) {
         return !isEmpty(args);
@@ -224,7 +250,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * </pre>
      *
      * @param args args
-     * @return boolean
+     * @return true or false
      */
     public static boolean isBlank(CharSequence args) {
         return org.apache.commons.lang3.StringUtils.isBlank(args);
@@ -241,7 +267,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * </pre>
      *
      * @param args args
-     * @return boolean
+     * @return true or false
      */
     public static boolean isNotBlank(CharSequence args) {
         return !isBlank(args);
@@ -251,7 +277,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * 根据英文逗号切割字符串
      *
      * @param args 要切割的字符串
-     * @return boolean
+     * @return 切割后的数组
      */
     public static String[] splitByComma(String args) {
         return tokenizeToStringArray(args, "\\,");
@@ -262,23 +288,29 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      *
      * @param cs1 cs1
      * @param cs2 cs2
-     * @return boolean
+     * @return true or false
      */
     public static boolean equalsIgnoreCase(CharSequence cs1, CharSequence cs2) {
         return org.apache.commons.lang3.StringUtils.equalsIgnoreCase(cs1, cs2);
-
     }
 
+    /**
+     * 查询 searchSeq 在 seq 中的索引位置
+     *
+     * @param seq       seq
+     * @param searchSeq searchSeq
+     * @return 索引位置，不存在返回 -1
+     */
     public static int indexOf(final CharSequence seq, final CharSequence searchSeq) {
         return org.apache.commons.lang3.StringUtils.indexOf(seq, searchSeq);
     }
 
     /**
-     * 不相等
+     * 判断两个字符串是否不相等
      *
      * @param cs1 cs1
      * @param cs2 cs2
-     * @return boolean
+     * @return true or false
      */
     public static boolean notEquals(CharSequence cs1, CharSequence cs2) {
         return !equals(cs1, cs2);
@@ -300,7 +332,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      *
      * @param str    str
      * @param suffix suffix
-     * @return boolean
+     * @return true or false
      */
     public static boolean endsWith(CharSequence str, CharSequence suffix) {
         return org.apache.commons.lang3.StringUtils.endsWith(str, suffix);
@@ -311,7 +343,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      *
      * @param seq       seq
      * @param searchSeq searchSeq
-     * @return boolean
+     * @return true or false
      */
     public static boolean contains(CharSequence seq, CharSequence searchSeq) {
         return org.apache.commons.lang3.StringUtils.contains(seq, searchSeq);
@@ -322,7 +354,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      *
      * @param seq       seq
      * @param searchSeq searchSeq
-     * @return boolean
+     * @return true or false
      */
     public static boolean containsIgnoreCase(CharSequence seq, CharSequence searchSeq) {
         return org.apache.commons.lang3.StringUtils.containsIgnoreCase(seq, searchSeq);
@@ -333,16 +365,18 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      *
      * @param sequence       sequence
      * @param searchSequence searchSequence
-     * @return boolean
+     * @return true or false
      */
     public static boolean startsWithAny(CharSequence sequence, CharSequence... searchSequence) {
         return org.apache.commons.lang3.StringUtils.startsWithAny(sequence, searchSequence);
     }
 
     /**
+     * 判断 str 是否以  prefix 开头
+     *
      * @param str    str
      * @param prefix prefix
-     * @return boolean
+     * @return true or false
      */
     public static boolean startsWith(CharSequence str, CharSequence prefix) {
         return org.apache.commons.lang3.StringUtils.startsWith(str, prefix);
@@ -353,7 +387,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      *
      * @param str   str
      * @param start start
-     * @return String
+     * @return {@link String}
      */
     public static String substring(String str, int start) {
         return org.apache.commons.lang3.StringUtils.substring(str, start);
@@ -365,7 +399,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * @param str   str
      * @param start start
      * @param end   end
-     * @return String
+     * @return {@link String}
      */
     public static String substring(String str, int start, int end) {
         return org.apache.commons.lang3.StringUtils.substring(str, start, end);
@@ -376,7 +410,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      *
      * @param str       str
      * @param separator separator
-     * @return String
+     * @return {@link String}
      */
     public static String substringBefore(String str, String separator) {
         return org.apache.commons.lang3.StringUtils.substringBefore(str, separator);
@@ -387,7 +421,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      *
      * @param str       str
      * @param separator separator
-     * @return String
+     * @return {@link String}
      */
     public static String substringBeforeLast(String str, String separator) {
         return org.apache.commons.lang3.StringUtils.substringBeforeLast(str, separator);
@@ -398,12 +432,19 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      *
      * @param str       str
      * @param separator separator
-     * @return String
+     * @return {@link String}
      */
     public static String substringAfter(String str, String separator) {
         return org.apache.commons.lang3.StringUtils.substringAfter(str, separator);
     }
 
+    /**
+     * 根据查询的最后字符串截取之后部分
+     *
+     * @param str       str
+     * @param separator separator
+     * @return {@link String}
+     */
     public static String substringAfterLast(String str, String separator) {
         return org.apache.commons.lang3.StringUtils.substringAfterLast(str, separator);
     }
@@ -412,7 +453,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * trim To Null
      *
      * @param str str
-     * @return String
+     * @return {@link String}
      */
     public static String trimToNull(String str) {
         return org.apache.commons.lang3.StringUtils.trimToNull(str);
@@ -422,15 +463,18 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * trim To Empty
      *
      * @param str str
-     * @return String
+     * @return {@link String}
      */
     public static String trimToEmpty(String str) {
         return org.apache.commons.lang3.StringUtils.trimToEmpty(str);
     }
 
     /**
+     * string url 地址转成 {@link URL}
+     *
      * @param url url
-     * @return URL
+     * @return {@link URL}
+     * @throws IllegalArgumentException 如果转换失败，抛出此异常
      */
     public static URL toURL(String url) {
         try {
@@ -441,8 +485,11 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
     }
 
     /**
+     * String url 转换成 {@link UrlResource}
+     *
      * @param url url
-     * @return UrlResource
+     * @return {@link UrlResource}
+     * @throws IllegalArgumentException 如果转换失败，抛出此异常
      */
     public static UrlResource createResource(String url) {
         try {

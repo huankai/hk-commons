@@ -13,7 +13,6 @@ import java.time.format.DateTimeParseException;
  * BeanWrapper LocalDate support
  *
  * @author kevin
- * @see com.hk.commons.util.BeanWrapperUtils#registryDefaultEditor(BeanWrapper)
  */
 public class CustomLocalDateEditor extends PropertyEditorSupport {
 

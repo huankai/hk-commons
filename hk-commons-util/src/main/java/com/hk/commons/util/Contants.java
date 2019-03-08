@@ -11,9 +11,18 @@ import java.nio.charset.StandardCharsets;
  */
 public interface Contants {
 
+    /**
+     * UTF-8
+     */
     String UTF_8 = "UTF-8";
 
+    /**
+     * 默认值
+     */
     String DEFAULT_VALUE = "0";
 
+    /**
+     * UTF-8 Charset
+     */
     Charset CHARSET_UTF_8 = StandardCharsets.UTF_8;
 }

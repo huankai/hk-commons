@@ -26,7 +26,6 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
      * @param <T>   T
      * @return T
      */
-    @SuppressWarnings("unchecked")
     public static <T> T mapToBean(Map<String, ?> map, Class<T> clazz) {
         BeanWrapper beanWrapper = BeanWrapperUtils.createBeanWrapper(clazz);
         for (Map.Entry<String, ?> entry : map.entrySet()) {
@@ -34,7 +33,7 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
                 beanWrapper.setPropertyValue(entry.getKey(), entry.getValue());
             }
         }
-        return (T) beanWrapper.getWrappedInstance();
+        return clazz.cast(beanWrapper.getWrappedInstance());
     }
 
     /**

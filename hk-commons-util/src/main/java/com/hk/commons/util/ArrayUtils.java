@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public abstract class ArrayUtils {
 
     /**
-     * 不包含
+     * 不包含元素
      *
      * @param array        array
      * @param objectToFind objectToFind
@@ -26,7 +26,7 @@ public abstract class ArrayUtils {
     }
 
     /**
-     * 创建Array List
+     * 数组转换为 Array List
      *
      * @param args args
      * @param <T>  T
@@ -38,7 +38,7 @@ public abstract class ArrayUtils {
     }
 
     /**
-     * 创建 List
+     * 数组转换为 List
      *
      * @param supplier supplier
      * @param args     args
@@ -52,7 +52,7 @@ public abstract class ArrayUtils {
     }
 
     /**
-     * 创建HasHSet
+     * 数组转换为 HasHSet
      *
      * @param args args
      * @param <T>  T
@@ -64,7 +64,7 @@ public abstract class ArrayUtils {
     }
 
     /**
-     * 创建LinkedHashSet
+     * 数组转换为 LinkedHashSet
      *
      * @param args args
      * @param <T>  T
@@ -76,7 +76,7 @@ public abstract class ArrayUtils {
     }
 
     /**
-     * 创建 Set
+     * 数组转换为 Set
      *
      * @param supplier supplier
      * @param args     args
@@ -91,7 +91,7 @@ public abstract class ArrayUtils {
     }
 
     /**
-     * 包含
+     * 包含元素
      *
      * @param array        array
      * @param objectToFind objectToFind
@@ -113,7 +113,7 @@ public abstract class ArrayUtils {
     }
 
     /**
-     * 包含
+     * 包含元素
      *
      * @param array        array
      * @param objectToFind objectToFind
@@ -124,7 +124,7 @@ public abstract class ArrayUtils {
     }
 
     /**
-     * 包含
+     * 包含元素
      *
      * @param array        array
      * @param objectToFind objectToFind
@@ -135,7 +135,7 @@ public abstract class ArrayUtils {
     }
 
     /**
-     * 包含
+     * 包含元素
      *
      * @param array        array
      * @param objectToFind objectToFind
@@ -144,7 +144,6 @@ public abstract class ArrayUtils {
     public static boolean contains(final long[] array, final long objectToFind) {
         return org.apache.commons.lang3.ArrayUtils.contains(array, objectToFind);
     }
-
 
     /**
      * 数组是否为空
@@ -176,7 +175,12 @@ public abstract class ArrayUtils {
         return !isEmpty(array);
     }
 
-
+    /**
+     * 数组是否不为空
+     *
+     * @param bytes bytes
+     * @return true or false
+     */
     public static boolean isNotEmpty(byte[] bytes) {
         return !isEmpty(bytes);
     }

@@ -90,8 +90,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     /**
      * 是否包含指定元素
      *
-     * @param it it
-     * @param element  element
+     * @param it      it
+     * @param element element
      * @return boolean
      */
     public static boolean contains(Iterable<?> it, Object element) {
@@ -105,6 +105,14 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         return false;
     }
 
+    /**
+     * 集合中是否包含任意的元素
+     *
+     * @param coll     集合
+     * @param elements 元素
+     * @param <T>
+     * @return
+     */
     @SafeVarargs
     public static <T> boolean containsAny(Collection<T> coll, T... elements) {
         return isNotEmpty(coll)
@@ -145,6 +153,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     /**
+     * 获取 Map key 的值，转换为 String 类型
+     *
      * @param map map
      * @param key key
      * @return value
@@ -154,6 +164,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     /**
+     * 获取 Map key 的值，转换为 String 类型，如果 值为 Null， 返回默认值
+     *
      * @param map map
      * @param key key
      * @return value
@@ -163,6 +175,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     /**
+     * 获取 Map key 的值，转换为 Boolean 类型
+     *
      * @param map map
      * @param key key
      * @return value
@@ -172,6 +186,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     /**
+     * 获取 Map key 的值，转换为 Boolean 类型，如果 值为 Null， 返回默认值
+     *
      * @param map          map
      * @param key          key
      * @param defaultValue defaultValue
@@ -182,6 +198,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     /**
+     * 获取 Map key 的值，转换为 Long 类型
+     *
      * @param map map
      * @param key key
      * @return value
@@ -191,6 +209,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     /**
+     * 获取 Map key 的值，转换为 Long 类型，如果 值为 Null， 返回默认值
+     *
      * @param map map
      * @param key key
      * @return defaultValue defaultValue
@@ -200,6 +220,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     /**
+     * 获取 Map key 的值，转换为 Integer 类型
+     *
      * @param map map
      * @param key key
      * @return value
@@ -209,6 +231,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     /**
+     * 获取 Map key 的值，转换为 Integer 类型，如果 值为 Null， 返回默认值
+     *
      * @param map          map
      * @param key          key
      * @param defaultValue defaultValue
@@ -219,6 +243,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     /**
+     * 获取 Map key 的值，转换为 Byte 类型
+     *
      * @param map map
      * @param key key
      * @return value
@@ -228,6 +254,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     /**
+     * 获取 Map key 的值，转换为 Byte 类型，如果 值为 Null， 返回默认值
+     *
      * @param map map
      * @param key key
      * @return value
@@ -237,6 +265,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     /**
+     * 获取 Map key 的值，转换为 Short 类型
+     *
      * @param map map
      * @param key key
      * @return value
@@ -246,6 +276,8 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
     }
 
     /**
+     * 获取 Map key 的值，转换为 Short 类型，如果 值为 Null， 返回默认值
+     *
      * @param map map
      * @param key key
      * @return value
@@ -340,7 +372,13 @@ public abstract class CollectionUtils extends org.springframework.util.Collectio
         addAllNull(coll, false, args);
     }
 
-
+    /**
+     * 添加元素到集合
+     *
+     * @param coll             指定集合
+     * @param containNullValue 是否将空值元素也添加到集合中
+     * @param args             是添加到集合中的元素
+     */
     @SafeVarargs
     public static <T> void addAllNull(Collection<T> coll, boolean containNullValue, final T... args) {
         if (ArrayUtils.isNotEmpty(args)) {

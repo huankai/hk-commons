@@ -1,18 +1,17 @@
 package com.hk.commons.poi.excel.read.validation;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-
 import com.hk.commons.poi.excel.exception.ExcelReadException;
 import com.hk.commons.poi.excel.model.InvalidCell;
 import com.hk.commons.poi.excel.model.Title;
 import com.hk.commons.util.CollectionUtils;
 import com.hk.commons.util.StringUtils;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 使用JSR 注解验证
@@ -20,7 +19,7 @@ import com.hk.commons.util.StringUtils;
  * @author kevin
  * @date 2018年1月10日下午5:24:31
  */
-public class JSRValidation<T> implements Validationable<T> {
+public final class JSRValidation<T> implements Validationable<T> {
 
     /**
      * Validator
@@ -49,17 +48,7 @@ public class JSRValidation<T> implements Validationable<T> {
      */
     @Override
     public List<InvalidCell> validate(T t, int rowNumber, List<Title> titleList) {
-        return getValidateInfo(validate(t), rowNumber, titleList);
-    }
-
-    /**
-     * 验证对象
-     *
-     * @param obj 要验证的对象
-     * @return 对象的错误信息
-     */
-    protected final Set<ConstraintViolation<Object>> validate(Object obj) {
-        return VALIDATOR.validate(obj, groups);
+        return getValidateInfo(VALIDATOR.validate(t, groups), rowNumber, titleList);
     }
 
     /**

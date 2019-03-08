@@ -22,7 +22,6 @@ import java.util.List;
  *
  * @author kevin
  */
-@SuppressWarnings("unchecked")
 public class SimpleDomReadHandler<T> extends AbstractDomReadHandler<T> {
 
     public SimpleDomReadHandler(ReadParam<T> param) {
@@ -42,7 +41,7 @@ public class SimpleDomReadHandler<T> extends AbstractDomReadHandler<T> {
                 try {
                     wrapper = BeanWrapperUtils.createBeanWrapper(readParam.getBeanClazz());
                     parseRow(row, wrapper);
-                    dataSheet.add((T) wrapper.getWrappedInstance());
+                    dataSheet.add(readParam.getBeanClazz().cast(wrapper.getWrappedInstance()));
                 } catch (InvalidCellReadableExcelException e) {
                     // 有错误的单元格数据，不能设置为属性值，记录日志
                     errorLogs.add(new ErrorLog<>(sheetName, row.getRowNum(), e.getTarget(), e.getInvalidCells()));
@@ -56,7 +55,7 @@ public class SimpleDomReadHandler<T> extends AbstractDomReadHandler<T> {
     /**
      * 解析行
      *
-     * @param row row
+     * @param row     row
      * @param wrapper wrapper
      */
     protected void parseRow(Row row, BeanWrapper wrapper) throws InvalidCellReadableExcelException {

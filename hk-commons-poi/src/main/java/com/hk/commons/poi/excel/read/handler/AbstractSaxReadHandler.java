@@ -69,7 +69,6 @@ public abstract class AbstractSaxReadHandler<T> extends AbstractReadHandler<T> {
      * @param rowNum 当前数据所在的行
      * @return
      */
-    @SuppressWarnings("unchecked")
     protected T parseToData(int rowNum) throws InvalidCellReadableExcelException {
         List<KeyValue<Integer, String>> columnValues = getRowColumnValues();
         if (CollectionUtils.isEmpty(columnValues)) {
@@ -88,7 +87,7 @@ public abstract class AbstractSaxReadHandler<T> extends AbstractReadHandler<T> {
                         getTitle(keyValue.getKey()), keyValue.getValue() + " 设置失败"));
             }
         }
-        T target = (T) wrapper.getWrappedInstance();
+        T target = readParam.getBeanClazz().cast(wrapper.getWrappedInstance());
         if (!invalidCells.isEmpty()) {
             throw new InvalidCellReadableExcelException("设置属性失败", target, invalidCells);
         }

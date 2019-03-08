@@ -13,6 +13,13 @@ import java.util.Objects;
  */
 public abstract class ClassUtils extends org.springframework.util.ClassUtils {
 
+    /**
+     * 获取类的泛型类
+     *
+     * @param genType genType
+     * @param index   指定索引的泛型类
+     * @return 泛型类
+     */
     public static Class<?> getGenericTypeByType(ParameterizedType genType, int index) {
         Type[] params = genType.getActualTypeArguments();
         if (index >= params.length || index < 0) {

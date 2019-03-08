@@ -25,6 +25,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * JSON Utils
@@ -44,16 +45,25 @@ public final class JsonUtils {
         List<Module> moduleList = new ArrayList<>();
 
         JavaTimeModule JAVA_TIME_MODULE = new JavaTimeModule();
-        JAVA_TIME_MODULE.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern())));
-        JAVA_TIME_MODULE.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern())));
+        JAVA_TIME_MODULE.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(
+                DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern())));
 
-        JAVA_TIME_MODULE.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD.getPattern())));
-        JAVA_TIME_MODULE.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD.getPattern())));
+        JAVA_TIME_MODULE.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(
+                DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD_HH_MM_SS.getPattern())));
 
-        JAVA_TIME_MODULE.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.HH_MM_SS.getPattern())));
-        JAVA_TIME_MODULE.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.HH_MM_SS.getPattern())));
+        JAVA_TIME_MODULE.addSerializer(LocalDate.class, new LocalDateSerializer(
+                DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD.getPattern())));
+        JAVA_TIME_MODULE.addDeserializer(LocalDate.class, new LocalDateDeserializer(
+                DateTimeFormatter.ofPattern(DatePattern.YYYY_MM_DD.getPattern())));
+
+        JAVA_TIME_MODULE.addSerializer(LocalTime.class, new LocalTimeSerializer(
+                DateTimeFormatter.ofPattern(DatePattern.HH_MM_SS.getPattern())));
+        JAVA_TIME_MODULE.addDeserializer(LocalTime.class, new LocalTimeDeserializer(
+                DateTimeFormatter.ofPattern(DatePattern.HH_MM_SS.getPattern())));
+
         moduleList.add(JAVA_TIME_MODULE);
         moduleList.add(new Jdk8Module());
+
         modules = moduleList.toArray(new Module[0]);
 
     }
@@ -98,7 +108,8 @@ public final class JsonUtils {
          * 忽略实体中的Hibernate getOne查询返回的  "handler", "hibernateLazyInitializer" 字段
          *
          */
-        filterProvider.addFilter(IGNORE_ENTITY_SERIALIZE_FIELD_FILTER_ID, SimpleBeanPropertyFilter.serializeAllExcept("handler", "hibernateLazyInitializer"));
+        filterProvider.addFilter(IGNORE_ENTITY_SERIALIZE_FIELD_FILTER_ID,
+                SimpleBeanPropertyFilter.serializeAllExcept("handler", "hibernateLazyInitializer"));
         om.setFilterProvider(filterProvider);
 
         if (disableAnnotation) {
@@ -157,15 +168,14 @@ public final class JsonUtils {
      * @param indent indent
      * @return byte[]
      */
-    public static byte[] serializeToByte(Object obj, boolean indent) {
+    public static byte[] serializeToByte(Object obj) {
         if (null == obj) {
             return null;
         }
-        ObjectMapper mapper = indent ? getIndentMapper() : getMapper();
         try {
-            return mapper.writeValueAsBytes(obj);
+            return getMapper().writeValueAsBytes(obj);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -176,16 +186,15 @@ public final class JsonUtils {
      * @param indent       indent
      * @param outputStream outputStream
      */
-    public static void serializeToOutputStream(Object obj, boolean indent, OutputStream outputStream) {
-        if (null != obj) {
-            ObjectMapper mapper = indent ? getIndentMapper() : getMapper();
+    public static void serializeToOutputStream(Object obj, OutputStream outputStream) {
+        if (Objects.nonNull(obj)) {
             try {
-                mapper.writeValue(outputStream, obj);
+                getMapper().writeValue(outputStream, obj);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e.getMessage(), e);
             }
-
         }
+
     }
 
     /**
@@ -195,13 +204,12 @@ public final class JsonUtils {
      * @param indent indent
      * @param file   file
      */
-    public static void serializeToFile(Object obj, boolean indent, File file) {
-        if (null != obj) {
-            ObjectMapper mapper = indent ? getIndentMapper() : getMapper();
+    public static void serializeToFile(Object obj, File file) {
+        if (Objects.nonNull(obj)) {
             try {
-                mapper.writeValue(file, obj);
+                getMapper().writeValue(file, obj);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e.getMessage(), e);
             }
 
         }

@@ -53,9 +53,9 @@ public abstract class NumberUtils extends org.springframework.util.NumberUtils {
     /**
      * 比较两个Number是否不相等
      *
-     * @param n1
-     * @param n2
-     * @return
+     * @param n1 n1
+     * @param n2 n2
+     * @return true or false
      */
     public static boolean nequals(Number n1, Number n2) {
         return !equals(n1, n2);
@@ -65,7 +65,7 @@ public abstract class NumberUtils extends org.springframework.util.NumberUtils {
      * 格式化数值为百分比，默认小数位保留2位
      *
      * @param value 值
-     * @return
+     * @return format value
      */
     public static String formatPercent(Object value) {
         return formatPercent(value, 2);
@@ -85,7 +85,7 @@ public abstract class NumberUtils extends org.springframework.util.NumberUtils {
     }
 
     /**
-     * 格式化数值，默认保留两位小数
+     * 格式化数值，保留两位小数
      *
      * @param value value
      * @return String
@@ -95,9 +95,11 @@ public abstract class NumberUtils extends org.springframework.util.NumberUtils {
     }
 
     /**
-     * @param value
-     * @param pattern
-     * @return
+     * 格式化数值
+     *
+     * @param value   value
+     * @param pattern pattern 格式化
+     * @return format value
      */
     public static String formatDecimal(Object value, String pattern) {
         DecimalFormat format = new DecimalFormat(pattern);

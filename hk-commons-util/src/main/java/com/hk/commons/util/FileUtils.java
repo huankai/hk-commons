@@ -6,12 +6,17 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * 文件工具类
+ *
  * @author kevin
  * @date 2018-05-30 11:17
  */
 public class FileUtils extends org.apache.commons.io.FileUtils {
 
-    public static final String[] IMAGE_EXT = {"png", "jpg", "gif", "ico", "jpeg", "bmp"};
+    /**
+     * 图片后缀名
+     */
+    private static final String[] IMAGE_EXT = {"png", "jpg", "gif", "ico", "jpeg", "bmp"};
 
     /**
      * 递推删除所有指定扩展名的文件，不会删除目录

@@ -28,13 +28,12 @@ public abstract class PropertyUtils {
      *
      * @param bean         bean
      * @param propertyName propertyName
+     * @param clazz        属性值类型
      * @return bean 属性值
-     * @throws ClassCastException 强制类型转换异常
      */
-    @SuppressWarnings("unchecked")
-    public static <T> T getPropertyValue(Object bean, String propertyName) {
+    public static <T> T getPropertyValue(Object bean, String propertyName, Class<T> clazz) {
         BeanWrapper beanWrapper = BeanWrapperUtils.createBeanWrapper(bean);
-        return (T) beanWrapper.getPropertyValue(propertyName);
+        return clazz.cast(beanWrapper.getPropertyValue(propertyName));
     }
 
     /**

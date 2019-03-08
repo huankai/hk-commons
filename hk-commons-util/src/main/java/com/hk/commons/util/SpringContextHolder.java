@@ -9,6 +9,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
+ * Spring Bean 工具类
+ *
  * @author kevin
  * @date 2018-04-16 09:41
  */
@@ -69,6 +71,9 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
         return null == applicationContext ? code : applicationContext.getMessage(code, args, defaultMessage, LocaleContextHolder.getLocale());
     }
 
+    /**
+     * applicationContext destroy
+     */
     @Override
     public void destroy() {
         if (logger.isInfoEnabled()) {
