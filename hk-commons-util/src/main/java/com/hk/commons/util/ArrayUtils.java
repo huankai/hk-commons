@@ -102,6 +102,16 @@ public abstract class ArrayUtils {
     }
 
     /**
+     * 获取数组的长度
+     *
+     * @param args args
+     * @return length
+     */
+    public static int length(Object[] args) {
+        return isEmpty(args) ? 0 : args.length;
+    }
+
+    /**
      * 获取数组中第一个元素，不存在返回 Null
      *
      * @param arr arr
