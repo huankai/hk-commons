@@ -22,7 +22,6 @@
         <dependency>
             <groupId>com.hk</groupId>
             <artifactId>hk-commons-validator</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>

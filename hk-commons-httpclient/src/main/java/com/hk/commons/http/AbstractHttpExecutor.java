@@ -5,6 +5,7 @@ import com.hk.commons.util.ConverterUtils;
 import com.hk.commons.util.StringUtils;
 import org.apache.http.Consts;
 import org.apache.http.Header;
+import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.config.RequestConfig;
@@ -15,7 +16,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,7 +92,7 @@ public abstract class AbstractHttpExecutor<T, P> implements HttpExecutor<T, P> {
      * @return
      */
     protected Header[] generateHeaders() {
-        return new Header[]{new BasicHeader(HTTP.CONTENT_ENCODING, Consts.UTF_8.name())};
+        return new Header[]{new BasicHeader(HttpHeaders.CONTENT_ENCODING, Consts.UTF_8.name())};
     }
 
     /**

@@ -2,7 +2,6 @@ package com.hk.commons.converters;
 
 import com.hk.commons.util.AssertUtils;
 import com.hk.commons.util.ObjectUtils;
-import com.hk.commons.util.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.core.convert.ConversionFailedException;
@@ -56,7 +55,7 @@ public abstract class StringGenericConverter<T> implements GenericConverter {
             return defaultValue;
         }
         try {
-            return doConvert(StringUtils.trimWhitespace(source.toString()));
+            return doConvert(source.toString().trim());
         } catch (Exception e) {
             throw new ConversionFailedException(TypeDescriptor.forObject(source),
                     TypeDescriptor.valueOf(this.targetType), source, e);

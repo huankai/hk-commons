@@ -14,25 +14,18 @@
         <version>2.1.2.RELEASE</version>
     </parent>
 
-    <properties>
-        <httpclient.version>4.5.6</httpclient.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.hk</groupId>
             <artifactId>hk-commons-util</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>${httpclient.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpmime</artifactId>
-            <version>${httpclient.version}</version>
         </dependency>
     </dependencies>
 </project>

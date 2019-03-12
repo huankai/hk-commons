@@ -16,13 +16,24 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.hk</groupId>
+                <artifactId>hk-core-spring-boot-dependencies</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <modules>
         <module>hk-commons-util</module>
         <module>hk-commons-poi</module>
         <module>hk-commons-validator</module>
         <module>hk-commons-httpclient</module>
     </modules>
-
     <!--发布到 私服 地址-->
     <distributionManagement>
         <repository>
@@ -100,6 +111,6 @@
                 <version>2.5.2</version>
             </plugin>
 
-    	</plugins>
+        </plugins>
     </build>
 </project>
