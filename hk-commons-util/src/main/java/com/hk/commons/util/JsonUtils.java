@@ -23,9 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * JSON Utils
@@ -244,12 +242,28 @@ public final class JsonUtils {
      * @return 序列化的List
      */
     public static <T> List<T> deserializeList(String json, Class<T> clazz) {
+        return deserializeCollection(json, List.class, clazz);
+    }
+
+    /**
+     * 将json 字符串反序列化为对象集合
+     *
+     * @param <T>   T
+     * @param json  json str
+     * @param clazz class
+     * @return 序列化的List
+     */
+    public static <T> Set<T> deserializeSet(String json, Class<T> clazz) {
+        return deserializeCollection(json, Set.class, clazz);
+    }
+
+    public static <T, C extends Collection<T>> C deserializeCollection(String json, Class<C> coll, Class<T> clazz) {
         if (StringUtils.isEmpty(json)) {
             return null;
         }
         ObjectMapper mapper = getMapper();
         try {
-            return mapper.readValue(json, mapper.getTypeFactory().constructParametricType(List.class, clazz));
+            return mapper.readValue(json, mapper.getTypeFactory().constructParametricType(coll, clazz));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

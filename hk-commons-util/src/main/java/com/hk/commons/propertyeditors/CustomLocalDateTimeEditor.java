@@ -45,7 +45,7 @@ public class CustomLocalDateTimeEditor extends PropertyEditorSupport {
     public String getAsText() {
         Object value = getValue();
         return null == value ? null
-                : LocalDateTime.class.cast(value)
+                : ((LocalDateTime) value)
                 .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM));
     }
 
