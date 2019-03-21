@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Objects;
+import java.util.concurrent.CountDownLatch;
 
+import com.hk.commons.poi.ReadException;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;
@@ -143,7 +146,7 @@ public abstract class AbstractReadHandler<T> {
             result = StringUtils.trimToNull(result);
         }
         if (StringUtils.isNotEmpty(result) && readParam.isIgnoreLineBreak()) {
-        	result = StringUtils.replace(result, StringUtils.LF, StringUtils.EMPTY);
+            result = StringUtils.replace(result, StringUtils.LF, StringUtils.EMPTY);
         }
         return result;
     }
@@ -158,32 +161,70 @@ public abstract class AbstractReadHandler<T> {
         if (CollectionUtils.isNotEmpty(validations)) {
             final ValidationInterceptor<T> interceptor = readParam.getInterceptor();
             interceptor.preValidate(result);
-            for (SheetData<T> dataSheet : result.getSheetDataList()) {
-                int rowIndex = readParam.getDataStartRow();
-                ListIterator<T> listIterator = dataSheet.getData().listIterator();
-                while (listIterator.hasNext()) {
-                    T t = listIterator.next();
-                    List<InvalidCell> invalidCells = new ArrayList<>();
-                    if (interceptor.beforeValidate(t)) {
-                        for (Validationable<T> validation : validations) {
-                            List<InvalidCell> errors = validation.validate(t, rowIndex, titles);
-                            if (CollectionUtils.isNotEmpty(errors)) {
-                                invalidCells.addAll(errors);
-                                if (!validation.errorNext()) {
-                                    break;
-                                }
-                            }
-                        }
-                        interceptor.afterValidate(t);
-                    }
-                    if (!invalidCells.isEmpty()) {
-                        result.addErrorLog(new ErrorLog<>(dataSheet.getSheetName(), rowIndex, t, invalidCells));
-                        listIterator.remove();
-                    }
-                    rowIndex++;
+            List<SheetData<T>> sheetDataList = result.getSheetDataList();
+            long size = CollectionUtils.size(sheetDataList);
+            if (size > 1) {
+                CountDownLatch countDownLatch = new CountDownLatch((int) size);
+                for (SheetData<T> sheetData : sheetDataList) {
+                    new SheetValidateThread(countDownLatch, sheetData, result).start();
                 }
+                try {
+                    countDownLatch.await();
+                } catch (InterruptedException e) {
+                    throw new ReadException("ThreadName: " + Thread.currentThread().getName() + ",,Message:" + e.getMessage(), e);
+                }
+            } else if (size == 1) {
+                doValidate(sheetDataList.get(0), result);
             }
             interceptor.afterComplete(result);
+        }
+    }
+
+    private void doValidate(SheetData<T> dataSheet, ReadResult<T> result) {
+        ValidationInterceptor<T> interceptor = readParam.getInterceptor();
+        int rowIndex = readParam.getDataStartRow();
+        ListIterator<T> listIterator = dataSheet.getData().listIterator();
+        while (listIterator.hasNext()) {
+            T t = listIterator.next();
+            List<InvalidCell> invalidCells = new ArrayList<>();
+            if (interceptor.beforeValidate(t)) {
+                for (Validationable<T> validation : readParam.getValidationList()) {
+                    List<InvalidCell> errors = validation.validate(t, rowIndex, titles);
+                    if (CollectionUtils.isNotEmpty(errors)) {
+                        invalidCells.addAll(errors);
+                        if (!validation.errorNext()) {
+                            break;
+                        }
+                    }
+                }
+                interceptor.afterValidate(t);
+            }
+            if (!invalidCells.isEmpty()) {
+                result.addErrorLog(new ErrorLog<>(dataSheet.getSheetName(), rowIndex, t, invalidCells));
+                listIterator.remove();
+            }
+            rowIndex++;
+        }
+    }
+
+    @AllArgsConstructor
+    private class SheetValidateThread extends Thread {
+
+        private final CountDownLatch countDownLatch;
+
+        private SheetData<T> sheetData;
+
+        private ReadResult<T> result;
+
+        @Override
+        public void run() {
+            try {
+                doValidate(sheetData, result);
+            } finally {
+                if (countDownLatch != null) {
+                    countDownLatch.countDown();
+                }
+            }
         }
     }
 
